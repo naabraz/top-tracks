@@ -1,6 +1,6 @@
 import Image from "next/image";
-import type { ArtistLookupResult } from "@/lib/spotify/types";
-import { formatDuration, formatFollowers, formatReleaseYear } from "@/lib/format";
+import type { ArtistLookupResult } from "@/lib/music/types";
+import { formatCount } from "@/lib/format";
 import { MediaCard } from "./MediaCard";
 
 interface ArtistResultsProps {
@@ -37,17 +37,19 @@ export function ArtistResults({ result }: ArtistResultsProps) {
         </div>
         <div className="flex flex-col gap-2">
           <h1 className="text-2xl font-bold text-white sm:text-4xl">{artist.name}</h1>
-          <p className="text-sm text-white/60">
-            {formatFollowers(artist.followers)} followers
-          </p>
-          {artist.genres.length > 0 && (
+          {artist.listeners > 0 && (
+            <p className="text-sm text-white/60">
+              {formatCount(artist.listeners)} listeners
+            </p>
+          )}
+          {artist.tags.length > 0 && (
             <ul className="flex flex-wrap justify-center gap-2 sm:justify-start">
-              {artist.genres.slice(0, 3).map((genre) => (
+              {artist.tags.map((tag) => (
                 <li
-                  key={genre}
+                  key={tag}
                   className="rounded-full bg-white/10 px-3 py-1 text-xs capitalize text-white/70"
                 >
-                  {genre}
+                  {tag}
                 </li>
               ))}
             </ul>
@@ -57,14 +59,14 @@ export function ArtistResults({ result }: ArtistResultsProps) {
 
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
         <div>
-          <SectionHeading>Most popular track</SectionHeading>
+          <SectionHeading>Most played track</SectionHeading>
           {topTrack ? (
             <MediaCard
               title={topTrack.name}
-              subtitle={topTrack.albumName}
+              subtitle={topTrack.artistName}
               imageUrl={topTrack.imageUrl}
-              spotifyUrl={topTrack.spotifyUrl}
-              meta={`Duration ${formatDuration(topTrack.durationMs)}`}
+              url={topTrack.url}
+              meta={`${formatCount(topTrack.playcount)} plays`}
             />
           ) : (
             <p className="text-sm text-white/50">No tracks available.</p>
@@ -72,14 +74,14 @@ export function ArtistResults({ result }: ArtistResultsProps) {
         </div>
 
         <div>
-          <SectionHeading>Most popular album</SectionHeading>
+          <SectionHeading>Most played album</SectionHeading>
           {topAlbum ? (
             <MediaCard
               title={topAlbum.name}
-              subtitle={formatReleaseYear(topAlbum.releaseDate)}
+              subtitle={topAlbum.artistName}
               imageUrl={topAlbum.imageUrl}
-              spotifyUrl={topAlbum.spotifyUrl}
-              meta={`${topAlbum.totalTracks} tracks`}
+              url={topAlbum.url}
+              meta={`${formatCount(topAlbum.playcount)} plays`}
             />
           ) : (
             <p className="text-sm text-white/50">No albums available.</p>
@@ -93,11 +95,11 @@ export function ArtistResults({ result }: ArtistResultsProps) {
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
             {similarArtists.map((similar) => (
               <MediaCard
-                key={similar.id}
+                key={similar.name}
                 title={similar.name}
-                subtitle={`${formatFollowers(similar.followers)} followers`}
+                subtitle="Similar artist"
                 imageUrl={similar.imageUrl}
-                spotifyUrl={similar.spotifyUrl}
+                url={similar.url}
                 imageRounded
               />
             ))}

@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import { lookupArtist } from "@/lib/spotify/client";
-import { SpotifyApiError } from "@/lib/spotify/client";
-import { SpotifyAuthError } from "@/lib/spotify/token";
+import { lookupArtist } from "@/lib/music/lookup";
+import { LastfmError } from "@/lib/lastfm/client";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -26,22 +25,20 @@ export async function GET(request: Request) {
 
     return NextResponse.json(result);
   } catch (error) {
-    if (error instanceof SpotifyAuthError) {
+    if (error instanceof LastfmError) {
+      const missingKey = error.code === null && error.message.includes("LASTFM_API_KEY");
       return NextResponse.json(
-        { error: "Spotify authentication failed. Check the server credentials." },
-        { status: 502 }
-      );
-    }
-
-    if (error instanceof SpotifyApiError) {
-      return NextResponse.json(
-        { error: "The Spotify API returned an error. Please try again later." },
+        {
+          error: missingKey
+            ? "The server is missing its Last.fm API key."
+            : "The Last.fm API returned an error. Please try again later.",
+        },
         { status: 502 }
       );
     }
 
     return NextResponse.json(
-      { error: "An unexpected error occurred while contacting Spotify." },
+      { error: "An unexpected error occurred while looking up the artist." },
       { status: 500 }
     );
   }

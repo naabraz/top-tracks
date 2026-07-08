@@ -4,7 +4,7 @@ interface MediaCardProps {
   title: string;
   subtitle: string;
   imageUrl: string | null;
-  spotifyUrl: string;
+  url: string;
   meta?: string;
   imageRounded?: boolean;
 }
@@ -14,13 +14,13 @@ export function MediaCard({
   title,
   subtitle,
   imageUrl,
-  spotifyUrl,
+  url,
   meta,
   imageRounded = false,
 }: MediaCardProps) {
   return (
     <a
-      href={spotifyUrl}
+      href={url}
       target="_blank"
       rel="noopener noreferrer"
       className="group flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-emerald-400/50 hover:bg-white/10"

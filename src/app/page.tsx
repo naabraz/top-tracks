@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { SearchBar } from "@/components/SearchBar";
 import { ArtistResults } from "@/components/ArtistResults";
-import type { ArtistLookupResult } from "@/lib/spotify/types";
+import type { ArtistLookupResult } from "@/lib/music/types";
 
 type Status = "idle" | "loading" | "success" | "error";
 
