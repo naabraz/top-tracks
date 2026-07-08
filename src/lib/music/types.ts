@@ -1,4 +1,4 @@
-/** Domain models rendered by the UI, assembled from Last.fm + Spotify. */
+/** Domain models rendered by the UI, assembled from Last.fm data. */
 
 export interface ArtistSummary {
   name: string;

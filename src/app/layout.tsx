@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "TopTracks — Discover an artist's best music",
   description:
-    "Search for any artist or band to find their most popular track, album, and similar artists, powered by the Spotify API.",
+    "Search for any artist or band to find their most played track, album, and similar artists, powered by the Last.fm API.",
 };
 
 export default function RootLayout({

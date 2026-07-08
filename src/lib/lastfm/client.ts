@@ -9,7 +9,7 @@ const SIMILAR_ARTISTS_COUNT = 3;
 
 /**
  * Last.fm still serves this placeholder "star" image for entities without real
- * artwork. Treat it as "no image" so Spotify enrichment can fill the gap.
+ * artwork. Treat it as "no image" so the UI shows its own fallback instead.
  */
 const PLACEHOLDER_IMAGE_HASH = "2a96cbd8b46e442fc41c2b86b821562f";
 

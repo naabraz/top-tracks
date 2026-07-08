@@ -34,12 +34,12 @@ export function SearchBar({ onSearch, isLoading }: SearchBarProps) {
         onChange={(event) => setValue(event.target.value)}
         placeholder="Search for an artist or band…"
         autoComplete="off"
-        className="flex-1 rounded-full border border-white/15 bg-white/5 px-5 py-3 text-base text-white placeholder:text-white/40 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40"
+        className="flex-1 rounded-full border border-white/15 bg-white/5 px-5 py-3 text-base text-white placeholder:text-white/40 outline-none transition focus:border-[#d51007] focus:ring-2 focus:ring-[#d51007]/40"
       />
       <button
         type="submit"
         disabled={isLoading || value.trim().length === 0}
-        className="rounded-full bg-emerald-500 px-6 py-3 font-semibold text-black transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-50"
+        className="rounded-full bg-[#d51007] px-6 py-3 font-semibold text-white transition hover:bg-[#b40d06] disabled:cursor-not-allowed disabled:opacity-50"
       >
         {isLoading ? "Searching…" : "Search"}
       </button>

@@ -23,7 +23,7 @@ export function MediaCard({
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-emerald-400/50 hover:bg-white/10"
+      className="group flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-[#d51007]/60 hover:bg-white/10"
     >
       <div
         className={`relative aspect-square w-full overflow-hidden bg-white/5 ${

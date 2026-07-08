@@ -7,18 +7,6 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "lastfm.freetls.fastly.net",
       },
-      {
-        protocol: "https",
-        hostname: "i.scdn.co",
-      },
-      {
-        protocol: "https",
-        hostname: "image-cdn-ak.spotifycdn.com",
-      },
-      {
-        protocol: "https",
-        hostname: "image-cdn-fa.spotifycdn.com",
-      },
     ],
   },
 };
