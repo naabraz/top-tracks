@@ -1,16 +1,40 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { lookupArtist } from "./lookup";
 import * as lastfm from "@/lib/lastfm/client";
+import * as images from "@/lib/spotify/images";
 
 vi.mock("@/lib/lastfm/client");
+vi.mock("@/lib/spotify/images");
 
 const artist = {
   name: "Radiohead",
   listeners: 5_000_000,
   tags: ["rock"],
-  imageUrl: "https://img/artist.png",
+  imageUrl: null,
   url: "https://last.fm/radiohead",
 };
+
+const track = {
+  name: "Creep",
+  artistName: "Radiohead",
+  playcount: 100,
+  imageUrl: null,
+  url: "https://last.fm/creep",
+};
+
+const album = {
+  name: "OK Computer",
+  artistName: "Radiohead",
+  playcount: 200,
+  imageUrl: null,
+  url: "https://last.fm/okc",
+};
+
+function mockNoImages() {
+  vi.mocked(images.searchArtistImage).mockResolvedValue(null);
+  vi.mocked(images.searchTrackImage).mockResolvedValue(null);
+  vi.mocked(images.searchAlbumImage).mockResolvedValue(null);
+}
 
 afterEach(() => {
   vi.restoreAllMocks();
@@ -23,54 +47,57 @@ describe("lookupArtist", () => {
     expect(await lookupArtist("nobody")).toBeNull();
   });
 
-  it("combines the artist with its top track, album, and similar artists", async () => {
-    vi.mocked(lastfm.getArtistInfo).mockResolvedValue(artist);
-    vi.mocked(lastfm.getTopTrack).mockResolvedValue({
-      name: "Creep",
-      artistName: "Radiohead",
-      playcount: 100,
-      imageUrl: "https://img/creep.png",
-      url: "https://last.fm/creep",
-    });
-    vi.mocked(lastfm.getTopAlbum).mockResolvedValue({
-      name: "OK Computer",
-      artistName: "Radiohead",
-      playcount: 200,
-      imageUrl: "https://img/okc.png",
-      url: "https://last.fm/okc",
-    });
+  it("enriches each entity with its own Spotify image", async () => {
+    vi.mocked(lastfm.getArtistInfo).mockResolvedValue({ ...artist });
+    vi.mocked(lastfm.getTopTrack).mockResolvedValue({ ...track });
+    vi.mocked(lastfm.getTopAlbum).mockResolvedValue({ ...album });
     vi.mocked(lastfm.getSimilarArtists).mockResolvedValue([
       { name: "Muse", imageUrl: null, url: "https://last.fm/muse" },
     ]);
+    vi.mocked(images.searchArtistImage).mockImplementation(async (name) =>
+      name === "Radiohead" ? "https://img/artist.jpg" : "https://img/muse.jpg"
+    );
+    vi.mocked(images.searchTrackImage).mockResolvedValue("https://img/creep-album.jpg");
+    vi.mocked(images.searchAlbumImage).mockResolvedValue("https://img/okc.jpg");
 
     const result = await lookupArtist("radiohead");
 
-    expect(result?.artist.name).toBe("Radiohead");
-    expect(result?.topTrack?.name).toBe("Creep");
-    expect(result?.topAlbum?.name).toBe("OK Computer");
-    expect(result?.similarArtists).toHaveLength(1);
+    expect(result?.artist.imageUrl).toBe("https://img/artist.jpg");
+    expect(result?.topTrack?.imageUrl).toBe("https://img/creep-album.jpg");
+    expect(result?.topAlbum?.imageUrl).toBe("https://img/okc.jpg");
+    expect(result?.similarArtists[0].imageUrl).toBe("https://img/muse.jpg");
   });
 
-  it("falls back to the album image when the track has none", async () => {
-    vi.mocked(lastfm.getArtistInfo).mockResolvedValue(artist);
+  it("looks up the track's own artwork, not the top album's", async () => {
+    // Regression: the top track (from Countdown to Extinction) must not inherit
+    // the top album's cover (Rust in Peace).
+    vi.mocked(lastfm.getArtistInfo).mockResolvedValue({ ...artist, name: "Megadeth" });
     vi.mocked(lastfm.getTopTrack).mockResolvedValue({
-      name: "Creep",
-      artistName: "Radiohead",
-      playcount: 100,
-      imageUrl: null,
-      url: "https://last.fm/creep",
+      ...track,
+      name: "Symphony of Destruction",
+      artistName: "Megadeth",
     });
-    vi.mocked(lastfm.getTopAlbum).mockResolvedValue({
-      name: "OK Computer",
-      artistName: "Radiohead",
-      playcount: 200,
-      imageUrl: "https://img/okc.png",
-      url: "https://last.fm/okc",
-    });
+    vi.mocked(lastfm.getTopAlbum).mockResolvedValue({ ...album, name: "Rust in Peace" });
     vi.mocked(lastfm.getSimilarArtists).mockResolvedValue([]);
+    mockNoImages();
+    vi.mocked(images.searchTrackImage).mockResolvedValue("https://img/countdown.jpg");
+
+    const result = await lookupArtist("megadeth");
+
+    expect(images.searchTrackImage).toHaveBeenCalledWith("Megadeth", "Symphony of Destruction");
+    expect(result?.topTrack?.imageUrl).toBe("https://img/countdown.jpg");
+  });
+
+  it("leaves images null when Spotify finds nothing", async () => {
+    vi.mocked(lastfm.getArtistInfo).mockResolvedValue({ ...artist });
+    vi.mocked(lastfm.getTopTrack).mockResolvedValue({ ...track });
+    vi.mocked(lastfm.getTopAlbum).mockResolvedValue({ ...album });
+    vi.mocked(lastfm.getSimilarArtists).mockResolvedValue([]);
+    mockNoImages();
 
     const result = await lookupArtist("radiohead");
 
-    expect(result?.topTrack?.imageUrl).toBe("https://img/okc.png");
+    expect(result?.artist.imageUrl).toBeNull();
+    expect(result?.topTrack?.imageUrl).toBeNull();
   });
 });
