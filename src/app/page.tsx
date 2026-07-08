@@ -39,8 +39,10 @@ export default function Home() {
   return (
     <main className="mx-auto flex w-full max-w-4xl flex-col gap-10 px-4 py-10 sm:px-6 sm:py-16">
       <div className="flex flex-col gap-4 text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-white sm:text-5xl">
-          Top<span className="text-[#d51007]">Tracks</span>
+        <h1 className="text-3xl font-bold tracking-tight sm:text-5xl">
+          <span className="bg-gradient-to-r from-[#1db954] to-[#d51007] bg-clip-text text-transparent">
+            TopTracks
+          </span>
         </h1>
         <p className="mx-auto max-w-xl text-sm text-white/60 sm:text-base">
           Search for any artist or band to discover their most played track and
@@ -73,9 +75,18 @@ export default function Home() {
           href="https://www.last.fm"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[#d51007] hover:underline"
+          className="font-medium text-[#d51007] hover:underline"
         >
           Last.fm
+        </a>{" "}
+        · Artwork from{" "}
+        <a
+          href="https://www.spotify.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-[#1db954] hover:underline"
+        >
+          Spotify
         </a>
       </footer>
     </main>
