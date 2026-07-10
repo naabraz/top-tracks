@@ -27,6 +27,28 @@ Non-destructive commands (e.g. `git status`, `git diff`, `git log`, `git add`,
 
 `git commit -m` is always allowed and never requires confirmation.
 
+### Conventional Commits
+
+Every commit in this project MUST follow the
+[Conventional Commits](https://www.conventionalcommits.org) format:
+
+```
+<type>[optional scope]: <description>
+```
+
+Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`,
+`build`, `ci`, `chore`, `revert`. Examples:
+
+- `feat(search): add debounced artist search`
+- `fix(lookup): use the track's own album cover`
+- `docs: document the data sources in the README`
+
+This is enforced automatically: the `commit-msg` git hook
+(`.husky/commit-msg`) runs `commitlint` against the message on every commit, so
+a non-conventional message aborts the commit. If a commit is rejected, fix the
+message to match the format and commit again — do not bypass the hook with
+`--no-verify`.
+
 ### Commit and push triggers
 
 - When the user says **"Ok, go"**, commit the current changes immediately
