@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Skill reference files intentionally contain anti-patterns to illustrate
+    // what NOT to do, so they must not be linted.
+    ".claude/**",
   ]),
 ]);
 
