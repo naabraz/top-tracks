@@ -25,6 +25,8 @@ Non-destructive commands (e.g. `git status`, `git diff`, `git log`, `git add`,
 `git commit`, a regular `git push`) may be run as needed, following the usual
 "only commit or push when the user asks" guidance.
 
+`git commit -m` is always allowed and never requires confirmation.
+
 ### Commit and push triggers
 
 - When the user says **"Ok, go"**, commit the current changes immediately
