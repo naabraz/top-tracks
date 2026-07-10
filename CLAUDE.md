@@ -1,1 +1,45 @@
 @AGENTS.md
+
+# Project rules
+
+## Git safety
+
+Never run a destructive git command without explicit permission from the user.
+Always ask first, explain what the command will do and what it will affect, and
+wait for confirmation before running it.
+
+Destructive commands include (non-exhaustive):
+
+- `git push --force` / `git push --force-with-lease`
+- `git reset --hard`
+- `git clean -fd` (and any `git clean` that deletes files)
+- `git checkout .` / `git restore .` that discards uncommitted changes
+- `git branch -D` (force-delete a branch)
+- `git rebase` (including `--onto`) and history rewrites
+- `git commit --amend` on already-pushed commits
+- `git push origin --delete <branch>` (deleting a remote branch)
+- `git stash drop` / `git stash clear`
+- `git filter-branch` / `git reflog expire --expire=now`
+
+Non-destructive commands (e.g. `git status`, `git diff`, `git log`, `git add`,
+`git commit`, a regular `git push`) may be run as needed, following the usual
+"only commit or push when the user asks" guidance.
+
+### Commit and push triggers
+
+- When the user says **"Ok, go"**, you may commit the current changes.
+- When the user says **"Ok, push"**, you may push to the branch.
+
+## Testing
+
+Every component or piece of code must have its corresponding test file created.
+When you add a new component, hook, module, or utility, create its test file in
+the same step (e.g. `SearchBar.tsx` → `SearchBar.test.tsx`, `lookup.ts` →
+`lookup.test.ts`). Do not consider a change complete until its tests exist and
+pass.
+
+## Language
+
+- Every skill must be written in **English**.
+- All code — identifiers, comments, commit messages, and documentation — must
+  always be written in **English**.
