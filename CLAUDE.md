@@ -2,10 +2,11 @@
 
 # Skills
 
-| Action        | Domain             | Skill             |
-| ------------- | ------------------ | ----------------- |
+| Action        | Domain               | Skill              |
+| ------------- | -------------------- | ------------------ |
 | Write/edit    | React component/hook | `react-components` |
-| Write/edit    | Any source code    | `code-standards`  |
+| Write/edit    | Any source code      | `code-standards`   |
+| Write/edit    | Test file            | `unit-testing`     |
 
 # Project rules
 
