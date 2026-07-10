@@ -1,5 +1,6 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import type { SimilarArtist } from "@/lib/music/types";
 import { SimilarArtistsGrid } from "./SimilarArtistsGrid";
 
@@ -9,13 +10,19 @@ const artists: SimilarArtist[] = [
 ];
 
 describe("SimilarArtistsGrid", () => {
-  it("renders one link per similar artist", () => {
-    render(<SimilarArtistsGrid artists={artists} />);
+  it("renders one selectable button per similar artist", () => {
+    render(<SimilarArtistsGrid artists={artists} onSelect={vi.fn()} />);
 
-    expect(screen.getByRole("link", { name: /muse/i })).toHaveAttribute(
-      "href",
-      "https://last.fm/muse",
-    );
-    expect(screen.getByRole("link", { name: /coldplay/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /muse/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /coldplay/i })).toBeInTheDocument();
+  });
+
+  it("calls onSelect with the artist name when a card is clicked", async () => {
+    const onSelect = vi.fn();
+    render(<SimilarArtistsGrid artists={artists} onSelect={onSelect} />);
+
+    await userEvent.click(screen.getByRole("button", { name: /coldplay/i }));
+
+    expect(onSelect).toHaveBeenCalledWith("Coldplay");
   });
 });

@@ -6,9 +6,10 @@ import { SimilarArtistsGrid } from "./SimilarArtistsGrid";
 
 interface ArtistResultsProps {
   result: ArtistLookupResult;
+  onSelectArtist: (name: string) => void;
 }
 
-export function ArtistResults({ result }: ArtistResultsProps) {
+export function ArtistResults({ result, onSelectArtist }: ArtistResultsProps) {
   const { artist, topTrack, topAlbum, similarArtists } = result;
 
   return (
@@ -23,7 +24,9 @@ export function ArtistResults({ result }: ArtistResultsProps) {
         </ResultSection>
       </div>
       <ResultSection heading="Similar artists" emptyText="No similar artists found.">
-        {similarArtists.length > 0 && <SimilarArtistsGrid artists={similarArtists} />}
+        {similarArtists.length > 0 && (
+          <SimilarArtistsGrid artists={similarArtists} onSelect={onSelectArtist} />
+        )}
       </ResultSection>
     </section>
   );

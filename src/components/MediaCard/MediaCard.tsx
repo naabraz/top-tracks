@@ -1,15 +1,22 @@
-import { MediaCardArtwork } from "./MediaCardArtwork";
+import { MediaCardContent } from "./MediaCardContent";
+
+const CARD_CLASS =
+  "group flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-[#d51007]/60 hover:bg-white/10";
 
 interface MediaCardProps {
   title: string;
   subtitle: string;
   imageUrl: string | null;
-  url: string;
+  url?: string;
   meta?: string;
   imageRounded?: boolean;
+  onSelect?: (title: string) => void;
 }
 
-/** A square-artwork card used for tracks, albums, and similar artists. */
+/**
+ * A square-artwork card. With `onSelect` it renders a button that runs an
+ * in-app action; otherwise it renders an external link to `url`.
+ */
 export function MediaCard({
   title,
   subtitle,
@@ -17,24 +24,33 @@ export function MediaCard({
   url,
   meta,
   imageRounded = false,
+  onSelect,
 }: MediaCardProps) {
+  function handleClick() {
+    onSelect?.(title);
+  }
+
+  const content = (
+    <MediaCardContent
+      title={title}
+      subtitle={subtitle}
+      imageUrl={imageUrl}
+      meta={meta}
+      imageRounded={imageRounded}
+    />
+  );
+
+  if (onSelect) {
+    return (
+      <button type="button" onClick={handleClick} className={`${CARD_CLASS} w-full text-left`}>
+        {content}
+      </button>
+    );
+  }
+
   return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-[#d51007]/60 hover:bg-white/10"
-    >
-      <MediaCardArtwork imageUrl={imageUrl} alt={title} rounded={imageRounded} />
-      <div className="flex flex-col gap-0.5">
-        <p className="truncate font-semibold text-white" title={title}>
-          {title}
-        </p>
-        <p className="truncate text-sm text-white/60" title={subtitle}>
-          {subtitle}
-        </p>
-        {meta && <p className="mt-1 text-xs text-white/40">{meta}</p>}
-      </div>
+    <a href={url} target="_blank" rel="noopener noreferrer" className={CARD_CLASS}>
+      {content}
     </a>
   );
 }

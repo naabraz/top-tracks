@@ -3,9 +3,10 @@ import { MediaCard } from "@/components/MediaCard";
 
 interface SimilarArtistsGridProps {
   artists: SimilarArtist[];
+  onSelect: (name: string) => void;
 }
 
-export function SimilarArtistsGrid({ artists }: SimilarArtistsGridProps) {
+export function SimilarArtistsGrid({ artists, onSelect }: SimilarArtistsGridProps) {
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
       {artists.map((artist) => (
@@ -14,8 +15,8 @@ export function SimilarArtistsGrid({ artists }: SimilarArtistsGridProps) {
           title={artist.name}
           subtitle="Similar artist"
           imageUrl={artist.imageUrl}
-          url={artist.url}
           imageRounded
+          onSelect={onSelect}
         />
       ))}
     </div>

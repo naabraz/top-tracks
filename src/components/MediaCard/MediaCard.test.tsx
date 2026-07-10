@@ -1,9 +1,10 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { MediaCard } from "./MediaCard";
 
 describe("MediaCard", () => {
-  it("renders the title, subtitle, and meta inside a link to the url", () => {
+  it("renders an external link with title, subtitle, and meta when given a url", () => {
     render(
       <MediaCard
         title="Creep"
@@ -26,5 +27,15 @@ describe("MediaCard", () => {
     );
 
     expect(screen.queryByText(/plays/i)).not.toBeInTheDocument();
+  });
+
+  it("renders a button that calls onSelect with the title when selectable", async () => {
+    const onSelect = vi.fn();
+    render(<MediaCard title="Muse" subtitle="Similar artist" imageUrl={null} onSelect={onSelect} />);
+
+    expect(screen.queryByRole("link")).not.toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: /muse/i }));
+
+    expect(onSelect).toHaveBeenCalledWith("Muse");
   });
 });

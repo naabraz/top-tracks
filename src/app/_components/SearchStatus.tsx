@@ -6,10 +6,11 @@ interface SearchStatusProps {
   status: ArtistSearchStatus;
   errorMessage: string | null;
   result: ArtistLookupResult | null;
+  onSelectArtist: (name: string) => void;
 }
 
 /** Renders the loading, error, or success state of an artist search. */
-export function SearchStatus({ status, errorMessage, result }: SearchStatusProps) {
+export function SearchStatus({ status, errorMessage, result, onSelectArtist }: SearchStatusProps) {
   return (
     <div aria-live="polite">
       {status === "loading" && <p className="text-center text-white/60">Loading results…</p>}
@@ -21,7 +22,9 @@ export function SearchStatus({ status, errorMessage, result }: SearchStatusProps
           {errorMessage}
         </p>
       )}
-      {status === "success" && result && <ArtistResults result={result} />}
+      {status === "success" && result && (
+        <ArtistResults result={result} onSelectArtist={onSelectArtist} />
+      )}
     </div>
   );
 }

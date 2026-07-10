@@ -1,5 +1,6 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import type { ArtistLookupResult } from "@/lib/music/types";
 import { ArtistResults } from "./ArtistResults";
 
@@ -30,18 +31,28 @@ const baseResult: ArtistLookupResult = {
 
 describe("ArtistResults", () => {
   it("renders the artist, its top track, top album, and similar artists", () => {
-    render(<ArtistResults result={baseResult} />);
+    render(<ArtistResults result={baseResult} onSelectArtist={vi.fn()} />);
 
     expect(screen.getByRole("heading", { name: "Radiohead" })).toBeInTheDocument();
     expect(screen.getByText("Creep")).toBeInTheDocument();
     expect(screen.getByText("OK Computer")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /muse/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /muse/i })).toBeInTheDocument();
+  });
+
+  it("calls onSelectArtist with the name when a similar artist is clicked", async () => {
+    const onSelectArtist = vi.fn();
+    render(<ArtistResults result={baseResult} onSelectArtist={onSelectArtist} />);
+
+    await userEvent.click(screen.getByRole("button", { name: /muse/i }));
+
+    expect(onSelectArtist).toHaveBeenCalledWith("Muse");
   });
 
   it("shows fallback messages when a section is empty", () => {
     render(
       <ArtistResults
         result={{ ...baseResult, topTrack: null, topAlbum: null, similarArtists: [] }}
+        onSelectArtist={vi.fn()}
       />,
     );
 

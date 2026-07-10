@@ -1,18 +1,18 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent } from "react";
 import { SearchInput } from "./SearchInput";
 
 interface SearchBarProps {
+  value: string;
+  onChange: (value: string) => void;
   onSearch: (query: string) => void;
   isLoading: boolean;
 }
 
-export function SearchBar({ onSearch, isLoading }: SearchBarProps) {
-  const [value, setValue] = useState("");
-
+export function SearchBar({ value, onChange, onSearch, isLoading }: SearchBarProps) {
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
+    onChange(event.target.value);
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { SearchBar } from "@/components/SearchBar";
 import { PageHeader } from "./_components/PageHeader";
 import { PageFooter } from "./_components/PageFooter";
@@ -8,12 +9,28 @@ import { useArtistSearch } from "./_hooks/useArtistSearch";
 
 export default function Home() {
   const { status, result, errorMessage, search } = useArtistSearch();
+  const [query, setQuery] = useState("");
+
+  function handleSelectArtist(name: string) {
+    setQuery(name);
+    search(name);
+  }
 
   return (
     <main className="mx-auto flex w-full max-w-4xl flex-col gap-10 px-4 py-10 sm:px-6 sm:py-16">
       <PageHeader />
-      <SearchBar onSearch={search} isLoading={status === "loading"} />
-      <SearchStatus status={status} errorMessage={errorMessage} result={result} />
+      <SearchBar
+        value={query}
+        onChange={setQuery}
+        onSearch={search}
+        isLoading={status === "loading"}
+      />
+      <SearchStatus
+        status={status}
+        errorMessage={errorMessage}
+        result={result}
+        onSelectArtist={handleSelectArtist}
+      />
       <PageFooter />
     </main>
   );
