@@ -1,3 +1,5 @@
+import type { CachedToken } from "./types";
+
 const TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
 
 /** Safety margin so a token is refreshed before it actually expires. */
@@ -8,11 +10,6 @@ export class SpotifyAuthError extends Error {
     super(message);
     this.name = "SpotifyAuthError";
   }
-}
-
-interface CachedToken {
-  token: string;
-  expiresAt: number;
 }
 
 let cachedToken: CachedToken | null = null;

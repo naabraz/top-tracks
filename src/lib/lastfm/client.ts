@@ -1,4 +1,11 @@
 import type { ArtistSummary, AlbumSummary, SimilarArtist, TrackSummary } from "@/lib/music/types";
+import type {
+  LastfmImage,
+  RawAlbum,
+  RawArtistInfo,
+  RawSimilarArtist,
+  RawTrack,
+} from "./types";
 
 const API_BASE_URL = "https://ws.audioscrobbler.com/2.0/";
 
@@ -21,41 +28,6 @@ export class LastfmError extends Error {
     super(message);
     this.name = "LastfmError";
   }
-}
-
-interface LastfmImage {
-  "#text": string;
-  size: string;
-}
-
-interface RawArtistInfo {
-  name: string;
-  url: string;
-  image?: LastfmImage[];
-  stats?: { listeners?: string };
-  tags?: { tag?: Array<{ name: string }> };
-}
-
-interface RawTrack {
-  name: string;
-  playcount?: string;
-  url: string;
-  image?: LastfmImage[];
-  artist?: { name: string };
-}
-
-interface RawAlbum {
-  name: string;
-  playcount?: string;
-  url: string;
-  image?: LastfmImage[];
-  artist?: { name: string } | string;
-}
-
-interface RawSimilarArtist {
-  name: string;
-  url: string;
-  image?: LastfmImage[];
 }
 
 async function lastfmFetch<T>(method: string, params: Record<string, string>): Promise<T> {

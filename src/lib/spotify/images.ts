@@ -1,4 +1,5 @@
 import { spotifyFetch } from "./api";
+import type { AlbumItem, ArtistItem, TrackItem } from "./types";
 
 /**
  * Spotify is used purely as an image source: Last.fm provides the data, but its
@@ -8,22 +9,6 @@ import { spotifyFetch } from "./api";
  * Every function is best-effort — any failure (missing credentials, rate limit,
  * no match) resolves to null so image lookups can never break the main result.
  */
-
-interface SpotifyImage {
-  url: string;
-}
-
-interface ArtistItem {
-  images: SpotifyImage[];
-}
-
-interface AlbumItem {
-  images: SpotifyImage[];
-}
-
-interface TrackItem {
-  album: { images: SpotifyImage[] };
-}
 
 async function search<T>(type: string, query: string): Promise<T | null> {
   try {
