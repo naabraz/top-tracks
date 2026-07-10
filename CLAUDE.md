@@ -27,7 +27,8 @@ Non-destructive commands (e.g. `git status`, `git diff`, `git log`, `git add`,
 
 ### Commit and push triggers
 
-- When the user says **"Ok, go"**, you may commit the current changes.
+- When the user says **"Ok, go"**, commit the current changes immediately
+  without asking for confirmation to run the command.
 - When the user says **"Ok, push"**, you may push to the branch.
 
 ## Testing
