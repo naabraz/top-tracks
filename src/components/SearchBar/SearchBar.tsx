@@ -1,6 +1,7 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { SearchInput } from "./SearchInput";
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
@@ -9,6 +10,10 @@ interface SearchBarProps {
 
 export function SearchBar({ onSearch, isLoading }: SearchBarProps) {
   const [value, setValue] = useState("");
+
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    setValue(event.target.value);
+  }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -19,23 +24,8 @@ export function SearchBar({ onSearch, isLoading }: SearchBarProps) {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex w-full flex-col gap-3 sm:flex-row"
-      role="search"
-    >
-      <label htmlFor="artist-search" className="sr-only">
-        Artist or band name
-      </label>
-      <input
-        id="artist-search"
-        type="search"
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
-        placeholder="Search for an artist or band…"
-        autoComplete="off"
-        className="flex-1 rounded-full border border-white/15 bg-white/5 px-5 py-3 text-base text-white placeholder:text-white/40 outline-none transition focus:border-[#1db954] focus:ring-2 focus:ring-[#1db954]/40"
-      />
+    <form onSubmit={handleSubmit} className="flex w-full flex-col gap-3 sm:flex-row" role="search">
+      <SearchInput value={value} onChange={handleChange} />
       <button
         type="submit"
         disabled={isLoading || value.trim().length === 0}

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { MediaCardArtwork } from "./MediaCardArtwork";
 
 interface MediaCardProps {
   title: string;
@@ -25,25 +25,7 @@ export function MediaCard({
       rel="noopener noreferrer"
       className="group flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:border-[#d51007]/60 hover:bg-white/10"
     >
-      <div
-        className={`relative aspect-square w-full overflow-hidden bg-white/5 ${
-          imageRounded ? "rounded-full" : "rounded-xl"
-        }`}
-      >
-        {imageUrl ? (
-          <Image
-            src={imageUrl}
-            alt={title}
-            fill
-            sizes="(max-width: 640px) 40vw, 200px"
-            className="object-cover transition duration-300 group-hover:scale-105"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center text-white/30">
-            <span className="text-3xl">♪</span>
-          </div>
-        )}
-      </div>
+      <MediaCardArtwork imageUrl={imageUrl} alt={title} rounded={imageRounded} />
       <div className="flex flex-col gap-0.5">
         <p className="truncate font-semibold text-white" title={title}>
           {title}

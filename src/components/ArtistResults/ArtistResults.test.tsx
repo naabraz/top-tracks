@@ -1,0 +1,52 @@
+import { describe, expect, it } from "vitest";
+import { render, screen } from "@testing-library/react";
+import type { ArtistLookupResult } from "@/lib/music/types";
+import { ArtistResults } from "./ArtistResults";
+
+const baseResult: ArtistLookupResult = {
+  artist: {
+    name: "Radiohead",
+    listeners: 5_000_000,
+    tags: ["rock"],
+    imageUrl: null,
+    url: "https://last.fm/radiohead",
+  },
+  topTrack: {
+    name: "Creep",
+    artistName: "Radiohead",
+    playcount: 1_200_000,
+    imageUrl: null,
+    url: "https://last.fm/creep",
+  },
+  topAlbum: {
+    name: "OK Computer",
+    artistName: "Radiohead",
+    playcount: 900_000,
+    imageUrl: null,
+    url: "https://last.fm/okc",
+  },
+  similarArtists: [{ name: "Muse", imageUrl: null, url: "https://last.fm/muse" }],
+};
+
+describe("ArtistResults", () => {
+  it("renders the artist, its top track, top album, and similar artists", () => {
+    render(<ArtistResults result={baseResult} />);
+
+    expect(screen.getByRole("heading", { name: "Radiohead" })).toBeInTheDocument();
+    expect(screen.getByText("Creep")).toBeInTheDocument();
+    expect(screen.getByText("OK Computer")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /muse/i })).toBeInTheDocument();
+  });
+
+  it("shows fallback messages when a section is empty", () => {
+    render(
+      <ArtistResults
+        result={{ ...baseResult, topTrack: null, topAlbum: null, similarArtists: [] }}
+      />,
+    );
+
+    expect(screen.getByText("No tracks available.")).toBeInTheDocument();
+    expect(screen.getByText("No albums available.")).toBeInTheDocument();
+    expect(screen.getByText("No similar artists found.")).toBeInTheDocument();
+  });
+});
