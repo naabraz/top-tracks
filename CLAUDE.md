@@ -1,5 +1,12 @@
 @AGENTS.md
 
+# Skills
+
+| Action        | Domain             | Skill             |
+| ------------- | ------------------ | ----------------- |
+| Write/edit    | React component/hook | `react-components` |
+| Write/edit    | Any source code    | `code-standards`  |
+
 # Project rules
 
 ## Git safety
