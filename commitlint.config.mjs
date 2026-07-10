@@ -8,6 +8,8 @@
  * The commit-msg git hook (.husky/commit-msg) runs commitlint against every
  * commit message, so an invalid message aborts the commit.
  */
-export default {
+const config = {
   extends: ["@commitlint/config-conventional"],
 };
+
+export default config;
