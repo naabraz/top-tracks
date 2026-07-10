@@ -111,28 +111,43 @@ Open [http://localhost:3000](http://localhost:3000) and search for an artist.
 
 ## Project structure
 
+Files are **co-located**: everything a component owns (source, test, and
+sub-components) lives in that component's own folder, and every source file has
+its test right beside it (`Name.tsx` + `Name.test.tsx`, no `__tests__/`
+folders). Screen-only building blocks live under the route in private
+(`_`-prefixed) folders. These conventions are captured as skills in
+`.claude/skills/`.
+
 ```
 src/
 ├── app/
-│   ├── api/artist/route.ts   # Server route: looks up an artist and returns JSON
-│   ├── layout.tsx            # Root layout, fonts, and metadata
-│   ├── page.tsx              # Home page: search UI and result states
-│   └── globals.css           # Tailwind entry point and base styles
-├── components/
-│   ├── SearchBar.tsx         # Accessible search form
-│   ├── MediaCard.tsx         # Reusable artwork card (tracks, albums, artists)
-│   └── ArtistResults.tsx     # Layout for a full result set
+│   ├── api/artist/route.ts        # Server route: looks up an artist, returns JSON
+│   ├── layout.tsx                 # Root layout, fonts, and metadata
+│   ├── page.tsx                   # Home screen: composes the pieces below
+│   ├── globals.css                # Tailwind entry point and base styles
+│   ├── _hooks/                    # Screen-only hook (search request lifecycle)
+│   │   └── useArtistSearch.ts
+│   └── _components/               # Screen-only UI blocks
+│       ├── PageHeader.tsx
+│       ├── PageFooter.tsx
+│       └── SearchStatus.tsx       # Loading / error / success states
+├── components/                    # Reusable UI, one folder per component
+│   ├── SearchBar/                 # Search form + SearchInput sub-component
+│   ├── MediaCard/                 # Artwork card + MediaCardArtwork sub-component
+│   └── ArtistResults/             # Result layout: header, sections, cards, grid
 └── lib/
-    ├── format.ts             # Compact number formatting (plays, listeners)
+    ├── format.ts                  # Compact number formatting (plays, listeners)
     ├── music/
-    │   ├── types.ts          # Domain models rendered by the UI
-    │   └── lookup.ts         # Orchestrates Last.fm data + Spotify artwork
+    │   ├── types.ts               # Domain models rendered by the UI
+    │   └── lookup.ts              # Orchestrates Last.fm data + Spotify artwork
     ├── lastfm/
-    │   └── client.ts         # Typed Last.fm client (all data)
+    │   ├── client.ts              # Typed Last.fm client (all data)
+    │   └── types.ts               # Raw Last.fm response shapes
     └── spotify/
-        ├── token.ts          # Client Credentials token fetching + caching
-        ├── api.ts            # Shared Spotify fetch helper
-        └── images.ts         # Best-effort artwork lookups
+        ├── token.ts               # Client Credentials token fetching + caching
+        ├── api.ts                 # Shared Spotify fetch helper
+        ├── images.ts              # Best-effort artwork lookups
+        └── types.ts               # Raw Spotify response shapes + token cache
 ```
 
 ## How it works
@@ -163,8 +178,12 @@ The suite covers:
 - **`lib/music/lookup`** — the orchestration and image enrichment, including a
   regression test that a top track gets its own artwork rather than the top
   album's (with Last.fm and Spotify mocked).
-- **`components/SearchBar`** — query submission, trimming, and disabled/loading
-  states.
+- **`app/_hooks/useArtistSearch`** — the search lifecycle: idle start, success,
+  server-error, and connection-error paths (with `fetch` mocked).
+- **UI components** — each component has a co-located test covering its rendered
+  behavior: `SearchBar` (query submission, trimming, loading), `MediaCard`,
+  `ArtistResults` and their sub-components, and the home-screen blocks
+  (`PageHeader`, `PageFooter`, `SearchStatus`), all queried by role.
 
 ## License
 
