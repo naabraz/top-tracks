@@ -1,5 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { formatCount } from "./format";
+import { formatCount, formatNumber } from "./format";
+
+describe("formatNumber", () => {
+  it("groups thousands with separators", () => {
+    expect(formatNumber(1_213_400)).toBe("1,213,400");
+  });
+
+  it("leaves small numbers unchanged", () => {
+    expect(formatNumber(742)).toBe("742");
+  });
+});
 
 describe("formatCount", () => {
   it("returns the raw number below one thousand", () => {

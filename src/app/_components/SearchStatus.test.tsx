@@ -11,7 +11,15 @@ const result: ArtistLookupResult = {
 };
 
 describe("SearchStatus", () => {
-  it("shows a loading message while loading", () => {
+  it("prompts the visitor to search while idle", () => {
+    render(
+      <SearchStatus status="idle" errorMessage={null} result={null} onSelectArtist={vi.fn()} />,
+    );
+
+    expect(screen.getByText(/search a band to begin/i)).toBeInTheDocument();
+  });
+
+  it("shows the loading skeleton while loading", () => {
     render(
       <SearchStatus status="loading" errorMessage={null} result={null} onSelectArtist={vi.fn()} />,
     );

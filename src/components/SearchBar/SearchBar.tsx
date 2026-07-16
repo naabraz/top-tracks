@@ -2,6 +2,7 @@
 
 import { ChangeEvent, FormEvent } from "react";
 import { SearchInput } from "./SearchInput";
+import { SearchIcon } from "./SearchIcon";
 
 interface SearchBarProps {
   value: string;
@@ -24,14 +25,11 @@ export function SearchBar({ value, onChange, onSearch, isLoading }: SearchBarPro
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex w-full flex-col gap-3 sm:flex-row" role="search">
+    <form onSubmit={handleSubmit} className="search" role="search" autoComplete="off">
+      <SearchIcon />
       <SearchInput value={value} onChange={handleChange} />
-      <button
-        type="submit"
-        disabled={isLoading || value.trim().length === 0}
-        className="rounded-full bg-gradient-to-r from-[#1db954] to-[#d51007] px-6 py-3 font-semibold text-white transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:brightness-100"
-      >
-        {isLoading ? "Searching…" : "Search"}
+      <button type="submit" disabled={isLoading || value.trim().length === 0}>
+        {isLoading ? "Searching…" : "Discover"}
       </button>
     </form>
   );

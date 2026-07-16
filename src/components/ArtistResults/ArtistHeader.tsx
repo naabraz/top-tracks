@@ -1,6 +1,6 @@
 import type { ArtistSummary } from "@/lib/music/types";
-import { formatCount } from "@/lib/format";
-import { ArtistAvatar } from "./ArtistAvatar";
+import { formatNumber } from "@/lib/format";
+import { ArtistTags } from "./ArtistTags";
 
 interface ArtistHeaderProps {
   artist: ArtistSummary;
@@ -8,26 +8,20 @@ interface ArtistHeaderProps {
 
 export function ArtistHeader({ artist }: ArtistHeaderProps) {
   return (
-    <header className="flex flex-col items-center gap-4 text-center sm:flex-row sm:gap-6 sm:text-left">
-      <ArtistAvatar imageUrl={artist.imageUrl} name={artist.name} />
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold text-white sm:text-4xl">{artist.name}</h1>
-        {artist.listeners > 0 && (
-          <p className="text-sm text-white/60">{formatCount(artist.listeners)} listeners</p>
-        )}
-        {artist.tags.length > 0 && (
-          <ul className="flex flex-wrap justify-center gap-2 sm:justify-start">
-            {artist.tags.map((tag) => (
-              <li
-                key={tag}
-                className="rounded-full bg-white/10 px-3 py-1 text-xs capitalize text-white/70"
-              >
-                {tag}
-              </li>
-            ))}
-          </ul>
-        )}
+    <div className="band-head">
+      <div className="band-title">
+        <p className="kicker">Band</p>
+        <h2>{artist.name}</h2>
+        <ArtistTags tags={artist.tags} />
       </div>
-    </header>
+      {artist.listeners > 0 && (
+        <div className="listeners">
+          <div className="n">{formatNumber(artist.listeners)}</div>
+          <div className="l">
+            <span className="dot">●</span> listeners on Last.fm
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

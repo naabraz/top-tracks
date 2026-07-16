@@ -12,17 +12,17 @@ const artist: ArtistSummary = {
 };
 
 describe("ArtistHeader", () => {
-  it("renders the name, formatted listeners, and tags", () => {
+  it("renders the name, grouped listener count, and tags", () => {
     render(<ArtistHeader artist={artist} />);
 
     expect(screen.getByRole("heading", { name: "Radiohead" })).toBeInTheDocument();
-    expect(screen.getByText("5M listeners")).toBeInTheDocument();
+    expect(screen.getByText("5,000,000")).toBeInTheDocument();
     expect(screen.getByText("rock")).toBeInTheDocument();
   });
 
   it("hides the listeners line when there are none", () => {
     render(<ArtistHeader artist={{ ...artist, listeners: 0 }} />);
 
-    expect(screen.queryByText(/listeners/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/listeners on last\.fm/i)).not.toBeInTheDocument();
   });
 });

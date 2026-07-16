@@ -28,10 +28,10 @@ afterEach(() => {
 });
 
 describe("Home", () => {
-  it("renders the header, search box, and footer", () => {
+  it("renders the brand, search box, and footer sources", () => {
     render(<Home />);
 
-    expect(screen.getByRole("heading", { name: /toptracks/i })).toBeInTheDocument();
+    expect(screen.getByText("TopTracks")).toBeInTheDocument();
     expect(screen.getByRole("searchbox")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Last.fm" })).toBeInTheDocument();
   });
@@ -41,7 +41,7 @@ describe("Home", () => {
     render(<Home />);
 
     await userEvent.type(screen.getByRole("searchbox"), "radiohead");
-    await userEvent.click(screen.getByRole("button", { name: /search/i }));
+    await userEvent.click(screen.getByRole("button", { name: /discover/i }));
 
     expect(await screen.findByRole("heading", { name: "radiohead" })).toBeInTheDocument();
   });
@@ -51,7 +51,7 @@ describe("Home", () => {
     render(<Home />);
 
     await userEvent.type(screen.getByRole("searchbox"), "radiohead");
-    await userEvent.click(screen.getByRole("button", { name: /^search$/i }));
+    await userEvent.click(screen.getByRole("button", { name: /discover/i }));
     await screen.findByRole("heading", { name: "radiohead" });
 
     await userEvent.click(screen.getByRole("button", { name: /muse/i }));

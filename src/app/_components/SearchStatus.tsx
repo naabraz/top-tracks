@@ -1,6 +1,8 @@
 import type { ArtistLookupResult } from "@/lib/music/types";
 import { ArtistResults } from "@/components/ArtistResults";
 import type { ArtistSearchStatus } from "../_hooks/useArtistSearch";
+import { EmptyState } from "./EmptyState";
+import { ResultsSkeleton } from "./ResultsSkeleton";
 
 interface SearchStatusProps {
   status: ArtistSearchStatus;
@@ -9,16 +11,14 @@ interface SearchStatusProps {
   onSelectArtist: (name: string) => void;
 }
 
-/** Renders the loading, error, or success state of an artist search. */
+/** Routes the search lifecycle to the empty, loading, error, or results view. */
 export function SearchStatus({ status, errorMessage, result, onSelectArtist }: SearchStatusProps) {
   return (
     <div aria-live="polite">
-      {status === "loading" && <p className="text-center text-white/60">Loading results…</p>}
+      {status === "idle" && <EmptyState />}
+      {status === "loading" && <ResultsSkeleton />}
       {status === "error" && errorMessage && (
-        <p
-          role="alert"
-          className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-center text-sm text-red-300"
-        >
+        <p role="alert" className="notfound">
           {errorMessage}
         </p>
       )}

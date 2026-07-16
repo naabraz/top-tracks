@@ -16,9 +16,8 @@ export function SearchInput({ value, onChange }: SearchInputProps) {
         type="search"
         value={value}
         onChange={onChange}
-        placeholder="Search for an artist or band…"
+        placeholder="Try: Opeth, Tool, Pink Floyd…"
         autoComplete="off"
-        className="flex-1 rounded-full border border-white/15 bg-white/5 px-5 py-3 text-base text-white placeholder:text-white/40 outline-none transition focus:border-[#1db954] focus:ring-2 focus:ring-[#1db954]/40"
       />
     </>
   );

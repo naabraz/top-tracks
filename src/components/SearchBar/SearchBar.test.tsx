@@ -24,7 +24,7 @@ describe("SearchBar", () => {
     render(<Harness onSearch={onSearch} />);
 
     await userEvent.type(screen.getByRole("searchbox"), "  Radiohead  ");
-    await userEvent.click(screen.getByRole("button", { name: /search/i }));
+    await userEvent.click(screen.getByRole("button", { name: /discover/i }));
 
     expect(onSearch).toHaveBeenCalledWith("Radiohead");
   });
@@ -32,7 +32,7 @@ describe("SearchBar", () => {
   it("disables the button when the query is empty", () => {
     render(<Harness />);
 
-    expect(screen.getByRole("button", { name: /search/i })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /discover/i })).toBeDisabled();
   });
 
   it("shows a loading label and stays disabled while searching", () => {

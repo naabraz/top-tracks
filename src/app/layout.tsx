@@ -1,21 +1,28 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const instrumentSerif = Instrument_Serif({
+  weight: "400",
+  style: ["normal", "italic"],
   subsets: ["latin"],
+  variable: "--font-instrument-serif",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
 });
 
 export const metadata: Metadata = {
-  title: "TopTracks — Discover an artist's best music",
+  title: "TopTracks — band discovery",
   description:
-    "Search for any artist or band to find their most played track, album, and similar artists, powered by the Last.fm API.",
+    "Type a band and feel its essence: the most-played album and track, its audience, and artists that sound alike — powered by Last.fm and Spotify.",
 };
 
 export default function RootLayout({
@@ -26,11 +33,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${instrumentSerif.variable} ${inter.variable} ${jetBrainsMono.variable} antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-gradient-to-b from-neutral-950 to-black">
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

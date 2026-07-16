@@ -34,8 +34,8 @@ describe("ArtistResults", () => {
     render(<ArtistResults result={baseResult} onSelectArtist={vi.fn()} />);
 
     expect(screen.getByRole("heading", { name: "Radiohead" })).toBeInTheDocument();
-    expect(screen.getByText("Creep")).toBeInTheDocument();
-    expect(screen.getByText("OK Computer")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Creep" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "OK Computer" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /muse/i })).toBeInTheDocument();
   });
 
@@ -48,7 +48,7 @@ describe("ArtistResults", () => {
     expect(onSelectArtist).toHaveBeenCalledWith("Muse");
   });
 
-  it("shows fallback messages when a section is empty", () => {
+  it("shows honest placeholders when a section is empty", () => {
     render(
       <ArtistResults
         result={{ ...baseResult, topTrack: null, topAlbum: null, similarArtists: [] }}
@@ -56,8 +56,8 @@ describe("ArtistResults", () => {
       />,
     );
 
-    expect(screen.getByText("No tracks available.")).toBeInTheDocument();
-    expect(screen.getByText("No albums available.")).toBeInTheDocument();
-    expect(screen.getByText("No similar artists found.")).toBeInTheDocument();
+    expect(screen.getByText(/no track available/i)).toBeInTheDocument();
+    expect(screen.getByText(/no album available/i)).toBeInTheDocument();
+    expect(screen.getByText(/no similar artists found/i)).toBeInTheDocument();
   });
 });

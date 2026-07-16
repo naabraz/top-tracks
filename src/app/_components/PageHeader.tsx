@@ -1,16 +1,17 @@
-/** The home screen title and tagline. */
+/** The hero: eyebrow, editorial headline, and supporting lede. */
 export function PageHeader() {
   return (
-    <div className="flex flex-col gap-4 text-center">
-      <h1 className="text-3xl font-bold tracking-tight sm:text-5xl">
-        <span className="bg-gradient-to-r from-[#1db954] to-[#d51007] bg-clip-text text-transparent">
-          TopTracks
-        </span>
+    <>
+      <p className="eyebrow">Last.fm × Spotify</p>
+      <h1>
+        Type a band.
+        <br />
+        Feel its <em>essence</em>.
       </h1>
-      <p className="mx-auto max-w-xl text-sm text-white/60 sm:text-base">
-        Search for any artist or band to discover their most played track and album, plus three
-        artists with a similar sound.
+      <p className="lede">
+        The most-played album and track, the audience behind them, the sound in three words, and
+        artists that feel alike — all in one place.
       </p>
-    </div>
+    </>
   );
 }

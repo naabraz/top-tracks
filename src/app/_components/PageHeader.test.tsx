@@ -3,10 +3,10 @@ import { render, screen } from "@testing-library/react";
 import { PageHeader } from "./PageHeader";
 
 describe("PageHeader", () => {
-  it("renders the app title and tagline", () => {
+  it("renders the hero headline and lede", () => {
     render(<PageHeader />);
 
-    expect(screen.getByRole("heading", { name: /toptracks/i })).toBeInTheDocument();
-    expect(screen.getByText(/most played track/i)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /type a band/i })).toBeInTheDocument();
+    expect(screen.getByText(/most-played album and track/i)).toBeInTheDocument();
   });
 });

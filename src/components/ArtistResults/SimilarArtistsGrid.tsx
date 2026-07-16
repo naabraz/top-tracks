@@ -1,5 +1,5 @@
 import type { SimilarArtist } from "@/lib/music/types";
-import { MediaCard } from "@/components/MediaCard";
+import { SimilarArtistCard } from "./SimilarArtistCard";
 
 interface SimilarArtistsGridProps {
   artists: SimilarArtist[];
@@ -8,16 +8,9 @@ interface SimilarArtistsGridProps {
 
 export function SimilarArtistsGrid({ artists, onSelect }: SimilarArtistsGridProps) {
   return (
-    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+    <div className="sim-grid">
       {artists.map((artist) => (
-        <MediaCard
-          key={artist.name}
-          title={artist.name}
-          subtitle="Similar artist"
-          imageUrl={artist.imageUrl}
-          imageRounded
-          onSelect={onSelect}
-        />
+        <SimilarArtistCard key={artist.name} artist={artist} onSelect={onSelect} />
       ))}
     </div>
   );

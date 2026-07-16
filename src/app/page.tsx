@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { SearchBar } from "@/components/SearchBar";
-import { PageHeader } from "./_components/PageHeader";
+import { SiteHeader } from "./_components/SiteHeader";
+import { HeroSection } from "./_components/HeroSection";
 import { PageFooter } from "./_components/PageFooter";
 import { SearchStatus } from "./_components/SearchStatus";
 import { useArtistSearch } from "./_hooks/useArtistSearch";
@@ -17,21 +17,23 @@ export default function Home() {
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-4xl flex-col gap-10 px-4 py-10 sm:px-6 sm:py-16">
-      <PageHeader />
-      <SearchBar
+    <>
+      <SiteHeader />
+      <HeroSection
         value={query}
         onChange={setQuery}
         onSearch={search}
         isLoading={status === "loading"}
       />
-      <SearchStatus
-        status={status}
-        errorMessage={errorMessage}
-        result={result}
-        onSelectArtist={handleSelectArtist}
-      />
+      <main className="wrap">
+        <SearchStatus
+          status={status}
+          errorMessage={errorMessage}
+          result={result}
+          onSelectArtist={handleSelectArtist}
+        />
+      </main>
       <PageFooter />
-    </main>
+    </>
   );
 }
