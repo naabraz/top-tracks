@@ -77,3 +77,26 @@ pass.
 - Every skill must be written in **English**.
 - All code — identifiers, comments, commit messages, and documentation — must
   always be written in **English**.
+
+# Design Context
+
+Strategy lives in [`PRODUCT.md`](PRODUCT.md); the visual system in
+[`DESIGN.md`](DESIGN.md). Read them before any design or UI work.
+
+- **Register:** `product` — a tool that happens to look great. Product rules
+  govern behavior (clarity, speed, state-rich components); a brand-leaning
+  identity governs the visuals.
+- **Platform:** `web`.
+
+Design principles:
+
+1. **Answer first** — the top track is the headline; instant, unambiguous
+   hierarchy of track → album → similar.
+2. **Every answer is a doorway** — the similar-artists path drives the
+   discovery loop; make the next search feel one tap away.
+3. **Warm, not corporate** — a recommending-a-friend tone over
+   efficient-but-cold convention.
+4. **Character with clarity** — keep the editorial atmosphere, but when it
+   fights legibility, hierarchy, or speed, the task wins.
+5. **Accessible by default** — WCAG 2.1 AA on the dark palette, visible focus,
+   `prefers-reduced-motion` honored.

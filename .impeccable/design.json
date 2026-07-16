@@ -1,0 +1,388 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-16T00:00:00.000Z",
+  "title": "Design System: TopTracks",
+  "extensions": {
+    "colorMeta": {
+      "bg": {
+        "role": "neutral",
+        "displayName": "Booth Black",
+        "canonical": "oklch(15% 0.008 262)",
+        "tonalRamp": [
+          "oklch(15% 0.008 262)",
+          "oklch(26% 0.008 262)",
+          "oklch(37% 0.008 262)",
+          "oklch(48% 0.008 262)",
+          "oklch(59% 0.008 262)",
+          "oklch(70% 0.008 262)",
+          "oklch(82% 0.008 262)",
+          "oklch(95% 0.008 262)"
+        ]
+      },
+      "bg-2": {
+        "role": "neutral",
+        "displayName": "Booth Black Deep",
+        "canonical": "oklch(11% 0.008 262)",
+        "tonalRamp": [
+          "oklch(11% 0.008 262)",
+          "oklch(23% 0.008 262)",
+          "oklch(35% 0.008 262)",
+          "oklch(47% 0.008 262)",
+          "oklch(59% 0.008 262)",
+          "oklch(71% 0.008 262)",
+          "oklch(83% 0.008 262)",
+          "oklch(95% 0.008 262)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Panel",
+        "canonical": "oklch(19% 0.012 262)",
+        "tonalRamp": [
+          "oklch(15% 0.012 262)",
+          "oklch(19% 0.012 262)",
+          "oklch(30% 0.012 262)",
+          "oklch(41% 0.012 262)",
+          "oklch(52% 0.012 262)",
+          "oklch(65% 0.012 262)",
+          "oklch(80% 0.012 262)",
+          "oklch(95% 0.012 262)"
+        ]
+      },
+      "surface-2": {
+        "role": "neutral",
+        "displayName": "Panel Raised",
+        "canonical": "oklch(23% 0.014 262)",
+        "tonalRamp": [
+          "oklch(15% 0.014 262)",
+          "oklch(23% 0.014 262)",
+          "oklch(33% 0.014 262)",
+          "oklch(43% 0.014 262)",
+          "oklch(54% 0.014 262)",
+          "oklch(66% 0.014 262)",
+          "oklch(80% 0.014 262)",
+          "oklch(95% 0.014 262)"
+        ]
+      },
+      "fg": {
+        "role": "neutral",
+        "displayName": "Ivory",
+        "canonical": "oklch(94% 0.008 85)",
+        "tonalRamp": [
+          "oklch(15% 0.008 85)",
+          "oklch(26% 0.008 85)",
+          "oklch(37% 0.008 85)",
+          "oklch(48% 0.008 85)",
+          "oklch(60% 0.008 85)",
+          "oklch(72% 0.008 85)",
+          "oklch(84% 0.008 85)",
+          "oklch(94% 0.008 85)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "canonical": "oklch(67% 0.015 260)",
+        "tonalRamp": [
+          "oklch(15% 0.015 260)",
+          "oklch(26% 0.015 260)",
+          "oklch(37% 0.015 260)",
+          "oklch(48% 0.015 260)",
+          "oklch(58% 0.015 260)",
+          "oklch(67% 0.015 260)",
+          "oklch(81% 0.015 260)",
+          "oklch(95% 0.015 260)"
+        ]
+      },
+      "faint": {
+        "role": "neutral",
+        "displayName": "Faint",
+        "canonical": "oklch(50% 0.012 260)",
+        "tonalRamp": [
+          "oklch(15% 0.012 260)",
+          "oklch(26% 0.012 260)",
+          "oklch(38% 0.012 260)",
+          "oklch(50% 0.012 260)",
+          "oklch(61% 0.012 260)",
+          "oklch(72% 0.012 260)",
+          "oklch(84% 0.012 260)",
+          "oklch(95% 0.012 260)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Border",
+        "canonical": "oklch(28% 0.012 262)",
+        "tonalRamp": [
+          "oklch(15% 0.012 262)",
+          "oklch(28% 0.012 262)",
+          "oklch(39% 0.012 262)",
+          "oklch(50% 0.012 262)",
+          "oklch(61% 0.012 262)",
+          "oklch(72% 0.012 262)",
+          "oklch(84% 0.012 262)",
+          "oklch(95% 0.012 262)"
+        ]
+      },
+      "border-2": {
+        "role": "neutral",
+        "displayName": "Border Bright",
+        "canonical": "oklch(34% 0.014 262)",
+        "tonalRamp": [
+          "oklch(15% 0.014 262)",
+          "oklch(34% 0.014 262)",
+          "oklch(44% 0.014 262)",
+          "oklch(54% 0.014 262)",
+          "oklch(64% 0.014 262)",
+          "oklch(75% 0.014 262)",
+          "oklch(85% 0.014 262)",
+          "oklch(95% 0.014 262)"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Amber Dial",
+        "canonical": "oklch(81% 0.13 74)",
+        "tonalRamp": [
+          "oklch(20% 0.05 74)",
+          "oklch(32% 0.08 74)",
+          "oklch(44% 0.10 74)",
+          "oklch(56% 0.12 74)",
+          "oklch(68% 0.13 74)",
+          "oklch(81% 0.13 74)",
+          "oklch(89% 0.09 74)",
+          "oklch(96% 0.04 74)"
+        ]
+      },
+      "accent-dim": {
+        "role": "primary",
+        "displayName": "Amber Dial (Dim)",
+        "canonical": "oklch(72% 0.12 74)",
+        "tonalRamp": [
+          "oklch(20% 0.05 74)",
+          "oklch(31% 0.07 74)",
+          "oklch(42% 0.09 74)",
+          "oklch(53% 0.11 74)",
+          "oklch(63% 0.12 74)",
+          "oklch(72% 0.12 74)",
+          "oklch(84% 0.09 74)",
+          "oklch(95% 0.04 74)"
+        ]
+      },
+      "on-accent": {
+        "role": "neutral",
+        "displayName": "On Amber",
+        "canonical": "oklch(18% 0.02 262)",
+        "tonalRamp": [
+          "oklch(15% 0.02 262)",
+          "oklch(18% 0.02 262)",
+          "oklch(29% 0.02 262)",
+          "oklch(41% 0.02 262)",
+          "oklch(53% 0.02 262)",
+          "oklch(66% 0.02 262)",
+          "oklch(80% 0.02 262)",
+          "oklch(95% 0.02 262)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display — Instrument Serif",
+        "purpose": "The artist name as a marquee, and the hero headline. Things with names only."
+      },
+      "headline": {
+        "displayName": "Headline — Instrument Serif",
+        "purpose": "Track and album titles inside result cards; section heads such as \"Similar artists\"."
+      },
+      "body": {
+        "displayName": "Body — Inter",
+        "purpose": "Reading text, ledes, meta lines. Keep prose to 48–75ch."
+      },
+      "label": {
+        "displayName": "Label — JetBrains Mono",
+        "purpose": "Uppercase card labels, source headers, the hero eyebrow; and, at weight 600 with tabular-nums, every comparable figure."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-ambient",
+        "value": "0 20px 40px -30px oklch(0% 0 0 / 0.8)",
+        "purpose": "The default resting glow beneath result cards and tiles — present but nearly subliminal."
+      },
+      {
+        "name": "artwork-lift",
+        "value": "0 14px 34px -16px oklch(0% 0 0 / 0.9)",
+        "purpose": "A deeper shadow that makes album artwork feel physically raised off the card."
+      },
+      {
+        "name": "search-float",
+        "value": "0 18px 50px -20px oklch(0% 0 0 / 0.7)",
+        "purpose": "Floats the search field above the hero."
+      },
+      {
+        "name": "accent-focus-ring",
+        "value": "0 0 0 4px oklch(81% 0.13 74 / 0.12)",
+        "purpose": "The amber glow on focused controls — the booth's dial lighting up."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-soft",
+        "value": "cubic-bezier(0.2, 0.7, 0.2, 1)",
+        "purpose": "The house curve: the result reveal and every lift/settle transition."
+      },
+      {
+        "name": "duration-state",
+        "value": "160ms",
+        "purpose": "Hover, focus, and color state changes on controls."
+      },
+      {
+        "name": "rise",
+        "value": "rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both",
+        "purpose": "The Result Reveal: opacity 0→1 with a 14px translateY settle."
+      },
+      {
+        "name": "eq",
+        "value": "eq 1.3s ease-in-out infinite alternate",
+        "purpose": "The living equalizer bars on the top track card."
+      },
+      {
+        "name": "shimmer",
+        "value": "shimmer 1.35s linear infinite",
+        "purpose": "The loading sweep across skeleton bars — skeletons, never a spinner."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }",
+        "purpose": "Rise, equalizer, and shimmer all collapse to a crossfade or instant state."
+      }
+    ],
+    "breakpoints": [
+      { "name": "md", "value": "820px" },
+      { "name": "sm", "value": "560px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The search action — the one amber element on the hero.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">Search</button>",
+      "css": ".ds-btn-primary { height: 44px; padding: 0 24px; border: none; border-radius: 999px; background: var(--accent, oklch(81% 0.13 74)); color: var(--on-accent, oklch(18% 0.02 262)); font-family: var(--font-body, Inter, system-ui, sans-serif); font-size: 15px; font-weight: 600; cursor: pointer; transition: background 160ms cubic-bezier(0.2, 0.7, 0.2, 1), transform 160ms cubic-bezier(0.2, 0.7, 0.2, 1); } .ds-btn-primary:hover { background: var(--accent-dim, oklch(72% 0.12 74)); transform: translateY(-1px); } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 4px oklch(81% 0.13 74 / 0.12); } .ds-btn-primary:active { transform: translateY(0); } .ds-btn-primary:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "search-field",
+      "description": "The hero's floating pill: leading glyph, transparent input, amber submit. The whole field lights up on focus.",
+      "html": "<form class=\"ds-search\"><svg class=\"ds-search-glyph\" viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><circle cx=\"11\" cy=\"11\" r=\"7\"></circle><path d=\"M20 20l-3.5-3.5\"></path></svg><input class=\"ds-search-input\" type=\"text\" placeholder=\"Try Radiohead, Sade, Fela Kuti…\" /><button class=\"ds-search-submit\" type=\"submit\">Search</button></form>",
+      "css": ".ds-search { display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 20px; border-radius: 999px; background: var(--surface, oklch(19% 0.012 262)); border: 1px solid var(--border-2, oklch(34% 0.014 262)); box-shadow: 0 18px 50px -20px oklch(0% 0 0 / 0.7); transition: border-color 160ms cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 160ms cubic-bezier(0.2, 0.7, 0.2, 1); } .ds-search:focus-within { border-color: var(--accent-dim, oklch(72% 0.12 74)); box-shadow: 0 18px 50px -20px oklch(0% 0 0 / 0.7), 0 0 0 4px oklch(81% 0.13 74 / 0.12); } .ds-search-glyph { color: var(--faint, oklch(50% 0.012 260)); flex: none; } .ds-search-input { flex: 1; min-width: 0; background: none; border: none; outline: none; color: var(--fg, oklch(94% 0.008 85)); font-family: var(--font-body, Inter, system-ui, sans-serif); font-size: 16px; line-height: 1.55; } .ds-search-input::placeholder { color: var(--faint, oklch(50% 0.012 260)); } .ds-search-submit { height: 44px; padding: 0 24px; border: none; border-radius: 999px; background: var(--accent, oklch(81% 0.13 74)); color: var(--on-accent, oklch(18% 0.02 262)); font-family: var(--font-body, Inter, system-ui, sans-serif); font-size: 15px; font-weight: 600; cursor: pointer; transition: background 160ms cubic-bezier(0.2, 0.7, 0.2, 1), transform 160ms cubic-bezier(0.2, 0.7, 0.2, 1); } .ds-search-submit:hover { background: var(--accent-dim, oklch(72% 0.12 74)); transform: translateY(-1px); } .ds-search-submit:focus-visible { outline: none; box-shadow: 0 0 0 4px oklch(81% 0.13 74 / 0.12); } @media (max-width: 560px) { .ds-search { flex-wrap: wrap; padding: 12px; } .ds-search-glyph { display: none; } .ds-search-input { flex-basis: 100%; padding: 0 8px; } .ds-search-submit { flex: 1; } }"
+    },
+    {
+      "name": "Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Static genre descriptors under an artist name. Not an interactive filter.",
+      "html": "<span class=\"ds-tag\">art rock</span>",
+      "css": ".ds-tag { display: inline-block; padding: 5px 12px; border-radius: 999px; background: oklch(81% 0.13 74 / 0.08); border: 1px solid oklch(81% 0.13 74 / 0.32); color: var(--accent, oklch(81% 0.13 74)); font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 12px; letter-spacing: 0.04em; }"
+    },
+    {
+      "name": "Result Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "The answer surface: mono label, serif title, mono figure. Depth comes from tone plus ambient glow, not a border.",
+      "html": "<article class=\"ds-card\"><p class=\"ds-card-label\">TOP TRACK</p><h3 class=\"ds-card-title\">Paranoid Android</h3><p class=\"ds-card-meta\">from <span class=\"ds-card-em\">OK Computer</span></p><p class=\"ds-card-figure\">12,480,113 plays</p></article>",
+      "css": ".ds-card { padding: 22px; border-radius: 16px; background: var(--surface, oklch(19% 0.012 262)); border: 1px solid var(--border, oklch(28% 0.012 262)); box-shadow: 0 20px 40px -30px oklch(0% 0 0 / 0.8); } .ds-card-label { margin: 0 0 12px; color: var(--faint, oklch(50% 0.012 260)); font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 11px; line-height: 1.2; letter-spacing: 0.22em; text-transform: uppercase; } .ds-card-title { margin: 0; color: var(--fg, oklch(94% 0.008 85)); font-family: var(--font-display, \"Instrument Serif\", Georgia, serif); font-size: 30px; font-weight: 400; line-height: 1.05; letter-spacing: -0.01em; text-wrap: balance; } .ds-card-meta { margin: 8px 0 0; color: var(--muted, oklch(67% 0.015 260)); font-family: var(--font-body, Inter, system-ui, sans-serif); font-size: 15px; line-height: 1.55; } .ds-card-em { color: var(--fg, oklch(94% 0.008 85)); } .ds-card-figure { margin: 16px 0 0; color: var(--accent, oklch(81% 0.13 74)); font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Similar Artist Tile",
+      "kind": "card",
+      "refersTo": "similar-tile",
+      "description": "The doorway to the next search — a whole tile that is one tap to the next artist. Lifts to Panel Raised on hover.",
+      "html": "<button class=\"ds-tile\" type=\"button\"><span class=\"ds-tile-name\">Portishead</span><span class=\"ds-tile-cue\">Search this artist<svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"></path><path d=\"M13 6l6 6-6 6\"></path></svg></span></button>",
+      "css": ".ds-tile { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; width: 100%; padding: 16px; border-radius: 16px; background: var(--surface, oklch(19% 0.012 262)); border: 1px solid var(--border, oklch(28% 0.012 262)); box-shadow: 0 20px 40px -30px oklch(0% 0 0 / 0.8); text-align: left; cursor: pointer; transition: background 160ms cubic-bezier(0.2, 0.7, 0.2, 1), border-color 160ms cubic-bezier(0.2, 0.7, 0.2, 1), transform 160ms cubic-bezier(0.2, 0.7, 0.2, 1); } .ds-tile:hover { background: var(--surface-2, oklch(23% 0.014 262)); border-color: var(--border-2, oklch(34% 0.014 262)); transform: translateY(-2px); } .ds-tile:focus-visible { outline: none; border-color: var(--accent-dim, oklch(72% 0.12 74)); box-shadow: 0 0 0 4px oklch(81% 0.13 74 / 0.12); } .ds-tile:active { transform: translateY(0); } .ds-tile-name { color: var(--fg, oklch(94% 0.008 85)); font-family: var(--font-display, \"Instrument Serif\", Georgia, serif); font-size: 24px; line-height: 1.1; } .ds-tile-cue { display: inline-flex; align-items: center; gap: 6px; color: var(--muted, oklch(67% 0.015 260)); font-family: var(--font-body, Inter, system-ui, sans-serif); font-size: 13px; transition: color 160ms cubic-bezier(0.2, 0.7, 0.2, 1); } .ds-tile:hover .ds-tile-cue { color: var(--accent, oklch(81% 0.13 74)); }"
+    },
+    {
+      "name": "Site Header",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Sticky translucent header with a blurred booth-black backdrop, amber brand tile, and tracked wordmark.",
+      "html": "<header class=\"ds-header\"><a class=\"ds-brand\" href=\"#\"><span class=\"ds-brand-tile\"></span><span class=\"ds-brand-word\">TopTracks</span></a><a class=\"ds-header-link\" href=\"#\">Last.fm</a></header>",
+      "css": ".ds-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 24px; background: oklch(15% 0.008 262 / 0.72); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border, oklch(28% 0.012 262)); } .ds-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; } .ds-brand-tile { width: 22px; height: 22px; border-radius: 8px; background: linear-gradient(140deg, oklch(81% 0.13 74), oklch(72% 0.12 74)); } .ds-brand-word { color: var(--fg, oklch(94% 0.008 85)); font-family: var(--font-body, Inter, system-ui, sans-serif); font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; } .ds-header-link { color: var(--muted, oklch(67% 0.015 260)); font-family: var(--font-body, Inter, system-ui, sans-serif); font-size: 13px; text-decoration: none; transition: color 160ms cubic-bezier(0.2, 0.7, 0.2, 1); } .ds-header-link:hover { color: var(--fg, oklch(94% 0.008 85)); } .ds-header-link:focus-visible { outline: none; border-radius: 8px; box-shadow: 0 0 0 4px oklch(81% 0.13 74 / 0.12); }"
+    },
+    {
+      "name": "The Result Reveal",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Signature pattern: the result rises into place while amber equalizer bars keep time. Both collapse under prefers-reduced-motion.",
+      "html": "<div class=\"ds-reveal\"><span class=\"ds-eq\"><i></i><i></i><i></i><i></i></span><span class=\"ds-reveal-title\">Paranoid Android</span></div>",
+      "css": ".ds-reveal { display: flex; align-items: center; gap: 14px; padding: 22px; border-radius: 16px; background: var(--surface, oklch(19% 0.012 262)); box-shadow: 0 20px 40px -30px oklch(0% 0 0 / 0.8); animation: ds-rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both; } .ds-eq { display: inline-flex; align-items: flex-end; gap: 3px; height: 20px; } .ds-eq i { width: 3px; height: 100%; border-radius: 999px; background: var(--accent, oklch(81% 0.13 74)); transform-origin: bottom; animation: ds-eq 1.3s ease-in-out infinite alternate; } .ds-eq i:nth-child(2) { animation-delay: 0.16s; } .ds-eq i:nth-child(3) { animation-delay: 0.32s; } .ds-eq i:nth-child(4) { animation-delay: 0.48s; } .ds-reveal-title { color: var(--fg, oklch(94% 0.008 85)); font-family: var(--font-display, \"Instrument Serif\", Georgia, serif); font-size: 30px; line-height: 1.05; } @keyframes ds-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } } @keyframes ds-eq { from { transform: scaleY(0.25); } to { transform: scaleY(1); } } @media (prefers-reduced-motion: reduce) { .ds-reveal { animation: none; } .ds-eq i { animation: none; transform: scaleY(0.6); } }"
+    },
+    {
+      "name": "Skeleton Bar",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Loading is a shimmer sweep across the shape of the answer to come — never a centered spinner.",
+      "html": "<div class=\"ds-skeleton\"><span class=\"ds-skeleton-bar ds-skeleton-bar--label\"></span><span class=\"ds-skeleton-bar ds-skeleton-bar--title\"></span><span class=\"ds-skeleton-bar ds-skeleton-bar--meta\"></span></div>",
+      "css": ".ds-skeleton { display: flex; flex-direction: column; gap: 12px; padding: 22px; border-radius: 16px; background: var(--surface, oklch(19% 0.012 262)); box-shadow: 0 20px 40px -30px oklch(0% 0 0 / 0.8); } .ds-skeleton-bar { display: block; height: 12px; border-radius: 999px; background: linear-gradient(90deg, var(--surface-2, oklch(23% 0.014 262)) 0%, oklch(28% 0.014 262) 50%, var(--surface-2, oklch(23% 0.014 262)) 100%); background-size: 200% 100%; animation: ds-shimmer 1.35s linear infinite; } .ds-skeleton-bar--label { width: 30%; height: 9px; } .ds-skeleton-bar--title { width: 70%; height: 22px; } .ds-skeleton-bar--meta { width: 45%; } @keyframes ds-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } } @media (prefers-reduced-motion: reduce) { .ds-skeleton-bar { animation: none; background: var(--surface-2, oklch(23% 0.014 262)); } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Late-Night Radio Booth",
+    "overview": "TopTracks looks and feels like the glow of a radio booth after hours: a dark, hushed field with a single warm amber light on the dial, and a host leaning in to play you a band's biggest track — then the one you should hear next. The surface recedes so the music can be the star. Type and artwork carry the emotion; everything else is quiet, atmospheric, and personal. The register is a tool that happens to look great: behavior follows product discipline (clarity, speed, honest states), while the identity stays intimate and a little cinematic.\n\nThe system is built on a near-black indigo canvas with warm ivory text and one confident amber accent. Serif display headings give each artist a marquee moment; a clean sans handles reading; a mono voices the small technical labels and numbers like a readout on equipment. Components are warm and tactile — generously rounded, soft-edged, springy on hover — so the interface invites a touch rather than holding you at arm's length.\n\nWhat it explicitly rejects: the generic SaaS dashboard (identical card grids, hero-metric big-number tiles, corporate navy), anything sterile or flat that loses character, and loud neon maximalism. Warmth here is a single dial light, never a floodlight.",
+    "keyCharacteristics": [
+      "Dark near-black indigo canvas; a single amber accent as the one warm signal.",
+      "Serif display for artist/track/album names; sans for reading; mono for labels and figures.",
+      "Generous 16px radii, soft diffuse shadows, and a subtle ambient glow layer.",
+      "Motion is felt through light and small lifts — a rising reveal, a living equalizer, a loading shimmer.",
+      "Discovery-first: every result offers a doorway to the next search."
+    ],
+    "rules": [
+      {
+        "name": "The One Dial Rule",
+        "body": "Amber is the only warm light in the room. It marks the primary action, the current selection, and the headline figure — nothing decorative. If two amber elements compete for attention on a screen, one is wrong.",
+        "section": "colors"
+      },
+      {
+        "name": "The No Pure White Rule",
+        "body": "Text is warm Ivory (oklch 94%, hue 85), never `#fff`. Pure white on the near-black canvas reads clinical; the booth is warm.",
+        "section": "colors"
+      },
+      {
+        "name": "The Serif-For-Names Rule",
+        "body": "Display serif is for things with names — artists, tracks, albums, sections. Never set a UI label, button, or data figure in the serif; those belong to the sans and the mono.",
+        "section": "typography"
+      },
+      {
+        "name": "The Meter Rule",
+        "body": "Every number a user might compare (plays, listeners) is set in mono with `font-variant-numeric: tabular-nums`, so figures read like a physical readout.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tone-First Rule",
+        "body": "Layering is done with lightness (Booth Black → Panel → Panel Raised), not with borders or heavy shadows. Shadows are diffuse ambient glow, never a crisp 2014-style drop shadow. If a shadow has a visible hard edge, it's wrong.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep Amber Dial as the only warm accent, on ≤10% of any screen (The One Dial Rule).",
+      "Do set every artist, track, album, and section name in Instrument Serif; keep UI labels and figures in Inter/JetBrains Mono (The Serif-For-Names Rule).",
+      "Do set all comparable numbers in mono with `tabular-nums` (The Meter Rule).",
+      "Do convey depth through tonal layering (Booth Black → Panel → Panel Raised) plus diffuse ambient glow (The Tone-First Rule).",
+      "Do use warm Ivory (oklch 94%, hue 85) for text, never pure white (The No Pure White Rule).",
+      "Do hold Muted and Faint text to WCAG 2.1 AA (≥4.5:1) on their background; bump toward Ivory before shipping if a body value is even close.",
+      "Do make every result offer a doorway to the next search — the similar-artist tiles are the discovery engine, not a footnote.",
+      "Do provide a `prefers-reduced-motion` alternative for the rise, equalizer, and shimmer."
+    ],
+    "donts": [
+      "Don't build a generic SaaS dashboard: no identical card grids, no hero-metric big-number tiles, no corporate navy.",
+      "Don't go sterile or flat — never strip the atmosphere down to characterless gray on a plain surface.",
+      "Don't go loud, neon, or maximalist: no gratuitous glow, motion overload, or glassmorphism-as-decoration. Warmth is a single dial light, not a floodlight.",
+      "Don't set Faint (oklch 50%) as body text or place body copy on a tinted surface below 4.5:1.",
+      "Don't use hardcoded hex; derive new shades from the OKLCH tokens.",
+      "Don't ship hard-edged 2014-style drop shadows; if a shadow has a crisp edge, the blur is too small.",
+      "Don't use a display serif for buttons, form labels, or data figures."
+    ]
+  }
+}
