@@ -34,11 +34,15 @@ single, focused answer that always offers a doorway to the next one.
 
 ## Brand Personality
 
-Warm, playful, inviting. The voice is human and expressive — discovery should
-feel like a friend's recommendation, not a database query. This is an intent
-worth calling out against the current build, which leans refined, dark, and
-atmospheric; future design work should carry the atmosphere the app already has
-toward something more welcoming and alive, without tipping into loudness.
+Intimate, atmospheric, late-night. The app is a dark, hushed room with one warm
+light on the dial — a host leaning in to play you a band's biggest track, then
+the one you should hear next. The voice is human and expressive: discovery
+should feel like a friend's recommendation, not a database query.
+
+Warmth here lives in the copy, the accent, and the motion — never in the canvas.
+The near-black field is the deliberate choice, not a default to be corrected;
+what makes the app feel personal is what it says and how it moves, not how
+brightly it's lit.
 
 ## Anti-references
 
