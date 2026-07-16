@@ -102,7 +102,11 @@ header.site {
   background: oklch(13% 0.008 262 / 0.72);
   border-bottom: 1px solid var(--border);
 }
-.site .wrap {
+/* Scoped to the header on purpose. The footer is also .site, so an unscoped
+   `.site .wrap` gave it this 64px flex row too — and with border-box, 64px
+   minus its own 34/40 padding left a zero-height content box holding three
+   stacked blocks. */
+header.site .wrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -672,6 +676,9 @@ main {
 
 /* ---------- footer / sources ---------- */
 footer.site {
+  /* Sets the footer apart from the answer above it. 44px is the xl step in
+     DESIGN.md's spacing scale. */
+  margin-top: 44px;
   border-top: 1px solid var(--border);
   background: oklch(12% 0.008 262 / 0.6);
 }
