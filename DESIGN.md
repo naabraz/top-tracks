@@ -7,8 +7,8 @@ colors:
   surface: "oklch(19% 0.012 262)"
   surface-2: "oklch(23% 0.014 262)"
   fg: "oklch(94% 0.008 85)"
-  muted: "oklch(67% 0.015 260)"
-  faint: "oklch(50% 0.012 260)"
+  muted: "oklch(75% 0.015 260)"
+  faint: "oklch(62% 0.012 260)"
   border: "oklch(28% 0.012 262)"
   border-2: "oklch(34% 0.014 262)"
   accent: "oklch(81% 0.13 74)"
@@ -125,14 +125,16 @@ A dark, tonal indigo palette warmed by ivory text and one amber accent — restr
 - **Booth Black** (oklch(15% 0.008 262)) / **Booth Black Deep** (oklch(11% 0.008 262)): The page canvas and its darker gradient floor.
 - **Panel** (oklch(19% 0.012 262)) / **Panel Raised** (oklch(23% 0.014 262)): Card, tile, and control surfaces; the raised stop is the hover/active layer.
 - **Ivory** (oklch(94% 0.008 85)): Primary text — warm off-white, never pure white.
-- **Muted** (oklch(67% 0.015 260)): Secondary text, ledes, meta lines. Must clear 4.5:1 on Panel; verify, and never let it drift toward the faint end for body copy.
-- **Faint** (oklch(50% 0.012 260)): Reserved for non-essential microcopy, placeholders, and mono hints only — not for body text.
+- **Muted** (oklch(75% 0.015 260)): Secondary text, ledes, meta lines. 8.30:1 on Panel.
+- **Faint** (oklch(62% 0.012 260)): Tertiary text — microcopy, placeholders, mono hints, unit suffixes. 5.07:1 on Panel, 4.64:1 on Panel Raised.
 - **Border** (oklch(28% 0.012 262)) / **Border Bright** (oklch(34% 0.014 262)): Hairline dividers and control outlines; the brighter step marks hover/focus.
 
 ### Named Rules
 **The One Dial Rule.** Amber is the only warm light in the room. It marks the primary action, the current selection, and the headline figure — nothing decorative. If two amber elements compete for attention on a screen, one is wrong.
 
 **The No Pure White Rule.** Text is warm Ivory (oklch 94%, hue 85), never `#fff`. Pure white on the near-black canvas reads clinical; the booth is warm.
+
+**The Readable Floor Rule.** On this canvas, **no text token goes below L=62%** — that is where 4.5:1 runs out against Panel Raised, the lightest surface text sits on. Lightness is the only lever that buys contrast here; chroma and hue do not. The three text tiers (Ivory 94 → Muted 75 → Faint 62) are spaced to stay distinguishable *above* that floor. A dimmer tier is not available: if a design needs one, it needs less text, not fainter text.
 
 ## 3. Typography
 
@@ -221,7 +223,7 @@ state under `prefers-reduced-motion`.
 - **Do** set all comparable numbers in mono with `tabular-nums` (The Meter Rule).
 - **Do** convey depth through tonal layering (Booth Black → Panel → Panel Raised) plus diffuse ambient glow (The Tone-First Rule).
 - **Do** use warm Ivory (oklch 94%, hue 85) for text, never pure white (The No Pure White Rule).
-- **Do** hold Muted and Faint text to WCAG 2.1 AA (≥4.5:1) on their background; bump toward Ivory before shipping if a body value is even close.
+- **Do** keep every text token at or above L=62%, the point where 4.5:1 runs out on Panel Raised (The Readable Floor Rule).
 - **Do** make every result offer a doorway to the next search — the similar-artist tiles are the discovery engine, not a footnote.
 - **Do** provide a `prefers-reduced-motion` alternative for the rise, equalizer, and shimmer.
 
@@ -229,7 +231,7 @@ state under `prefers-reduced-motion`.
 - **Don't** build a generic SaaS dashboard: no identical card grids, no hero-metric big-number tiles, no corporate navy.
 - **Don't** go sterile or flat — never strip the atmosphere down to characterless gray on a plain surface.
 - **Don't** go loud, neon, or maximalist: no gratuitous glow, motion overload, or glassmorphism-as-decoration. Warmth is a single dial light, not a floodlight.
-- **Don't** set Faint (oklch 50%) as body text or place body copy on a tinted surface below 4.5:1.
+- **Don't** invent a text tier below Faint (L=62%) to push microcopy back — it cannot clear AA on any surface in this system (The Readable Floor Rule).
 - **Don't** use hardcoded hex; derive new shades from the OKLCH tokens.
 - **Don't** ship hard-edged 2014-style drop shadows; if a shadow has a crisp edge, the blur is too small.
 - **Don't** use a display serif for buttons, form labels, or data figures.

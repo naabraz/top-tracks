@@ -82,30 +82,30 @@
       "muted": {
         "role": "neutral",
         "displayName": "Muted",
-        "canonical": "oklch(67% 0.015 260)",
+        "canonical": "oklch(75% 0.015 260)",
         "tonalRamp": [
           "oklch(15% 0.015 260)",
           "oklch(26% 0.015 260)",
           "oklch(37% 0.015 260)",
           "oklch(48% 0.015 260)",
-          "oklch(58% 0.015 260)",
-          "oklch(67% 0.015 260)",
-          "oklch(81% 0.015 260)",
+          "oklch(60% 0.015 260)",
+          "oklch(75% 0.015 260)",
+          "oklch(85% 0.015 260)",
           "oklch(95% 0.015 260)"
         ]
       },
       "faint": {
         "role": "neutral",
         "displayName": "Faint",
-        "canonical": "oklch(50% 0.012 260)",
+        "canonical": "oklch(62% 0.012 260)",
         "tonalRamp": [
           "oklch(15% 0.012 260)",
           "oklch(26% 0.012 260)",
           "oklch(38% 0.012 260)",
           "oklch(50% 0.012 260)",
-          "oklch(61% 0.012 260)",
-          "oklch(72% 0.012 260)",
-          "oklch(84% 0.012 260)",
+          "oklch(62% 0.012 260)",
+          "oklch(74% 0.012 260)",
+          "oklch(85% 0.012 260)",
           "oklch(95% 0.012 260)"
         ]
       },
@@ -258,8 +258,14 @@
       }
     ],
     "breakpoints": [
-      { "name": "md", "value": "820px" },
-      { "name": "sm", "value": "560px" }
+      {
+        "name": "md",
+        "value": "820px"
+      },
+      {
+        "name": "sm",
+        "value": "560px"
+      }
     ]
   },
   "components": [
@@ -350,6 +356,11 @@
         "section": "colors"
       },
       {
+        "name": "The Readable Floor Rule",
+        "body": "On this canvas, no text token goes below L=62% — that is where 4.5:1 runs out against Panel Raised, the lightest surface text sits on. Lightness is the only lever that buys contrast here; chroma and hue do not. The three text tiers (Ivory 94 → Muted 75 → Faint 62) are spaced to stay distinguishable above that floor. A dimmer tier is not available: if a design needs one, it needs less text, not fainter text.",
+        "section": "colors"
+      },
+      {
         "name": "The Serif-For-Names Rule",
         "body": "Display serif is for things with names — artists, tracks, albums, sections. Never set a UI label, button, or data figure in the serif; those belong to the sans and the mono.",
         "section": "typography"
@@ -371,7 +382,7 @@
       "Do set all comparable numbers in mono with `tabular-nums` (The Meter Rule).",
       "Do convey depth through tonal layering (Booth Black → Panel → Panel Raised) plus diffuse ambient glow (The Tone-First Rule).",
       "Do use warm Ivory (oklch 94%, hue 85) for text, never pure white (The No Pure White Rule).",
-      "Do hold Muted and Faint text to WCAG 2.1 AA (≥4.5:1) on their background; bump toward Ivory before shipping if a body value is even close.",
+      "Do keep every text token at or above L=62%, the point where 4.5:1 runs out on Panel Raised (The Readable Floor Rule).",
       "Do make every result offer a doorway to the next search — the similar-artist tiles are the discovery engine, not a footnote.",
       "Do provide a `prefers-reduced-motion` alternative for the rise, equalizer, and shimmer."
     ],
@@ -379,7 +390,7 @@
       "Don't build a generic SaaS dashboard: no identical card grids, no hero-metric big-number tiles, no corporate navy.",
       "Don't go sterile or flat — never strip the atmosphere down to characterless gray on a plain surface.",
       "Don't go loud, neon, or maximalist: no gratuitous glow, motion overload, or glassmorphism-as-decoration. Warmth is a single dial light, not a floodlight.",
-      "Don't set Faint (oklch 50%) as body text or place body copy on a tinted surface below 4.5:1.",
+      "Don't invent a text tier below Faint (L=62%) to push microcopy back — it cannot clear AA on any surface in this system (The Readable Floor Rule).",
       "Don't use hardcoded hex; derive new shades from the OKLCH tokens.",
       "Don't ship hard-edged 2014-style drop shadows; if a shadow has a crisp edge, the blur is too small.",
       "Don't use a display serif for buttons, form labels, or data figures."

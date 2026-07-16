@@ -15,6 +15,13 @@ describe("SimilarArtistCard", () => {
     expect(screen.queryByRole("img")).not.toBeInTheDocument();
   });
 
+  it("names the button for what it does, not for what it looks like", () => {
+    render(<SimilarArtistCard artist={artist} onSelect={vi.fn()} />);
+
+    // Without this the name reads "K Katatonia similar artist".
+    expect(screen.getByRole("button", { name: "Search Katatonia" })).toBeInTheDocument();
+  });
+
   it("calls onSelect with the artist name when clicked", async () => {
     const onSelect = vi.fn();
     render(<SimilarArtistCard artist={artist} onSelect={onSelect} />);

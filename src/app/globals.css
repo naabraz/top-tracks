@@ -13,8 +13,12 @@
   --surface: oklch(19% 0.012 262);
   --surface-2: oklch(23% 0.014 262);
   --fg: oklch(94% 0.008 85);
-  --muted: oklch(67% 0.015 260);
-  --faint: oklch(50% 0.012 260);
+  /* Both carry real text, so both clear WCAG AA (4.5:1) on every surface here
+     — including --surface-2, the worst case. Lightness is what buys contrast:
+     below L=62% nothing does. Muted sits at 75% to keep three readable tiers
+     apart rather than collapsing into faint. */
+  --muted: oklch(75% 0.015 260);
+  --faint: oklch(62% 0.012 260);
   --border: oklch(28% 0.012 262);
   --border-2: oklch(34% 0.014 262);
 
@@ -68,6 +72,15 @@ body::before {
 a {
   color: inherit;
   text-decoration: none;
+}
+/* One ring for everything you can operate. `:focus-visible` keeps it for
+   keyboard use, and `:where` keeps specificity at zero so components can still
+   dress their own focus (the search pill does). The accent clears 3:1 on every
+   surface it can land on — 9.19:1 at worst — and the outline follows each
+   element's own border-radius. */
+:where(a, button):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 ::selection {
   background: oklch(81% 0.13 74 / 0.3);
@@ -524,7 +537,7 @@ main {
   gap: 16px;
   margin-bottom: 18px;
 }
-.sec-head h4 {
+.sec-head h3 {
   font-family: var(--font-display);
   font-weight: 400;
   font-size: 28px;
@@ -696,6 +709,9 @@ footer.site .wrap {
   display: inline-flex;
   align-items: center;
   gap: 9px;
+  /* The row is only 22px of logo, which is half a thumb. The target grows to
+     44px without the visible row changing height. */
+  min-height: 44px;
   color: var(--muted);
   transition: color 0.16s;
 }

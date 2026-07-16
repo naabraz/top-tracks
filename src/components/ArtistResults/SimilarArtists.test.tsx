@@ -13,6 +13,12 @@ describe("SimilarArtists", () => {
     expect(screen.getByText("1 similar artists")).toBeInTheDocument();
   });
 
+  it("heads the section at h3, a sibling of the cards rather than part of one", () => {
+    render(<SimilarArtists artists={artists} onSelect={vi.fn()} />);
+
+    expect(screen.getByRole("heading", { name: /like these too/i, level: 3 })).toBeInTheDocument();
+  });
+
   it("shows an empty note when there are no similar artists", () => {
     render(<SimilarArtists artists={[]} onSelect={vi.fn()} />);
 

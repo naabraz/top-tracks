@@ -17,8 +17,10 @@ export function SimilarArtistCard({ artist, onSelect }: SimilarArtistCardProps) 
   }
 
   return (
-    <button type="button" className="sim" onClick={handleClick}>
-      <span className="art" style={style}>
+    <button type="button" className="sim" onClick={handleClick} aria-label={`Search ${artist.name}`}>
+      {/* Hidden from the accessible name: the monogram is a picture of the
+          initial, and "P Portishead similar artist" is not a button label. */}
+      <span className="art" style={style} aria-hidden="true">
         {artist.imageUrl ? (
           <Image src={artist.imageUrl} alt="" fill sizes="56px" />
         ) : (
