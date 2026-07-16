@@ -188,11 +188,11 @@
     "typographyMeta": {
       "display": {
         "displayName": "Display — Instrument Serif",
-        "purpose": "The artist name as a marquee, and the hero headline. Things with names only."
+        "purpose": "The artist name, heading a result. The hero headline runs on its own larger clamp."
       },
       "headline": {
         "displayName": "Headline — Instrument Serif",
-        "purpose": "Track and album titles inside result cards; section heads such as \"Similar artists\"."
+        "purpose": "The top track title — the answer, and the largest thing in the result zone."
       },
       "body": {
         "displayName": "Body — Inter",
@@ -239,12 +239,7 @@
       {
         "name": "rise",
         "value": "rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both",
-        "purpose": "The Result Reveal: opacity 0→1 with a 14px translateY settle."
-      },
-      {
-        "name": "eq",
-        "value": "eq 1.3s ease-in-out infinite alternate",
-        "purpose": "The living equalizer bars on the top track card."
+        "purpose": "The first result only: opacity 0->1 with a 14px translateY settle. Later results hand off by scroll and focus instead."
       },
       {
         "name": "shimmer",
@@ -255,6 +250,16 @@
         "name": "reduced-motion",
         "value": "@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }",
         "purpose": "Rise, equalizer, and shimmer all collapse to a crossfade or instant state."
+      },
+      {
+        "name": "reveal-scroll",
+        "value": "scrollIntoView({ behavior: \"smooth\", block: \"start\" }) + focus()",
+        "purpose": "How every result after the first arrives: the reader is carried to the answer. Jumps instantly under prefers-reduced-motion."
+      },
+      {
+        "name": "stale-dim",
+        "value": "opacity 0.45, transition 200ms cubic-bezier(0.2, 0.7, 0.2, 1)",
+        "purpose": "The outgoing answer while the next loads: dimmed but still holding the page's height."
       }
     ],
     "breakpoints": [
@@ -297,7 +302,7 @@
       "name": "Result Card",
       "kind": "card",
       "refersTo": "card",
-      "description": "The answer surface: mono label, serif title, mono figure. Depth comes from tone plus ambient glow, not a border.",
+      "description": "The answer surface: mono label, serif title, mono figure. The track card carries the larger cover and the larger title; the album card sits below it.",
       "html": "<article class=\"ds-card\"><p class=\"ds-card-label\">TOP TRACK</p><h3 class=\"ds-card-title\">Paranoid Android</h3><p class=\"ds-card-meta\">from <span class=\"ds-card-em\">OK Computer</span></p><p class=\"ds-card-figure\">12,480,113 plays</p></article>",
       "css": ".ds-card { padding: 22px; border-radius: 16px; background: var(--surface, oklch(19% 0.012 262)); border: 1px solid var(--border, oklch(28% 0.012 262)); box-shadow: 0 20px 40px -30px oklch(0% 0 0 / 0.8); } .ds-card-label { margin: 0 0 12px; color: var(--faint, oklch(50% 0.012 260)); font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 11px; line-height: 1.2; letter-spacing: 0.22em; text-transform: uppercase; } .ds-card-title { margin: 0; color: var(--fg, oklch(94% 0.008 85)); font-family: var(--font-display, \"Instrument Serif\", Georgia, serif); font-size: 30px; font-weight: 400; line-height: 1.05; letter-spacing: -0.01em; text-wrap: balance; } .ds-card-meta { margin: 8px 0 0; color: var(--muted, oklch(67% 0.015 260)); font-family: var(--font-body, Inter, system-ui, sans-serif); font-size: 15px; line-height: 1.55; } .ds-card-em { color: var(--fg, oklch(94% 0.008 85)); } .ds-card-figure { margin: 16px 0 0; color: var(--accent, oklch(81% 0.13 74)); font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }"
     },
@@ -321,9 +326,9 @@
       "name": "The Result Reveal",
       "kind": "custom",
       "refersTo": null,
-      "description": "Signature pattern: the result rises into place while amber equalizer bars keep time. Both collapse under prefers-reduced-motion.",
-      "html": "<div class=\"ds-reveal\"><span class=\"ds-eq\"><i></i><i></i><i></i><i></i></span><span class=\"ds-reveal-title\">Paranoid Android</span></div>",
-      "css": ".ds-reveal { display: flex; align-items: center; gap: 14px; padding: 22px; border-radius: 16px; background: var(--surface, oklch(19% 0.012 262)); box-shadow: 0 20px 40px -30px oklch(0% 0 0 / 0.8); animation: ds-rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both; } .ds-eq { display: inline-flex; align-items: flex-end; gap: 3px; height: 20px; } .ds-eq i { width: 3px; height: 100%; border-radius: 999px; background: var(--accent, oklch(81% 0.13 74)); transform-origin: bottom; animation: ds-eq 1.3s ease-in-out infinite alternate; } .ds-eq i:nth-child(2) { animation-delay: 0.16s; } .ds-eq i:nth-child(3) { animation-delay: 0.32s; } .ds-eq i:nth-child(4) { animation-delay: 0.48s; } .ds-reveal-title { color: var(--fg, oklch(94% 0.008 85)); font-family: var(--font-display, \"Instrument Serif\", Georgia, serif); font-size: 30px; line-height: 1.05; } @keyframes ds-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } } @keyframes ds-eq { from { transform: scaleY(0.25); } to { transform: scaleY(1); } } @media (prefers-reduced-motion: reduce) { .ds-reveal { animation: none; } .ds-eq i { animation: none; transform: scaleY(0.6); } }"
+      "description": "Signature pattern: the first answer rises in; every one after is handed off by dimming the outgoing result and scrolling the reader to the new one.",
+      "html": "<div class=\"ds-reveal\"><span class=\"ds-reveal-label\">TOP TRACK</span><span class=\"ds-reveal-title\">Paranoid Android</span><span class=\"ds-reveal-plays\">12,480,113 plays</span></div>",
+      "css": ".ds-reveal { display: flex; flex-direction: column; gap: 6px; padding: 22px; border-radius: 16px; background: var(--surface, oklch(19% 0.012 262)); box-shadow: 0 20px 40px -30px oklch(0% 0 0 / 0.8); animation: ds-rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both; transition: opacity 200ms cubic-bezier(0.2, 0.7, 0.2, 1); } .ds-reveal[data-stale=\"true\"] { animation: none; opacity: 0.45; } .ds-reveal-label { color: var(--faint, oklch(62% 0.012 260)); font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 11px; letter-spacing: 0.22em; } .ds-reveal-title { color: var(--fg, oklch(94% 0.008 85)); font-family: var(--font-display, \"Instrument Serif\", Georgia, serif); font-size: clamp(30px, 3.4vw, 40px); line-height: 1.04; } .ds-reveal-plays { color: var(--fg, oklch(94% 0.008 85)); font-family: var(--font-mono, ui-monospace, Menlo, monospace); font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; } @keyframes ds-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } } @media (prefers-reduced-motion: reduce) { .ds-reveal { animation: none; } }"
     },
     {
       "name": "Skeleton Bar",

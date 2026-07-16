@@ -7,7 +7,7 @@ interface CardShellProps {
 export function CardShell({ label, note }: CardShellProps) {
   return (
     <div className="card">
-      <div className="track">
+      <div className="card-shell">
         <p className="label">{label}</p>
         <p className="card-empty">{note}</p>
       </div>

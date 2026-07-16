@@ -17,15 +17,15 @@ colors:
 typography:
   display:
     fontFamily: "Instrument Serif, Georgia, 'Times New Roman', serif"
-    fontSize: "clamp(46px, 9vw, 92px)"
+    fontSize: "clamp(34px, 5vw, 56px)"
     fontWeight: 400
-    lineHeight: 0.96
+    lineHeight: 1
     letterSpacing: "-0.02em"
   headline:
     fontFamily: "Instrument Serif, Georgia, serif"
-    fontSize: "30px"
+    fontSize: "clamp(30px, 3.4vw, 40px)"
     fontWeight: 400
-    lineHeight: 1.05
+    lineHeight: 1.04
     letterSpacing: "-0.01em"
   body:
     fontFamily: "Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif"
@@ -95,8 +95,8 @@ tool that happens to look great: behavior follows product discipline (clarity,
 speed, honest states), while the identity stays intimate and a little cinematic.
 
 The system is built on a near-black indigo canvas with warm ivory text and one
-confident amber accent. Serif display headings give each artist a marquee
-moment; a clean sans handles reading; a mono voices the small technical labels
+confident amber accent. Serif display headings carry the names — the track
+above all; a clean sans handles reading; a mono voices the small technical labels
 and numbers like a readout on equipment. Components are **warm and tactile** —
 generously rounded, soft-edged, springy on hover — so the interface invites a
 touch rather than holding you at arm's length.
@@ -110,7 +110,7 @@ never a floodlight.
 - Dark near-black indigo canvas; a single amber accent as the one warm signal.
 - Serif display for artist/track/album names; sans for reading; mono for labels and figures.
 - Generous 16px radii, soft diffuse shadows, and a subtle ambient glow layer.
-- Motion is felt through light and small lifts — a rising reveal, a living equalizer, a loading shimmer.
+- Motion is felt through light and small lifts — a rising first reveal, a loading shimmer, and a scroll that carries the reader to each new answer.
 - Discovery-first: every result offers a doorway to the next search.
 
 ## 2. Colors
@@ -118,7 +118,7 @@ never a floodlight.
 A dark, tonal indigo palette warmed by ivory text and one amber accent — restrained by design, with color reserved for what matters.
 
 ### Primary
-- **Amber Dial** (oklch(81% 0.13 74)): The one warm signal. Used for the primary search action, active/selected states, tags, the equalizer glow, focus rings, and link hovers. Its scarcity against the dark field is the entire point.
+- **Amber Dial** (oklch(81% 0.13 74)): The one warm signal. Used for the primary search action, active/selected states, tags, focus rings, and link hovers. Its scarcity against the dark field is the entire point.
 - **Amber Dial (Dim)** (oklch(72% 0.12 74)): The pressed/hover shade of the accent and the deeper stop in accent gradients.
 
 ### Neutral
@@ -143,20 +143,22 @@ A dark, tonal indigo palette warmed by ivory text and one amber accent — restr
 **Label/Mono Font:** JetBrains Mono (with ui-monospace, Menlo, monospace)
 
 **Character:** A three-voice system pairing on a genuine contrast axis: an
-elegant editorial serif for names and marquee moments, a neutral humanist sans
+elegant editorial serif for the things with names, a neutral humanist sans
 for reading, and a technical mono for labels and figures — like the printed
 readouts on studio equipment. The serif supplies the romance; the mono supplies
 the credibility of real data.
 
 ### Hierarchy
-- **Display** (Instrument Serif 400, clamp(46px, 9vw, 92px), line-height 0.96, letter-spacing -0.02em): The artist name — the marquee. Also the hero headline at a slightly smaller clamp.
-- **Headline** (Instrument Serif 400, 30px, line-height ~1.05): Track and album titles inside result cards.
-- **Title** (Instrument Serif 400, 28px): Section heads such as "Similar artists".
+- **Display** (Instrument Serif 400, clamp(34px, 5vw, 56px), line-height 1, letter-spacing -0.02em): The artist name, heading a result. The hero headline runs on its own larger clamp(40px, 7vw, 76px) — it is the front door, and has no answer to compete with.
+- **Headline** (Instrument Serif 400, clamp(30px, 3.4vw, 40px)): The top track title — the answer, and the largest thing in the result zone.
+- **Title** (Instrument Serif 400, 26–28px): The album title, and section heads such as "If you like them…". Below the headline on purpose: this is context around the answer.
 - **Body** (Inter 400, 16px, line-height 1.55): Reading text, ledes, meta lines. Keep prose to 48–75ch (the hero lede caps at 48ch).
 - **Label** (JetBrains Mono 400, 11–12px, letter-spacing 0.22–0.28em, UPPERCASE): Card labels, source headers, the hero eyebrow.
-- **Figure** (JetBrains Mono 600, tabular-nums): Play counts and listener numbers — always tabular so they align like a meter.
+- **Figure** (JetBrains Mono 600, tabular-nums): Play counts — always tabular so they align like a meter. The listener count is a 13px meta line, not a figure: nobody searched for it.
 
 ### Named Rules
+**The Answer Outranks the Question Rule.** In a result, the top track title is the largest text — larger than the artist name above it, and larger than the album title beside it. The artist name is a heading, not a marquee: on the first search it is the word the reader just typed, and on every search after it is a confirmation. Neither is the answer. If anything in the result zone is bigger than the track title, the hierarchy is inverted.
+
 **The Serif-For-Names Rule.** Display serif is for things with names — artists, tracks, albums, sections. Never set a UI label, button, or data figure in the serif; those belong to the sans and the mono.
 
 **The Meter Rule.** Every number a user might compare (plays, listeners) is set in mono with `font-variant-numeric: tabular-nums`, so figures read like a physical readout.
@@ -209,11 +211,24 @@ light in a dark room.
 - **Mobile:** The header stays; the search field wraps to a full-width stacked layout below 560px and the glyph hides.
 
 ### Signature Component: The Result Reveal
-The result region animates in with a **rise** (opacity + 14px translateY over
-0.5s on an ease-out curve). The top track card carries a living **equalizer** of
-amber bars (`eq`, alternating scale). Loading uses **skeletons with a shimmer
-sweep**, never a centered spinner. All three collapse to a crossfade or instant
-state under `prefers-reduced-motion`.
+The first result **rises** in (opacity + 14px translateY over 0.5s on an
+ease-out curve) over a **shimmering skeleton**, never a centered spinner.
+
+Every result after that is a handoff, not an entrance: the outgoing answer stays
+mounted and dims to 45% while the next one loads, holding the page's height, and
+the new answer is **scrolled to and focused** rather than animated in. That is
+the reveal — the reader is carried to the answer instead of the answer
+performing for them. It costs the rise on loop searches, deliberately: continuity
+is worth more than a re-entrance the reader would be scrolling past anyway.
+
+Under `prefers-reduced-motion` the scroll jumps instead of gliding and the
+shimmer stops; the crossfade stays, since a fade is the calm alternative rather
+than the thing being avoided.
+
+There is no equalizer. The track card previously animated 40 amber bars derived
+from the *character count of the title* — motion that conveyed nothing, implied a
+playback the app does not offer, and broke The One Dial Rule on its own. Real
+cover art replaced it.
 
 ## 6. Do's and Don'ts
 
@@ -225,7 +240,7 @@ state under `prefers-reduced-motion`.
 - **Do** use warm Ivory (oklch 94%, hue 85) for text, never pure white (The No Pure White Rule).
 - **Do** keep every text token at or above L=62%, the point where 4.5:1 runs out on Panel Raised (The Readable Floor Rule).
 - **Do** make every result offer a doorway to the next search — the similar-artist tiles are the discovery engine, not a footnote.
-- **Do** provide a `prefers-reduced-motion` alternative for the rise, equalizer, and shimmer.
+- **Do** provide a `prefers-reduced-motion` alternative for the rise, the shimmer, and the reveal scroll.
 
 ### Don't:
 - **Don't** build a generic SaaS dashboard: no identical card grids, no hero-metric big-number tiles, no corporate navy.

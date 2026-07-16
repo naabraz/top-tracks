@@ -32,9 +32,11 @@ export function ArtistResults({
       data-stale={isStale || undefined}
     >
       <ArtistHeader artist={artist} />
+      {/* Track before album, and given the wider column: the top track is the
+          headline answer, the album is context for it. */}
       <div className="grid">
-        <AlbumCard album={topAlbum} />
         <TrackCard track={topTrack} />
+        <AlbumCard album={topAlbum} />
       </div>
       <SimilarArtists artists={similarArtists} onSelect={onSelectArtist} />
     </section>

@@ -302,9 +302,12 @@ main {
 .band-title h2 {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(46px, 9vw, 92px);
-  line-height: 0.96;
+  /* Heads the result without outranking it. At 92px this was three times the
+     track title — the loudest thing on screen was the word they just typed. */
+  font-size: clamp(34px, 5vw, 56px);
+  line-height: 1;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 .tags {
   display: flex;
@@ -324,30 +327,23 @@ main {
   padding: 5px 12px;
 }
 .listeners {
-  text-align: right;
   flex: none;
-}
-.listeners .n {
   font-family: var(--font-mono);
-  font-weight: 600;
   font-variant-numeric: tabular-nums;
-  font-size: clamp(30px, 5vw, 44px);
-  line-height: 1;
-  color: var(--fg);
-}
-.listeners .l {
-  color: var(--muted);
   font-size: 13px;
-  margin-top: 8px;
+  color: var(--muted);
 }
-.listeners .l .dot {
-  color: var(--accent);
+.listeners b {
+  font-weight: 600;
+  color: var(--fg);
 }
 
 /* feature grid */
 .grid {
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
+  /* 1.6:1, not the old 1.05:0.95. A near-equal split reads as a pair of twins
+     and says nothing about which one is the answer; this reads as a decision. */
+  grid-template-columns: 1.6fr 1fr;
   gap: 20px;
 }
 
@@ -374,6 +370,11 @@ main {
   height: 1px;
   background: var(--accent);
 }
+/* Stands in for a track or album card when the lookup came back without one.
+   Its own block, not the track's: that one is a row built around a cover. */
+.card-shell {
+  padding: 22px;
+}
 .card-empty {
   margin-top: 12px;
   color: var(--muted);
@@ -391,8 +392,10 @@ main {
   --hue: 74;
   position: relative;
   flex: none;
-  width: 150px;
-  height: 150px;
+  /* The Artwork component sets --artwork-size and keeps the image's `sizes`
+     hint in step with it. */
+  width: var(--artwork-size, 150px);
+  height: var(--artwork-size, 150px);
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid oklch(from var(--accent) l c h / 0.18);
@@ -432,10 +435,12 @@ main {
 .album-info h3 {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: 30px;
+  /* Deliberately below the track title: the album is context for the answer. */
+  font-size: 26px;
   line-height: 1.06;
   margin: 12px 0 6px;
   letter-spacing: -0.01em;
+  text-wrap: balance;
 }
 .album-info h3 a:hover {
   color: var(--accent);
@@ -463,67 +468,48 @@ main {
   letter-spacing: 0.02em;
 }
 
-/* track card */
+/* track card — the headline answer */
 .track {
-  padding: 22px;
   display: flex;
-  flex-direction: column;
+  gap: 22px;
+  padding: 22px;
+  align-items: center;
   height: 100%;
 }
-.track h3 {
+.track-info {
+  min-width: 0;
+}
+.track-info h3 {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: 30px;
-  line-height: 1.05;
-  margin: 14px 0 4px;
+  /* The largest text in the answer zone, and larger than the album title
+     beside it: this is the thing that was asked for. */
+  font-size: clamp(30px, 3.4vw, 40px);
+  line-height: 1.04;
+  margin: 12px 0 6px;
   letter-spacing: -0.01em;
+  text-wrap: balance;
 }
-.track h3 a:hover {
+.track-info h3 a:hover {
   color: var(--accent);
 }
-.track .sub {
-  color: var(--muted);
-  font-size: 14px;
-}
-.wave {
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
-  height: 46px;
-  margin: 22px 0 18px;
-}
-.wave i {
-  flex: 1;
-  background: linear-gradient(180deg, var(--accent-dim), oklch(81% 0.13 74 / 0.35));
-  border-radius: 2px;
-  opacity: 0.85;
-  animation: eq 1.3s ease-in-out infinite alternate;
-}
-@keyframes eq {
-  from {
-    transform: scaleY(0.35);
-  }
-  to {
-    transform: scaleY(1);
-  }
-}
-.track .foot {
-  margin-top: auto;
+.track-info .plays {
+  margin-top: 16px;
   display: flex;
   align-items: baseline;
   gap: 8px;
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
 }
-.track .foot b {
-  font-size: 20px;
+.track-info .plays b {
+  font-size: 22px;
   font-weight: 600;
+  color: var(--fg);
 }
-.track .foot small {
+.track-info .plays small {
   font-size: 12px;
   color: var(--faint);
+  letter-spacing: 0.02em;
 }
 
 /* similar */
@@ -794,14 +780,19 @@ footer.site .wrap {
   form.search button {
     width: 100%;
   }
-  .album {
+  .album,
+  .track {
     flex-direction: column;
     text-align: center;
     align-items: center;
   }
-  .album-info .plays {
+  .album-info .plays,
+  .track-info .plays,
+  .card .label {
     justify-content: center;
   }
+  /* One size for both covers here: at this width the column is the constraint,
+     not the card's role, and the `sizes` hint already declares 170. */
   .artwork {
     width: 170px;
     height: 170px;

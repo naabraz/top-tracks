@@ -14,4 +14,23 @@ describe("Artwork", () => {
 
     expect(screen.queryByRole("img")).not.toBeInTheDocument();
   });
+
+  it("sizes the box and the image hint from one number", () => {
+    const { container } = render(
+      <Artwork imageUrl="https://i.scdn.co/cover.jpg" hue={74} alt="Creep" size={190} />,
+    );
+
+    expect(container.querySelector(".artwork")).toHaveStyle({ "--artwork-size": "190px" });
+    // Phones grow every cover to 170, so the hint has to say so or they under-fetch.
+    expect(screen.getByRole("img", { name: "Creep" })).toHaveAttribute(
+      "sizes",
+      "(max-width: 560px) 170px, 190px",
+    );
+  });
+
+  it("falls back to the album-card size", () => {
+    const { container } = render(<Artwork imageUrl={null} hue={74} alt="OK Computer" />);
+
+    expect(container.querySelector(".artwork")).toHaveStyle({ "--artwork-size": "150px" });
+  });
 });

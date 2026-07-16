@@ -40,6 +40,13 @@ describe("ArtistResults", () => {
     expect(screen.getByRole("button", { name: /muse/i })).toBeInTheDocument();
   });
 
+  it("puts the top track ahead of the album, because the track is the answer", () => {
+    render(<ArtistResults result={baseResult} onSelectArtist={vi.fn()} />);
+
+    const labels = screen.getAllByText(/^Top (track|album)$/).map((node) => node.textContent);
+    expect(labels).toEqual(["Top track", "Top album"]);
+  });
+
   it("calls onSelectArtist with the name when a similar artist is clicked", async () => {
     const onSelectArtist = vi.fn();
     render(<ArtistResults result={baseResult} onSelectArtist={onSelectArtist} />);

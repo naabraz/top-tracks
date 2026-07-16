@@ -22,6 +22,20 @@ describe("TrackCard", () => {
     expect(screen.getByText("2.9M")).toBeInTheDocument();
   });
 
+  it("shows the track's own cover, which the API already returns", () => {
+    render(<TrackCard track={{ ...track, imageUrl: "https://i.scdn.co/creep.jpg" }} />);
+
+    expect(screen.getByRole("img", { name: "Windowpane" })).toBeInTheDocument();
+  });
+
+  it("carries a larger cover than the album card, because it is the answer", () => {
+    const { container } = render(
+      <TrackCard track={{ ...track, imageUrl: "https://i.scdn.co/creep.jpg" }} />,
+    );
+
+    expect(container.querySelector(".artwork")).toHaveStyle({ "--artwork-size": "190px" });
+  });
+
   it("shows an honest placeholder when there is no track", () => {
     render(<TrackCard track={null} />);
 
