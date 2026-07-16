@@ -249,7 +249,7 @@
       {
         "name": "reduced-motion",
         "value": "@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }",
-        "purpose": "Rise, equalizer, and shimmer all collapse to a crossfade or instant state."
+        "purpose": "The rise, the shimmer, and the reveal scroll all collapse to a crossfade or an instant jump."
       },
       {
         "name": "reveal-scroll",
@@ -346,7 +346,7 @@
       "Dark near-black indigo canvas; a single amber accent as the one warm signal.",
       "Serif display for artist/track/album names; sans for reading; mono for labels and figures.",
       "Generous 16px radii, soft diffuse shadows, and a subtle ambient glow layer.",
-      "Motion is felt through light and small lifts — a rising reveal, a living equalizer, a loading shimmer.",
+      "Motion is felt through light and small lifts — a rising first reveal, a loading shimmer, and a scroll that carries the reader to each new answer.",
       "Discovery-first: every result offers a doorway to the next search."
     ],
     "rules": [
@@ -389,7 +389,7 @@
       "Do use warm Ivory (oklch 94%, hue 85) for text, never pure white (The No Pure White Rule).",
       "Do keep every text token at or above L=62%, the point where 4.5:1 runs out on Panel Raised (The Readable Floor Rule).",
       "Do make every result offer a doorway to the next search — the similar-artist tiles are the discovery engine, not a footnote.",
-      "Do provide a `prefers-reduced-motion` alternative for the rise, equalizer, and shimmer."
+      "Do provide a `prefers-reduced-motion` alternative for the rise, the shimmer, and the reveal scroll."
     ],
     "donts": [
       "Don't build a generic SaaS dashboard: no identical card grids, no hero-metric big-number tiles, no corporate navy.",

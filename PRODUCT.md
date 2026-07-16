@@ -74,7 +74,8 @@ When the two conflict, the task wins.
 
 ## Accessibility & Inclusion
 
-Target WCAG 2.1 AA. Hold the dark, tinted palette to ≥4.5:1 body contrast
-(scrutinize the muted and faint text tokens especially), keep visible focus
-states and full keyboard navigability, and honor `prefers-reduced-motion` — the
-reveal, equalizer, and shimmer animations all need a calm alternative.
+Target WCAG 2.1 AA. Hold the dark, tinted palette to ≥4.5:1 body contrast — on
+this canvas that puts a hard floor under every text token, since lightness is
+the only lever that buys contrast. Keep visible focus states and full keyboard
+navigability, and honor `prefers-reduced-motion`: the reveal, the shimmer, and
+the scroll that lands the reader on each new answer all need a calm alternative.
