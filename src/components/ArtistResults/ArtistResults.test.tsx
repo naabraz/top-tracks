@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -59,5 +60,34 @@ describe("ArtistResults", () => {
     expect(screen.getByText(/no track available/i)).toBeInTheDocument();
     expect(screen.getByText(/no album available/i)).toBeInTheDocument();
     expect(screen.getByText(/no similar artists found/i)).toBeInTheDocument();
+  });
+
+  it("is focusable so a new answer can be landed on, without joining the tab order", () => {
+    render(<ArtistResults result={baseResult} onSelectArtist={vi.fn()} />);
+
+    expect(screen.getByLabelText("Results for Radiohead")).toHaveAttribute("tabindex", "-1");
+  });
+
+  it("exposes the section through sectionRef as the scroll and focus target", () => {
+    const sectionRef = createRef<HTMLElement>();
+    render(<ArtistResults result={baseResult} onSelectArtist={vi.fn()} sectionRef={sectionRef} />);
+
+    expect(sectionRef.current).toBe(screen.getByLabelText("Results for Radiohead"));
+  });
+
+  it("marks itself stale and busy while the next artist loads", () => {
+    render(<ArtistResults result={baseResult} onSelectArtist={vi.fn()} isStale />);
+
+    const section = screen.getByLabelText("Results for Radiohead");
+    expect(section).toHaveAttribute("data-stale", "true");
+    expect(section).toHaveAttribute("aria-busy", "true");
+  });
+
+  it("carries no stale or busy marker at rest", () => {
+    render(<ArtistResults result={baseResult} onSelectArtist={vi.fn()} />);
+
+    const section = screen.getByLabelText("Results for Radiohead");
+    expect(section).not.toHaveAttribute("data-stale");
+    expect(section).not.toHaveAttribute("aria-busy");
   });
 });

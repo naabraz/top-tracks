@@ -1,27 +1,19 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import type { ArtistLookupResult } from "@/lib/music/types";
 import Home from "./page";
 
-function makeResult(name: string): ArtistLookupResult {
-  return {
-    artist: { name, listeners: 100, tags: [], imageUrl: null, url: `https://last.fm/${name}` },
-    topTrack: null,
-    topAlbum: null,
-    similarArtists: [{ name: "Muse", imageUrl: null, url: "https://last.fm/muse" }],
-  };
-}
+/**
+ * The page reads the URL only through `HomeSearch`, whose search flow is
+ * covered in `HomeSearch.test.tsx`. A query-less stub is all the shell needs.
+ */
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push: vi.fn() }),
+  useSearchParams: () => new URLSearchParams(""),
+}));
 
-/** Resolves an artist result whose name matches the `q` query parameter. */
-function stubArtistApi() {
-  const fetchMock = vi.fn(async (url: string) => {
-    const query = new URL(url, "http://localhost").searchParams.get("q") ?? "";
-    return { ok: true, json: async () => makeResult(query) };
-  });
-  vi.stubGlobal("fetch", fetchMock);
-  return fetchMock;
-}
+beforeEach(() => {
+  vi.stubGlobal("fetch", vi.fn());
+});
 
 afterEach(() => {
   vi.restoreAllMocks();
@@ -36,28 +28,10 @@ describe("Home", () => {
     expect(screen.getByRole("link", { name: "Last.fm" })).toBeInTheDocument();
   });
 
-  it("shows results after a successful search", async () => {
-    stubArtistApi();
+  it("renders the shell around the search boundary", () => {
     render(<Home />);
 
-    await userEvent.type(screen.getByRole("searchbox"), "radiohead");
-    await userEvent.click(screen.getByRole("button", { name: /discover/i }));
-
-    expect(await screen.findByRole("heading", { name: "radiohead" })).toBeInTheDocument();
-  });
-
-  it("fills the search box and re-runs the search when a similar artist is clicked", async () => {
-    const fetchMock = stubArtistApi();
-    render(<Home />);
-
-    await userEvent.type(screen.getByRole("searchbox"), "radiohead");
-    await userEvent.click(screen.getByRole("button", { name: /discover/i }));
-    await screen.findByRole("heading", { name: "radiohead" });
-
-    await userEvent.click(screen.getByRole("button", { name: /muse/i }));
-
-    expect(await screen.findByRole("heading", { name: "Muse" })).toBeInTheDocument();
-    expect(screen.getByRole("searchbox")).toHaveValue("Muse");
-    expect(fetchMock).toHaveBeenLastCalledWith("/api/artist?q=Muse");
+    expect(screen.getByText("TopTracks")).toBeInTheDocument();
+    expect(screen.getByText(/search a band to begin/i)).toBeInTheDocument();
   });
 });

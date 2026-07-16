@@ -19,12 +19,41 @@ describe("SearchStatus", () => {
     expect(screen.getByText(/search a band to begin/i)).toBeInTheDocument();
   });
 
-  it("shows the loading skeleton while loading", () => {
+  it("shows the loading skeleton when there is no earlier answer to keep", () => {
     render(
       <SearchStatus status="loading" errorMessage={null} result={null} onSelectArtist={vi.fn()} />,
     );
 
-    expect(screen.getByText(/loading results/i)).toBeInTheDocument();
+    expect(screen.getByLabelText("Loading results")).toBeInTheDocument();
+  });
+
+  it("keeps the earlier answer instead of the skeleton while the next one loads", () => {
+    render(
+      <SearchStatus status="loading" errorMessage={null} result={result} onSelectArtist={vi.fn()} />,
+    );
+
+    const outgoing = screen.getByLabelText("Results for Radiohead");
+    expect(outgoing).toHaveAttribute("data-stale", "true");
+    expect(outgoing).toHaveAttribute("aria-busy", "true");
+    expect(screen.queryByLabelText("Loading results")).not.toBeInTheDocument();
+  });
+
+  it("announces the search politely while it runs", () => {
+    const { container } = render(
+      <SearchStatus status="loading" errorMessage={null} result={null} onSelectArtist={vi.fn()} />,
+    );
+
+    expect(container.querySelector('[aria-live="polite"]')).toHaveTextContent("Searching…");
+  });
+
+  it("leaves the results outside the live region, so focus alone announces them", () => {
+    const { container } = render(
+      <SearchStatus status="success" errorMessage={null} result={result} onSelectArtist={vi.fn()} />,
+    );
+
+    const liveRegion = container.querySelector('[aria-live="polite"]');
+    expect(liveRegion).toBeEmptyDOMElement();
+    expect(liveRegion).not.toContainElement(screen.getByLabelText("Results for Radiohead"));
   });
 
   it("shows an alert with the error message on error", () => {
@@ -45,6 +74,8 @@ describe("SearchStatus", () => {
       <SearchStatus status="success" errorMessage={null} result={result} onSelectArtist={vi.fn()} />,
     );
 
+    const section = screen.getByLabelText("Results for Radiohead");
     expect(screen.getByRole("heading", { name: "Radiohead" })).toBeInTheDocument();
+    expect(section).not.toHaveAttribute("data-stale");
   });
 });

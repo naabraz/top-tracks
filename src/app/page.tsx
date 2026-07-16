@@ -1,38 +1,19 @@
-"use client";
-
-import { useState } from "react";
+import { Suspense } from "react";
 import { SiteHeader } from "./_components/SiteHeader";
-import { HeroSection } from "./_components/HeroSection";
+import { HomeSearch } from "./_components/HomeSearch";
+import { HomeSearchFallback } from "./_components/HomeSearchFallback";
 import { PageFooter } from "./_components/PageFooter";
-import { SearchStatus } from "./_components/SearchStatus";
-import { useArtistSearch } from "./_hooks/useArtistSearch";
 
 export default function Home() {
-  const { status, result, errorMessage, search } = useArtistSearch();
-  const [query, setQuery] = useState("");
-
-  function handleSelectArtist(name: string) {
-    setQuery(name);
-    search(name);
-  }
-
   return (
     <>
       <SiteHeader />
-      <HeroSection
-        value={query}
-        onChange={setQuery}
-        onSearch={search}
-        isLoading={status === "loading"}
-      />
-      <main className="wrap">
-        <SearchStatus
-          status={status}
-          errorMessage={errorMessage}
-          result={result}
-          onSelectArtist={handleSelectArtist}
-        />
-      </main>
+      {/* HomeSearch reads the `q` search param, which Next can only resolve on
+          the client. The boundary keeps that cost local: the header, the
+          footer, and the fallback hero still prerender. */}
+      <Suspense fallback={<HomeSearchFallback />}>
+        <HomeSearch />
+      </Suspense>
       <PageFooter />
     </>
   );
