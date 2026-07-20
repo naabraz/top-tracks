@@ -21,7 +21,7 @@ after is an instant, satisfying answer plus a nudge toward what to play next.
 TopTracks answers one question well: given any artist or band, what's their
 **most played track**, their **most played album**, and **three similar
 artists** — with real artwork attached. Data comes from Last.fm (the ranking
-source of truth) and Spotify (artwork only). Success is not a single answer
+source of truth) and Spotify (artwork and release year). Success is not a single answer
 delivered and forgotten; it's the user **kept exploring** — one lookup leading
 to the next through the similar-artists path, turning a search into a discovery
 loop.

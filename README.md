@@ -49,7 +49,7 @@ Tailwind CSS, and Vitest.
 | Language     | TypeScript                                      |
 | Styling      | Tailwind CSS v4                                 |
 | Testing      | Vitest + Testing Library                        |
-| Data sources | Last.fm API (data) + Spotify API (artwork only) |
+| Data sources | Last.fm API (rankings and counts) + Spotify API (artwork, release year) |
 
 ## Getting started
 

@@ -8,7 +8,7 @@ interface AlbumCardProps {
   album: AlbumSummary | null;
 }
 
-/** The most-played album: artwork tile plus title and total plays. */
+/** The most-played album: artwork tile plus title, release year, and plays. */
 export function AlbumCard({ album }: AlbumCardProps) {
   if (!album) {
     return <CardShell label="Top album" note="No album available." />;
@@ -25,6 +25,13 @@ export function AlbumCard({ album }: AlbumCardProps) {
               {album.name}
             </a>
           </h3>
+          {/* Context for the record, not a figure to compare — so it reads as a
+              quiet meta line rather than competing with the play total. */}
+          {album.releaseYear !== null && (
+            <p className="meta">
+              Released <time dateTime={String(album.releaseYear)}>{album.releaseYear}</time>
+            </p>
+          )}
           <p className="plays">
             <b>{formatCount(album.playcount)}</b>
             <small>total plays</small>

@@ -27,13 +27,14 @@ const album = {
   artistName: "Radiohead",
   playcount: 200,
   imageUrl: null,
+  releaseYear: null,
   url: "https://last.fm/okc",
 };
 
 function mockNoImages() {
   vi.mocked(images.searchArtistImage).mockResolvedValue(null);
   vi.mocked(images.searchTrackImage).mockResolvedValue(null);
-  vi.mocked(images.searchAlbumImage).mockResolvedValue(null);
+  vi.mocked(images.searchAlbumDetails).mockResolvedValue({ imageUrl: null, releaseYear: null });
 }
 
 afterEach(() => {
@@ -58,7 +59,10 @@ describe("lookupArtist", () => {
       name === "Radiohead" ? "https://img/artist.jpg" : "https://img/muse.jpg"
     );
     vi.mocked(images.searchTrackImage).mockResolvedValue("https://img/creep-album.jpg");
-    vi.mocked(images.searchAlbumImage).mockResolvedValue("https://img/okc.jpg");
+    vi.mocked(images.searchAlbumDetails).mockResolvedValue({
+      imageUrl: "https://img/okc.jpg",
+      releaseYear: 1997,
+    });
 
     const result = await lookupArtist("radiohead");
 
@@ -66,6 +70,37 @@ describe("lookupArtist", () => {
     expect(result?.topTrack?.imageUrl).toBe("https://img/creep-album.jpg");
     expect(result?.topAlbum?.imageUrl).toBe("https://img/okc.jpg");
     expect(result?.similarArtists[0].imageUrl).toBe("https://img/muse.jpg");
+  });
+
+  it("fills the album's release year from Spotify", async () => {
+    vi.mocked(lastfm.getArtistInfo).mockResolvedValue({ ...artist });
+    vi.mocked(lastfm.getTopTrack).mockResolvedValue({ ...track });
+    vi.mocked(lastfm.getTopAlbum).mockResolvedValue({ ...album });
+    vi.mocked(lastfm.getSimilarArtists).mockResolvedValue([]);
+    mockNoImages();
+    vi.mocked(images.searchAlbumDetails).mockResolvedValue({
+      imageUrl: null,
+      releaseYear: 1997,
+    });
+
+    const result = await lookupArtist("radiohead");
+
+    expect(result?.topAlbum?.releaseYear).toBe(1997);
+  });
+
+  it("keeps a real Last.fm cover when Spotify matches the album but has no image", async () => {
+    vi.mocked(lastfm.getArtistInfo).mockResolvedValue({ ...artist });
+    vi.mocked(lastfm.getTopTrack).mockResolvedValue({ ...track });
+    vi.mocked(lastfm.getTopAlbum).mockResolvedValue({
+      ...album,
+      imageUrl: "https://lastfm/okc.jpg",
+    });
+    vi.mocked(lastfm.getSimilarArtists).mockResolvedValue([]);
+    mockNoImages();
+
+    const result = await lookupArtist("radiohead");
+
+    expect(result?.topAlbum?.imageUrl).toBe("https://lastfm/okc.jpg");
   });
 
   it("looks up the track's own artwork, not the top album's", async () => {

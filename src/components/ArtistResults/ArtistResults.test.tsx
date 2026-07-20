@@ -25,6 +25,7 @@ const baseResult: ArtistLookupResult = {
     artistName: "Radiohead",
     playcount: 900_000,
     imageUrl: null,
+    releaseYear: 1997,
     url: "https://last.fm/okc",
   },
   similarArtists: [{ name: "Muse", imageUrl: null, url: "https://last.fm/muse" }],

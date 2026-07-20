@@ -149,6 +149,10 @@ export async function getTopAlbum(artistName: string): Promise<AlbumSummary | nu
     artistName: resolveArtistName(album.artist) || artistName,
     playcount: parseCount(album.playcount),
     imageUrl: pickImage(album.image),
+    // artist.gettopalbums carries no release date; the lookup fills this from
+    // Spotify. (album.getinfo only offers a wiki-publication date, which is
+    // when someone last edited the page, not when the record came out.)
+    releaseYear: null,
     url: album.url,
   };
 }

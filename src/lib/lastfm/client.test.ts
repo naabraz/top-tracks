@@ -138,6 +138,18 @@ describe("getTopAlbum", () => {
     expect(album?.artistName).toBe("Radiohead");
     expect(album?.playcount).toBe(8_000_000);
   });
+
+  it("leaves the release year null, since Last.fm does not report one", async () => {
+    mockJson({
+      topalbums: {
+        album: [{ name: "OK Computer", playcount: "8000000", url: "u", artist: "Radiohead" }],
+      },
+    });
+
+    const album = await getTopAlbum("Radiohead");
+
+    expect(album?.releaseYear).toBeNull();
+  });
 });
 
 describe("getSimilarArtists", () => {

@@ -24,6 +24,8 @@ export interface AlbumSummary {
   artistName: string;
   playcount: number;
   imageUrl: string | null;
+  /** Year of release, from Spotify — Last.fm carries no release date. */
+  releaseYear: number | null;
   url: string;
 }
 

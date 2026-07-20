@@ -449,9 +449,14 @@ main {
 .album-info h3 a:hover {
   color: var(--accent);
 }
+/* The release year: mono like every other readout, but a 13px meta line rather
+   than a figure — nobody compares release years the way they compare plays. */
 .album-info .meta {
   color: var(--muted);
-  font-size: 14px;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  letter-spacing: 0.02em;
 }
 .album-info .plays {
   margin-top: 16px;

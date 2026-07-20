@@ -11,6 +11,14 @@ export interface ArtistItem {
 
 export interface AlbumItem {
   images: SpotifyImage[];
+  /** ISO-ish date whose precision varies: "1997", "1997-05", or "1997-05-21". */
+  release_date?: string;
+}
+
+/** What one album search yields: the cover plus the year it came out. */
+export interface AlbumDetails {
+  imageUrl: string | null;
+  releaseYear: number | null;
 }
 
 export interface TrackItem {

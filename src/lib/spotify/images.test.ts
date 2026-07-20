@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { searchAlbumImage, searchArtistImage, searchTrackImage } from "./images";
+import { searchAlbumDetails, searchArtistImage, searchTrackImage } from "./images";
 import { spotifyFetch } from "./api";
 
 vi.mock("./api", () => ({ spotifyFetch: vi.fn() }));
@@ -54,12 +54,60 @@ describe("searchTrackImage", () => {
   });
 });
 
-describe("searchAlbumImage", () => {
+describe("searchAlbumDetails", () => {
   it("returns the first image of the matched album", async () => {
     vi.mocked(spotifyFetch).mockResolvedValue({
       albums: { items: [{ images: [{ url: "https://img/okc.jpg" }] }] },
     });
 
-    await expect(searchAlbumImage("Radiohead", "OK Computer")).resolves.toBe("https://img/okc.jpg");
+    const details = await searchAlbumDetails("Radiohead", "OK Computer");
+
+    expect(details.imageUrl).toBe("https://img/okc.jpg");
+  });
+
+  it("reads the year from a full release date", async () => {
+    vi.mocked(spotifyFetch).mockResolvedValue({
+      albums: { items: [{ images: [], release_date: "1997-05-21" }] },
+    });
+
+    const details = await searchAlbumDetails("Radiohead", "OK Computer");
+
+    expect(details.releaseYear).toBe(1997);
+  });
+
+  it("reads the year from a year-only release date", async () => {
+    vi.mocked(spotifyFetch).mockResolvedValue({
+      albums: { items: [{ images: [], release_date: "1997" }] },
+    });
+
+    const details = await searchAlbumDetails("Radiohead", "OK Computer");
+
+    expect(details.releaseYear).toBe(1997);
+  });
+
+  it("returns a null year when the album carries no release date", async () => {
+    vi.mocked(spotifyFetch).mockResolvedValue({
+      albums: { items: [{ images: [] }] },
+    });
+
+    const details = await searchAlbumDetails("Radiohead", "OK Computer");
+
+    expect(details.releaseYear).toBeNull();
+  });
+
+  it("returns both fields null when the search finds no album", async () => {
+    vi.mocked(spotifyFetch).mockResolvedValue({ albums: { items: [] } });
+
+    const details = await searchAlbumDetails("Radiohead", "nothing");
+
+    expect(details).toEqual({ imageUrl: null, releaseYear: null });
+  });
+
+  it("returns both fields null instead of throwing when the request fails", async () => {
+    vi.mocked(spotifyFetch).mockRejectedValue(new Error("rate limited"));
+
+    const details = await searchAlbumDetails("Radiohead", "OK Computer");
+
+    expect(details).toEqual({ imageUrl: null, releaseYear: null });
   });
 });

@@ -5,7 +5,7 @@ import {
   getTopTrack,
 } from "@/lib/lastfm/client";
 import {
-  searchAlbumImage,
+  searchAlbumDetails,
   searchArtistImage,
   searchTrackImage,
 } from "@/lib/spotify/images";
@@ -33,10 +33,10 @@ export async function lookupArtist(query: string): Promise<ArtistLookupResult | 
     getSimilarArtists(artist.name),
   ]);
 
-  const [artistImage, trackImage, albumImage, similarImages] = await Promise.all([
+  const [artistImage, trackImage, albumDetails, similarImages] = await Promise.all([
     searchArtistImage(artist.name),
     topTrack ? searchTrackImage(topTrack.artistName, topTrack.name) : Promise.resolve(null),
-    topAlbum ? searchAlbumImage(topAlbum.artistName, topAlbum.name) : Promise.resolve(null),
+    topAlbum ? searchAlbumDetails(topAlbum.artistName, topAlbum.name) : Promise.resolve(null),
     Promise.all(similarArtists.map((similar) => searchArtistImage(similar.name))),
   ]);
 
@@ -47,8 +47,9 @@ export async function lookupArtist(query: string): Promise<ArtistLookupResult | 
   if (topTrack && trackImage) {
     topTrack.imageUrl = trackImage;
   }
-  if (topAlbum && albumImage) {
-    topAlbum.imageUrl = albumImage;
+  if (topAlbum && albumDetails) {
+    topAlbum.imageUrl = albumDetails.imageUrl ?? topAlbum.imageUrl;
+    topAlbum.releaseYear = albumDetails.releaseYear;
   }
   similarArtists.forEach((similar, index) => {
     if (similarImages[index]) {

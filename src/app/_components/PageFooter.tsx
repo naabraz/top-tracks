@@ -22,7 +22,9 @@ export function PageFooter() {
           </a>
         </div>
         <div className="colophon">
-          <span>Listener counts and play totals from Last.fm · cover art from Spotify.</span>
+          <span>
+            Listener counts and play totals from Last.fm · cover art and release years from Spotify.
+          </span>
           <span>TopTracks · band discovery</span>
         </div>
       </div>
