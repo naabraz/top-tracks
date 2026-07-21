@@ -108,6 +108,8 @@ Open [http://localhost:3000](http://localhost:3000) and search for an artist.
 | `npm run lint`       | Run ESLint.                           |
 | `npm test`           | Run the unit tests once.              |
 | `npm run test:watch` | Run the unit tests in watch mode.     |
+| `npm run test:e2e`   | Run the Playwright end-to-end tests.  |
+| `npm run test:e2e:ui`| Run the end-to-end tests in the UI.   |
 
 ## Project structure
 
@@ -165,6 +167,8 @@ src/
 
 ## Testing
 
+### Unit tests
+
 ```bash
 npm test
 ```
@@ -184,6 +188,36 @@ The suite covers:
   behavior: `SearchBar` (query submission, trimming, loading), `MediaCard`,
   `ArtistResults` and their sub-components, and the home-screen blocks
   (`PageHeader`, `PageFooter`, `SearchStatus`), all queried by role.
+
+### End-to-end tests
+
+```bash
+npm run test:e2e
+```
+
+Playwright drives the real app in Chromium and in a mobile viewport, covering
+only the flows the product lives or dies by:
+
+- **Getting an answer** (`e2e/search.spec.ts`) — the first-visit prompt, a
+  search returning the top track with its album and year, the album card, three
+  similar artists, the track-before-album hierarchy, the first-search skeleton,
+  and a shared `?q=` link landing straight on the answer.
+- **The discovery loop** (`e2e/discoveryLoop.spec.ts`) — following a similar
+  artist into the next answer, every step being shareable via the URL, the back
+  button walking the reader out, and the outgoing answer holding the page's
+  height while the next one loads.
+- **Honest failure** (`e2e/errorStates.spec.ts`) — an unmatched artist,
+  searching again after a miss, and an upstream Last.fm failure.
+- **Keyboard and reduced motion** (`e2e/accessibility.spec.ts`) — searching with
+  Enter alone, focus landing on each new answer, following the loop from the
+  keyboard, a shared link leaving the reader's position alone, and the reveal
+  still working under `prefers-reduced-motion`.
+
+Helpers in `e2e/support/` stub `/api/artist` at the network boundary, so the
+suite is offline and deterministic — it tests our flows, not Last.fm's uptime,
+and a changing top track can never turn a passing test red. No API keys are
+needed to run it. Playwright starts the dev server automatically (a production
+build in CI).
 
 ## License
 
