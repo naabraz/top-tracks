@@ -1,5 +1,5 @@
 import { spotifyFetch } from "./api";
-import type { AlbumDetails, AlbumItem, ArtistItem, TrackItem } from "./types";
+import type { AlbumDetails, AlbumItem, ArtistItem, TrackDetails, TrackItem } from "./types";
 
 /**
  * Spotify fills the gaps Last.fm leaves: its artist images are placeholders, its
@@ -26,16 +26,24 @@ export async function searchArtistImage(name: string): Promise<string | null> {
   return item?.images?.[0]?.url ?? null;
 }
 
-/** Returns the album cover of the given track — i.e. the track's real artwork. */
-export async function searchTrackImage(artist: string, track: string): Promise<string | null> {
-  const item = await search<TrackItem>("track", `${track} ${artist}`);
-  return item?.album?.images?.[0]?.url ?? null;
-}
-
 /** Reads the year off a Spotify release date of any precision. */
 function parseReleaseYear(releaseDate: string | undefined): number | null {
   const year = Number.parseInt(releaseDate?.slice(0, 4) ?? "", 10);
   return Number.isNaN(year) ? null : year;
+}
+
+/**
+ * Looks the track up once and returns its cover plus the album carrying it —
+ * i.e. the track's real artwork and its real record. All three facts come from
+ * the same match, so they can never disagree — and it costs one request.
+ */
+export async function searchTrackDetails(artist: string, track: string): Promise<TrackDetails> {
+  const item = await search<TrackItem>("track", `${track} ${artist}`);
+  return {
+    imageUrl: item?.album?.images?.[0]?.url ?? null,
+    albumName: item?.album?.name ?? null,
+    releaseYear: parseReleaseYear(item?.album?.release_date),
+  };
 }
 
 /**

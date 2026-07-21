@@ -449,9 +449,11 @@ main {
 .album-info h3 a:hover {
   color: var(--accent);
 }
-/* The release year: mono like every other readout, but a 13px meta line rather
-   than a figure — nobody compares release years the way they compare plays. */
-.album-info .meta {
+/* Release facts (record name, year): mono like every other readout, but a 13px
+   meta line rather than a figure — nobody compares them the way they compare
+   plays. Shared by the album card and the track card's "From …" line. */
+.album-info .meta,
+.track-info .meta {
   color: var(--muted);
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;

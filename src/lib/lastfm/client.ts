@@ -129,6 +129,9 @@ export async function getTopTrack(artistName: string): Promise<TrackSummary | nu
     artistName: resolveArtistName(track.artist) || artistName,
     playcount: parseCount(track.playcount),
     imageUrl: pickImage(track.image),
+    // artist.gettoptracks names no album; the lookup fills these from Spotify.
+    albumName: null,
+    albumReleaseYear: null,
     url: track.url,
   };
 }

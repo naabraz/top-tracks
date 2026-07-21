@@ -7,7 +7,7 @@ import {
 import {
   searchAlbumDetails,
   searchArtistImage,
-  searchTrackImage,
+  searchTrackDetails,
 } from "@/lib/spotify/images";
 import type { ArtistLookupResult } from "./types";
 
@@ -18,8 +18,9 @@ import type { ArtistLookupResult } from "./types";
  * Last.fm's artist images are placeholders and its track images are unreliable,
  * each entity's artwork is looked up on Spotify by searching for that specific
  * entity — the top track is searched as a track so it gets its own album cover,
- * never a different album's. Image lookups are best-effort and never fail the
- * result. Returns null when the artist cannot be found.
+ * never a different album's; the same match also names the album carrying the
+ * track and the year it came out. Spotify lookups are best-effort and never
+ * fail the result. Returns null when the artist cannot be found.
  */
 export async function lookupArtist(query: string): Promise<ArtistLookupResult | null> {
   const artist = await getArtistInfo(query);
@@ -33,9 +34,9 @@ export async function lookupArtist(query: string): Promise<ArtistLookupResult | 
     getSimilarArtists(artist.name),
   ]);
 
-  const [artistImage, trackImage, albumDetails, similarImages] = await Promise.all([
+  const [artistImage, trackDetails, albumDetails, similarImages] = await Promise.all([
     searchArtistImage(artist.name),
-    topTrack ? searchTrackImage(topTrack.artistName, topTrack.name) : Promise.resolve(null),
+    topTrack ? searchTrackDetails(topTrack.artistName, topTrack.name) : Promise.resolve(null),
     topAlbum ? searchAlbumDetails(topAlbum.artistName, topAlbum.name) : Promise.resolve(null),
     Promise.all(similarArtists.map((similar) => searchArtistImage(similar.name))),
   ]);
@@ -44,8 +45,10 @@ export async function lookupArtist(query: string): Promise<ArtistLookupResult | 
   if (artistImage) {
     artist.imageUrl = artistImage;
   }
-  if (topTrack && trackImage) {
-    topTrack.imageUrl = trackImage;
+  if (topTrack && trackDetails) {
+    topTrack.imageUrl = trackDetails.imageUrl ?? topTrack.imageUrl;
+    topTrack.albumName = trackDetails.albumName;
+    topTrack.albumReleaseYear = trackDetails.releaseYear;
   }
   if (topAlbum && albumDetails) {
     topAlbum.imageUrl = albumDetails.imageUrl ?? topAlbum.imageUrl;

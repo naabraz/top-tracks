@@ -18,6 +18,8 @@ const baseResult: ArtistLookupResult = {
     artistName: "Radiohead",
     playcount: 1_200_000,
     imageUrl: null,
+    albumName: null,
+    albumReleaseYear: null,
     url: "https://last.fm/creep",
   },
   topAlbum: {

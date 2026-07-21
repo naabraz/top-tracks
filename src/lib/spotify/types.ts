@@ -22,7 +22,19 @@ export interface AlbumDetails {
 }
 
 export interface TrackItem {
-  album: { images: SpotifyImage[] };
+  album: {
+    name?: string;
+    images: SpotifyImage[];
+    /** ISO-ish date whose precision varies: "1997", "1997-05", or "1997-05-21". */
+    release_date?: string;
+  };
+}
+
+/** What one track search yields: the cover plus the album carrying the track. */
+export interface TrackDetails {
+  imageUrl: string | null;
+  albumName: string | null;
+  releaseYear: number | null;
 }
 
 export interface CachedToken {

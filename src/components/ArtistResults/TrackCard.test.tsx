@@ -8,6 +8,8 @@ const track: TrackSummary = {
   artistName: "Opeth",
   playcount: 2_870_000,
   imageUrl: null,
+  albumName: null,
+  albumReleaseYear: null,
   url: "https://last.fm/windowpane",
 };
 
@@ -34,6 +36,21 @@ describe("TrackCard", () => {
     );
 
     expect(container.querySelector(".artwork")).toHaveStyle({ "--artwork-size": "190px" });
+  });
+
+  it("shows the album the track comes from and its release year", () => {
+    render(
+      <TrackCard track={{ ...track, albumName: "Blackwater Park", albumReleaseYear: 2001 }} />,
+    );
+
+    expect(screen.getByText(/from blackwater park/i)).toBeInTheDocument();
+    expect(screen.getByText("2001")).toBeInTheDocument();
+  });
+
+  it("shows no album line when the album is unknown", () => {
+    render(<TrackCard track={track} />);
+
+    expect(screen.queryByText(/^from/i)).not.toBeInTheDocument();
   });
 
   it("shows an honest placeholder when there is no track", () => {

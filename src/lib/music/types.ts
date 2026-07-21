@@ -16,6 +16,10 @@ export interface TrackSummary {
   /** Total play count from Last.fm. */
   playcount: number;
   imageUrl: string | null;
+  /** Album carrying the track, from Spotify — Last.fm's top-tracks feed names no album. */
+  albumName: string | null;
+  /** Year that album came out, also from Spotify. */
+  albumReleaseYear: number | null;
   url: string;
 }
 

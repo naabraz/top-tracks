@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { searchAlbumDetails, searchArtistImage, searchTrackImage } from "./images";
+import { searchAlbumDetails, searchArtistImage, searchTrackDetails } from "./images";
 import { spotifyFetch } from "./api";
 
 vi.mock("./api", () => ({ spotifyFetch: vi.fn() }));
@@ -31,26 +31,66 @@ describe("searchArtistImage", () => {
   });
 });
 
-describe("searchTrackImage", () => {
+describe("searchTrackDetails", () => {
   it("returns the track's own album cover, searching by track and artist", async () => {
     vi.mocked(spotifyFetch).mockResolvedValue({
       tracks: { items: [{ album: { images: [{ url: "https://img/countdown.jpg" }] } }] },
     });
 
-    await expect(searchTrackImage("Megadeth", "Symphony of Destruction")).resolves.toBe(
-      "https://img/countdown.jpg",
-    );
+    const details = await searchTrackDetails("Megadeth", "Symphony of Destruction");
 
+    expect(details.imageUrl).toBe("https://img/countdown.jpg");
     const [path] = vi.mocked(spotifyFetch).mock.calls[0];
     expect(path).toContain("type=track");
     expect(path).toContain("Symphony+of+Destruction");
     expect(path).toContain("Megadeth");
   });
 
-  it("returns null when the track has no album image", async () => {
+  it("returns the name and release year of the album carrying the track", async () => {
+    vi.mocked(spotifyFetch).mockResolvedValue({
+      tracks: {
+        items: [
+          {
+            album: {
+              name: "Countdown to Extinction",
+              images: [],
+              release_date: "1992-07-14",
+            },
+          },
+        ],
+      },
+    });
+
+    const details = await searchTrackDetails("Megadeth", "Symphony of Destruction");
+
+    expect(details.albumName).toBe("Countdown to Extinction");
+    expect(details.releaseYear).toBe(1992);
+  });
+
+  it("returns a null year when the album carries no release date", async () => {
+    vi.mocked(spotifyFetch).mockResolvedValue({
+      tracks: { items: [{ album: { name: "Countdown to Extinction", images: [] } }] },
+    });
+
+    const details = await searchTrackDetails("Megadeth", "Symphony of Destruction");
+
+    expect(details.releaseYear).toBeNull();
+  });
+
+  it("returns all fields null when the search finds no track", async () => {
     vi.mocked(spotifyFetch).mockResolvedValue({ tracks: { items: [] } });
 
-    await expect(searchTrackImage("Megadeth", "Symphony of Destruction")).resolves.toBeNull();
+    const details = await searchTrackDetails("Megadeth", "nothing");
+
+    expect(details).toEqual({ imageUrl: null, albumName: null, releaseYear: null });
+  });
+
+  it("returns all fields null instead of throwing when the request fails", async () => {
+    vi.mocked(spotifyFetch).mockRejectedValue(new Error("rate limited"));
+
+    const details = await searchTrackDetails("Megadeth", "Symphony of Destruction");
+
+    expect(details).toEqual({ imageUrl: null, albumName: null, releaseYear: null });
   });
 });
 

@@ -19,8 +19,12 @@ const track = {
   artistName: "Radiohead",
   playcount: 100,
   imageUrl: null,
+  albumName: null,
+  albumReleaseYear: null,
   url: "https://last.fm/creep",
 };
+
+const emptyTrackDetails = { imageUrl: null, albumName: null, releaseYear: null };
 
 const album = {
   name: "OK Computer",
@@ -33,7 +37,7 @@ const album = {
 
 function mockNoImages() {
   vi.mocked(images.searchArtistImage).mockResolvedValue(null);
-  vi.mocked(images.searchTrackImage).mockResolvedValue(null);
+  vi.mocked(images.searchTrackDetails).mockResolvedValue({ ...emptyTrackDetails });
   vi.mocked(images.searchAlbumDetails).mockResolvedValue({ imageUrl: null, releaseYear: null });
 }
 
@@ -58,7 +62,10 @@ describe("lookupArtist", () => {
     vi.mocked(images.searchArtistImage).mockImplementation(async (name) =>
       name === "Radiohead" ? "https://img/artist.jpg" : "https://img/muse.jpg"
     );
-    vi.mocked(images.searchTrackImage).mockResolvedValue("https://img/creep-album.jpg");
+    vi.mocked(images.searchTrackDetails).mockResolvedValue({
+      ...emptyTrackDetails,
+      imageUrl: "https://img/creep-album.jpg",
+    });
     vi.mocked(images.searchAlbumDetails).mockResolvedValue({
       imageUrl: "https://img/okc.jpg",
       releaseYear: 1997,
@@ -70,6 +77,24 @@ describe("lookupArtist", () => {
     expect(result?.topTrack?.imageUrl).toBe("https://img/creep-album.jpg");
     expect(result?.topAlbum?.imageUrl).toBe("https://img/okc.jpg");
     expect(result?.similarArtists[0].imageUrl).toBe("https://img/muse.jpg");
+  });
+
+  it("fills the track's album name and release year from Spotify", async () => {
+    vi.mocked(lastfm.getArtistInfo).mockResolvedValue({ ...artist });
+    vi.mocked(lastfm.getTopTrack).mockResolvedValue({ ...track });
+    vi.mocked(lastfm.getTopAlbum).mockResolvedValue({ ...album });
+    vi.mocked(lastfm.getSimilarArtists).mockResolvedValue([]);
+    mockNoImages();
+    vi.mocked(images.searchTrackDetails).mockResolvedValue({
+      imageUrl: null,
+      albumName: "Pablo Honey",
+      releaseYear: 1993,
+    });
+
+    const result = await lookupArtist("radiohead");
+
+    expect(result?.topTrack?.albumName).toBe("Pablo Honey");
+    expect(result?.topTrack?.albumReleaseYear).toBe(1993);
   });
 
   it("fills the album's release year from Spotify", async () => {
@@ -115,11 +140,14 @@ describe("lookupArtist", () => {
     vi.mocked(lastfm.getTopAlbum).mockResolvedValue({ ...album, name: "Rust in Peace" });
     vi.mocked(lastfm.getSimilarArtists).mockResolvedValue([]);
     mockNoImages();
-    vi.mocked(images.searchTrackImage).mockResolvedValue("https://img/countdown.jpg");
+    vi.mocked(images.searchTrackDetails).mockResolvedValue({
+      ...emptyTrackDetails,
+      imageUrl: "https://img/countdown.jpg",
+    });
 
     const result = await lookupArtist("megadeth");
 
-    expect(images.searchTrackImage).toHaveBeenCalledWith("Megadeth", "Symphony of Destruction");
+    expect(images.searchTrackDetails).toHaveBeenCalledWith("Megadeth", "Symphony of Destruction");
     expect(result?.topTrack?.imageUrl).toBe("https://img/countdown.jpg");
   });
 

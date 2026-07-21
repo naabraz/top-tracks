@@ -106,6 +106,8 @@ describe("getTopTrack", () => {
       artistName: "Radiohead",
       playcount: 12_000_000,
       imageUrl: "https://img/creep.png",
+      albumName: null,
+      albumReleaseYear: null,
       url: "https://last.fm/creep",
     });
   });
