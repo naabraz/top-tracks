@@ -10,6 +10,19 @@
 | Write/edit    | E2E test (Playwright)| `e2e-testing`      |
 | Create/place  | Files & folders      | `folder-structure` |
 
+## Creating skills
+
+Every new skill must follow the structure of the existing ones
+(`.claude/skills/<name>/`):
+
+- A `SKILL.md` with frontmatter (`name`, `description`), a `<critical>` block
+  requiring the reference files to be read before use, numbered rules, and a
+  closing section linking the references.
+- A `references/` folder containing annotated good and bad examples
+  (e.g. `good-examples.*` and `bad-examples.*`), where each bad example names
+  the rule it breaks and how to fix it.
+- A new row in the Skills table above, so the skill is discoverable.
+
 # Project rules
 
 ## Git safety
