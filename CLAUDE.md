@@ -7,6 +7,7 @@
 | Write/edit    | React component/hook | `react-components` |
 | Write/edit    | Any source code      | `code-standards`   |
 | Write/edit    | Test file            | `unit-testing`     |
+| Write/edit    | E2E test (Playwright)| `e2e-testing`      |
 | Create/place  | Files & folders      | `folder-structure` |
 
 # Project rules
