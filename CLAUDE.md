@@ -9,6 +9,7 @@
 | Write/edit    | Test file            | `unit-testing`     |
 | Write/edit    | E2E test (Playwright)| `e2e-testing`      |
 | Create/place  | Files & folders      | `folder-structure` |
+| Write         | PRD (from prompt.md) | `create-prd`       |
 
 ## Creating skills
 
