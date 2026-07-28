@@ -6,13 +6,17 @@ recorded verbatim, every task states a deliverable a reviewer can verify,
 every test case from the tech spec's "Testing approach" is assigned to
 exactly one task, each task ties its cases back to the business goal, and
 the coverage check proves nothing was dropped.
+
+This snapshot shows the file mid-implementation: the user approved it
+(status: approved) and Task 1 is checked because its tests pass. A freshly
+created task list is always status: draft with every box unchecked.
 -->
 
 ---
 feature: recent-searches
 prd: docs/prds/recent-searches.md
 tech-spec: docs/tech-specs/recent-searches.md
-status: draft
+status: approved
 created: 2026-07-24
 ---
 
@@ -30,10 +34,13 @@ independently reviewable with its tests passing.
 
 ## Approved high-level tasks
 
-1. `useRecentSearches` hook — persistence, dedupe, and cap, fully tested
-2. `RecentSearches` component — presentational list with clear action
-3. Home-screen integration — render the list and record successful searches
-4. E2E coverage — the full discovery loop in Playwright
+- [x] **Task 1:** `useRecentSearches` hook — persistence, dedupe, and cap,
+  fully tested
+- [ ] **Task 2:** `RecentSearches` component — presentational list with
+  clear action
+- [ ] **Task 3:** Home-screen integration — render the list and record
+  successful searches
+- [ ] **Task 4:** E2E coverage — the full discovery loop in Playwright
 
 ## Task breakdown
 

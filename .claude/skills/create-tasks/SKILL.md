@@ -74,9 +74,17 @@ a tech spec (created by the `create-tech-spec` skill) as its arguments.
    section. A test case left unassigned means a task is missing or
    mis-scoped; a task whose functionality has cases it does not list is not
    done being written.
-9. **English only.** Like all documentation in this project, task lists are
-   written in English, regardless of the language of the conversation.
-10. **Stop for review — never implement.** The deliverable is the task list
+9. **Checkboxes track progress after approval.** The "Approved high-level
+   tasks" section lists each task as a `- [ ]` checkbox, so GitHub renders
+   the file's progress ("n of m tasks") at a glance. A new task list always
+   has every box unchecked; a box is only checked when the task's
+   deliverable exists and every one of its test cases passes — checking is
+   the record that rule 7's bar was met, never a statement of intent. During
+   implementation, checking a task off is done in the same commit that makes
+   its tests pass.
+10. **English only.** Like all documentation in this project, task lists are
+    written in English, regardless of the language of the conversation.
+11. **Stop for review — never implement.** The deliverable is the task list
     file and nothing else: no source code, no test files, no scaffolding, no
     "quick prototypes", under any circumstances. After writing the file,
     summarize the tasks and open questions and ask the user to review it.

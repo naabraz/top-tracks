@@ -16,17 +16,20 @@ increments. -->
 
 ## Approved high-level tasks
 
-<!-- The numbered high-level list exactly as the user approved it in the
-conversation, one line per task. This section is the record of the approval
-gate — the file only exists because this list was approved first. -->
+<!-- The high-level list exactly as the user approved it in the
+conversation, one checkbox per task, in delivery order. This section is
+both the record of the approval gate — the file only exists because this
+list was approved first — and the progress tracker: GitHub renders the
+checked boxes as "n of m tasks" wherever the file is shown. All boxes start
+unchecked; a box is only checked when the task's test cases pass. -->
 
-1. <!-- task name — one-line deliverable -->
+- [ ] **Task 1:** <!-- task name — one-line deliverable -->
 
 ## Task breakdown
 
-<!-- One subsection per task, in delivery order, numbered to match the
-approved list. Every file named must come from the tech spec's "Affected
-files"; every test case must come from its "Testing approach". -->
+<!-- One subsection per task, in delivery order, with numbers matching the
+approved list above. Every file named must come from the tech spec's
+"Affected files"; every test case must come from its "Testing approach". -->
 
 ### Task <n>: <Task name>
 

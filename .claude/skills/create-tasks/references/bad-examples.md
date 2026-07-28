@@ -107,7 +107,7 @@ integrated feature.
 > To speed things up I already implemented this one — see
 > `src/hooks/useRecentSearches.ts` in the working tree. Marking it done.
 
-**Breaks rule 10 (stop for review — never implement).** The task list
+**Breaks rule 11 (stop for review — never implement).** The task list
 exists to be reviewed *before* code exists; "already implemented" inverts
 the process and marks work done that nobody approved. **Fix:** delete the
 implementation, finish the task list, and wait for the user to approve it
@@ -115,7 +115,24 @@ and ask for implementation.
 
 ---
 
-## 8. Reshaped template
+## 8. Checkbox checked without its tests passing
+
+> ## Approved high-level tasks
+>
+> - [x] **Task 1:** `useRecentSearches` hook — done except for the three
+>   storage-failure tests, which still fail; will circle back after Task 3
+
+**Breaks rule 9 (checkboxes track progress after approval).** A checked box
+is the record that the task's deliverable exists and *every* one of its
+test cases passes — "done except for the failing tests" is precisely the
+state the checkbox exists to make visible, and checking it hides the three
+branches most likely to break in production. **Fix:** leave the box
+unchecked until all of the task's cases pass, and check it in the same
+commit that makes them pass.
+
+---
+
+## 9. Reshaped template
 
 > # Recent searches — sprint plan
 >
@@ -133,7 +150,7 @@ this repo cannot see. **Fix:** use the sections from
 
 ---
 
-## 9. Lifecycle and sources untracked
+## 10. Lifecycle and sources untracked
 
 > # Tasks: Recent searches (final — based on the spec we agreed on)
 
