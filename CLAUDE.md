@@ -11,6 +11,7 @@
 | Create/place  | Files & folders      | `folder-structure` |
 | Write         | PRD (from prompt.md) | `create-prd`       |
 | Write         | Tech spec (from PRD) | `create-tech-spec` |
+| Write         | Tasks (PRD + spec)   | `create-tasks`     |
 
 ## Creating skills
 
