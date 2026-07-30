@@ -28,6 +28,30 @@ Every new skill must follow the structure of the existing ones
 
 # Project rules
 
+## Branching
+
+The `main` branch is protected: changes only reach it through a pull request.
+Never commit directly to `main`.
+
+- Before making any change, check the current branch (`git branch --show-current`).
+  If it is `main`, create a new branch from the latest `main` and work there.
+- Every branch MUST be named using the standard format:
+
+  ```
+  <type>/<short-kebab-case-description>
+  ```
+
+  where `<type>` is one of the Conventional Commits types (`feat`, `fix`,
+  `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`,
+  `revert`). Examples:
+
+  - `feat/i18n-language-selection`
+  - `fix/lookup-album-cover`
+  - `docs/pr-template`
+
+- Once the work is done, open a pull request from that branch into `main` —
+  never push commits straight to `main`.
+
 ## Git safety
 
 Never run a destructive git command without explicit permission from the user.
