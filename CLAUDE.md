@@ -103,7 +103,10 @@ message to match the format and commit again — do not bypass the hook with
 
 - When the user says **"Ok, go"**, commit the current changes immediately
   without asking for confirmation to run the command.
-- When the user says **"Ok, push"**, you may push to the branch.
+- When the user says **"Ok, push"**, push to the branch and then, if the
+  branch has no open pull request into `main` yet, open one (e.g. with
+  `gh pr create`), filling the description using the PR template
+  (`.github/PULL_REQUEST_TEMPLATE.md`).
 
 ## Testing
 
