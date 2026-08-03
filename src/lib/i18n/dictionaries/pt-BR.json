@@ -1,0 +1,59 @@
+{
+  "metadata": {
+    "title": "TopTracks — band discovery",
+    "description": "Digite uma banda e sinta sua essência: o álbum e a faixa mais tocados, o público por trás deles e artistas que soam parecido — com dados do Last.fm e do Spotify."
+  },
+  "header": {
+    "homeLinkLabel": "Página inicial do TopTracks",
+    "tagline": "band discovery"
+  },
+  "hero": {
+    "eyebrow": "Last.fm × Spotify",
+    "headlineLead": "Digite uma banda.",
+    "headlineEmphasisPrefix": "Sinta sua",
+    "headlineEmphasis": "essência.",
+    "lede": "O álbum e a faixa mais tocados, o público por trás deles, o som em três palavras e artistas que soam parecido — tudo em um só lugar."
+  },
+  "search": {
+    "inputLabel": "Nome do artista ou banda",
+    "placeholder": "Tente: Opeth, Tool, Pink Floyd…",
+    "submit": "Descobrir",
+    "searching": "Buscando…"
+  },
+  "empty": {
+    "prompt": "Busque uma banda para começar",
+    "suggestions": "Tente Opeth, Tool ou Pink Floyd"
+  },
+  "results": {
+    "regionLabel": "Resultados para {artist}",
+    "loadingLabel": "Carregando resultados",
+    "loadingAnnouncement": "Carregando resultados…",
+    "bandKicker": "Banda",
+    "listeners": "{count} ouvintes no Last.fm",
+    "topTrackLabel": "Faixa mais tocada",
+    "noTrack": "Nenhuma faixa disponível.",
+    "plays": "reproduções",
+    "topAlbumLabel": "Álbum mais tocado",
+    "noAlbum": "Nenhum álbum disponível.",
+    "released": "Lançado em",
+    "totalPlays": "reproduções no total",
+    "similarHeading": "Se você gosta deles, vai gostar destes também",
+    "similarCount": "{count} artistas parecidos",
+    "noSimilar": "Nenhum artista parecido encontrado.",
+    "similarArtistCaption": "artista parecido",
+    "searchArtistLabel": "Buscar {artist}"
+  },
+  "errors": {
+    "missing-query": "Informe o nome de um artista para buscar.",
+    "not-found": "Nenhum artista encontrado para \"{query}\".",
+    "missing-api-key": "O servidor está sem a chave da API do Last.fm.",
+    "upstream-error": "A API do Last.fm retornou um erro. Tente novamente mais tarde.",
+    "network-error": "Não foi possível conectar ao servidor. Verifique sua conexão.",
+    "unexpected-error": "Algo deu errado. Tente novamente."
+  },
+  "footer": {
+    "sourcesHead": "De onde vêm os dados",
+    "colophonSources": "Contagens de ouvintes e totais de reprodução do Last.fm · capas e anos de lançamento do Spotify.",
+    "colophonBrand": "TopTracks · band discovery"
+  }
+}

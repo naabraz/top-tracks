@@ -1,0 +1,59 @@
+{
+  "metadata": {
+    "title": "TopTracks — band discovery",
+    "description": "Type a band and feel its essence: the most-played album and track, its audience, and artists that sound alike — powered by Last.fm and Spotify."
+  },
+  "header": {
+    "homeLinkLabel": "TopTracks home",
+    "tagline": "band discovery"
+  },
+  "hero": {
+    "eyebrow": "Last.fm × Spotify",
+    "headlineLead": "Type a band.",
+    "headlineEmphasisPrefix": "Feel its",
+    "headlineEmphasis": "essence.",
+    "lede": "The most-played album and track, the audience behind them, the sound in three words, and artists that feel alike — all in one place."
+  },
+  "search": {
+    "inputLabel": "Artist or band name",
+    "placeholder": "Try: Opeth, Tool, Pink Floyd…",
+    "submit": "Discover",
+    "searching": "Searching…"
+  },
+  "empty": {
+    "prompt": "Search a band to begin",
+    "suggestions": "Try Opeth, Tool or Pink Floyd"
+  },
+  "results": {
+    "regionLabel": "Results for {artist}",
+    "loadingLabel": "Loading results",
+    "loadingAnnouncement": "Loading results…",
+    "bandKicker": "Band",
+    "listeners": "{count} listeners on Last.fm",
+    "topTrackLabel": "Top track",
+    "noTrack": "No track available.",
+    "plays": "plays",
+    "topAlbumLabel": "Top album",
+    "noAlbum": "No album available.",
+    "released": "Released",
+    "totalPlays": "total plays",
+    "similarHeading": "If you like them, you’ll like these too",
+    "similarCount": "{count} similar artists",
+    "noSimilar": "No similar artists found.",
+    "similarArtistCaption": "similar artist",
+    "searchArtistLabel": "Search {artist}"
+  },
+  "errors": {
+    "missing-query": "Please provide an artist name to search.",
+    "not-found": "No artist found matching \"{query}\".",
+    "missing-api-key": "The server is missing its Last.fm API key.",
+    "upstream-error": "The Last.fm API returned an error. Please try again later.",
+    "network-error": "Could not reach the server. Please check your connection.",
+    "unexpected-error": "Something went wrong. Please try again."
+  },
+  "footer": {
+    "sourcesHead": "Where the data comes from",
+    "colophonSources": "Listener counts and play totals from Last.fm · cover art and release years from Spotify.",
+    "colophonBrand": "TopTracks · band discovery"
+  }
+}
