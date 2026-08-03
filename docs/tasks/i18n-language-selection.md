@@ -26,7 +26,7 @@ tests passing.
 
 - [x] **Task 1:** i18n core module — locale model, dictionaries, loader,
   and `formatMessage`, fully tested
-- [ ] **Task 2:** Locale redirect proxy — `src/proxy.ts` negotiating and
+- [x] **Task 2:** Locale redirect proxy — `src/proxy.ts` negotiating and
   307-redirecting unprefixed URLs
 - [x] **Task 3:** API error codes — `/api/artist` returns `{ code }` and
   `useArtistSearch` exposes `errorCode`
