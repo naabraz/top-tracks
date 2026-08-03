@@ -24,7 +24,7 @@ tests passing.
 
 ## Approved high-level tasks
 
-- [ ] **Task 1:** i18n core module — locale model, dictionaries, loader,
+- [x] **Task 1:** i18n core module — locale model, dictionaries, loader,
   and `formatMessage`, fully tested
 - [ ] **Task 2:** Locale redirect proxy — `src/proxy.ts` negotiating and
   307-redirecting unprefixed URLs
