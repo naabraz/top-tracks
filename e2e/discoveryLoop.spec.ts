@@ -31,7 +31,7 @@ test.describe("The discovery loop", () => {
 
     await getSimilarArtistTile(page, "Katatonia").click();
 
-    await expect(page).toHaveURL("/?q=Katatonia");
+    await expect(page).toHaveURL("/en?q=Katatonia");
   });
 
   test("walks back out through the artists the reader came in via", async ({ page }) => {

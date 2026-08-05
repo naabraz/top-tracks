@@ -32,7 +32,7 @@ tests passing.
   `useArtistSearch` exposes `errorCode`
 - [x] **Task 4:** Locale-aware formatting — `formatNumber`/`formatCount`
   rewritten on `Intl` with locale parameters
-- [ ] **Task 5:** Locale-segmented routing — routes under `src/app/[lang]/`
+- [x] **Task 5:** Locale-segmented routing — routes under `src/app/[lang]/`
   with locale-aware layout, metadata, and provider infrastructure
 - [ ] **Task 6:** Component localization — every component reads its copy
   and counts from the dictionary

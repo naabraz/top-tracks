@@ -36,6 +36,7 @@ vi.mock("next/navigation", async () => {
   const { useSyncExternalStore } = await import("react");
   return {
     useRouter: () => ({ push: navigation.push }),
+    usePathname: () => "/en",
     useSearchParams: () =>
       new URLSearchParams(
         useSyncExternalStore(navigation.subscribe, navigation.read, navigation.read),
@@ -89,14 +90,14 @@ describe("HomeSearch", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it("puts the searched artist in the URL rather than in local state", async () => {
+  it("puts the searched artist in the URL, keeping the locale prefix", async () => {
     stubArtistApi();
     render(<HomeSearch />);
 
     await userEvent.type(screen.getByRole("searchbox"), "radiohead");
     await userEvent.click(screen.getByRole("button", { name: /discover/i }));
 
-    expect(navigation.push).toHaveBeenCalledWith("/?q=radiohead", { scroll: false });
+    expect(navigation.push).toHaveBeenCalledWith("/en?q=radiohead", { scroll: false });
   });
 
   it("runs the search from the URL, so a shared link resolves", async () => {

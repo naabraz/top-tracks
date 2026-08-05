@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { HeroSection } from "./HeroSection";
 import { SearchStatus } from "./SearchStatus";
 import { useArtistSearch } from "../_hooks/useArtistSearch";
@@ -16,6 +16,9 @@ import { useArtistSearch } from "../_hooks/useArtistSearch";
  */
 export function HomeSearch() {
   const router = useRouter();
+  // The pathname carries the locale segment (`/en`, `/pt-BR`); pushing it
+  // back keeps every search on the active locale without a proxy round trip.
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const query = searchParams.get("q") ?? "";
 
@@ -57,7 +60,7 @@ export function HomeSearch() {
     revealPendingRef.current = true;
     // Next scrolls to the top on navigation by default, which would fight the
     // reveal below.
-    router.push(`/?q=${encodeURIComponent(name)}`, { scroll: false });
+    router.push(`${pathname}?q=${encodeURIComponent(name)}`, { scroll: false });
   }
 
   return (

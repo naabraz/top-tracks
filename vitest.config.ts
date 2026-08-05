@@ -19,7 +19,7 @@ export default defineConfig({
         "src/**/*.{test,spec}.{ts,tsx}",
         "src/**/index.ts", // barrel re-exports only
         "src/**/types.ts", // type declarations have no runtime to cover
-        "src/app/layout.tsx", // framework shell
+        "src/app/\\[lang\\]/layout.tsx", // framework shell
       ],
     },
   },
