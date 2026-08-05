@@ -1,19 +1,27 @@
-/** Formats a count with grouping separators, e.g. 1213400 -> "1,213,400". */
-export function formatNumber(count: number): string {
-  return count.toLocaleString("en-US");
+import type { Locale } from "@/lib/i18n/types";
+import { DEFAULT_LOCALE } from "@/lib/i18n/locales";
+
+/**
+ * The locale defaults to English until the callers can read the active locale
+ * from `useTranslation()` (Task 6 of the i18n feature) — pre-i18n call sites
+ * keep rendering exactly what they rendered before.
+ */
+
+/**
+ * Formats a count with the locale's grouping separators,
+ * e.g. 1213400 -> "1,213,400" (en) / "1.213.400" (pt-BR).
+ */
+export function formatNumber(count: number, locale: Locale = DEFAULT_LOCALE): string {
+  return count.toLocaleString(locale);
 }
 
-/** Formats a large count compactly, e.g. 1200000 -> "1.2M", 12300 -> "12.3K". */
-export function formatCount(count: number): string {
-  if (count < 1_000) {
-    return count.toString();
-  }
-  if (count < 1_000_000) {
-    return `${trimTrailingZero(count / 1_000)}K`;
-  }
-  return `${trimTrailingZero(count / 1_000_000)}M`;
-}
-
-function trimTrailingZero(value: number): string {
-  return value.toFixed(1).replace(/\.0$/, "");
+/**
+ * Formats a large count compactly per the locale's conventions,
+ * e.g. 1200000 -> "1.2M" (en) / "1,2 mi" (pt-BR).
+ */
+export function formatCount(count: number, locale: Locale = DEFAULT_LOCALE): string {
+  return new Intl.NumberFormat(locale, {
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(count);
 }

@@ -30,7 +30,7 @@ tests passing.
   307-redirecting unprefixed URLs
 - [x] **Task 3:** API error codes — `/api/artist` returns `{ code }` and
   `useArtistSearch` exposes `errorCode`
-- [ ] **Task 4:** Locale-aware formatting — `formatNumber`/`formatCount`
+- [x] **Task 4:** Locale-aware formatting — `formatNumber`/`formatCount`
   rewritten on `Intl` with locale parameters
 - [ ] **Task 5:** Locale-segmented routing — routes under `src/app/[lang]/`
   with locale-aware layout, metadata, and provider infrastructure
