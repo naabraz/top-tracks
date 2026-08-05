@@ -33,7 +33,7 @@ export async function mockArtistApi(page: Page, options: MockArtistApiOptions): 
     if (!artist) {
       await route.fulfill({
         status: 404,
-        json: { error: `No artist found matching "${query}".` },
+        json: { code: "not-found" },
       });
       return;
     }
@@ -47,9 +47,9 @@ export async function mockArtistApiError(
   page: Page,
   options: MockArtistApiErrorOptions
 ): Promise<void> {
-  const { message, status = UPSTREAM_ERROR_STATUS } = options;
+  const { code, status = UPSTREAM_ERROR_STATUS } = options;
 
   await page.route(ARTIST_API_ROUTE, async (route) => {
-    await route.fulfill({ status, json: { error: message } });
+    await route.fulfill({ status, json: { code } });
   });
 }

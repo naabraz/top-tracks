@@ -28,7 +28,7 @@ tests passing.
   and `formatMessage`, fully tested
 - [ ] **Task 2:** Locale redirect proxy — `src/proxy.ts` negotiating and
   307-redirecting unprefixed URLs
-- [ ] **Task 3:** API error codes — `/api/artist` returns `{ code }` and
+- [x] **Task 3:** API error codes — `/api/artist` returns `{ code }` and
   `useArtistSearch` exposes `errorCode`
 - [ ] **Task 4:** Locale-aware formatting — `formatNumber`/`formatCount`
   rewritten on `Intl` with locale parameters

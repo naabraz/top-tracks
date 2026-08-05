@@ -21,7 +21,7 @@ export function HomeSearch() {
 
   const [inputValue, setInputValue] = useState(query);
   const [lastQuery, setLastQuery] = useState(query);
-  const { status, result, errorMessage } = useArtistSearch(query);
+  const { status, result, errorCode } = useArtistSearch(query);
 
   const resultRef = useRef<HTMLElement>(null);
   // Only a search the reader just asked for should move them. Arriving on a
@@ -71,7 +71,8 @@ export function HomeSearch() {
       <main className="wrap">
         <SearchStatus
           status={status}
-          errorMessage={errorMessage}
+          errorCode={errorCode}
+          query={query}
           result={result}
           onSelectArtist={goToArtist}
           resultRef={resultRef}
