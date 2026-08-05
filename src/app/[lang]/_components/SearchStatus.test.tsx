@@ -1,7 +1,22 @@
 import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
+import type { ReactElement } from "react";
 import type { ArtistLookupResult } from "@/lib/music/types";
+import en from "@/lib/i18n/dictionaries/en.json";
+import ptBR from "@/lib/i18n/dictionaries/pt-BR.json";
+import type { Locale } from "@/lib/i18n/types";
+import { LocaleProvider } from "@/lib/i18n/LocaleProvider";
 import { SearchStatus } from "./SearchStatus";
+
+const DICTIONARIES = { en, "pt-BR": ptBR };
+
+function renderWithLocale(ui: ReactElement, locale: Locale = "en") {
+  return render(
+    <LocaleProvider locale={locale} dictionary={DICTIONARIES[locale]}>
+      {ui}
+    </LocaleProvider>,
+  );
+}
 
 const result: ArtistLookupResult = {
   artist: { name: "Radiohead", listeners: 100, tags: [], imageUrl: null, url: "https://last.fm/r" },
@@ -12,7 +27,7 @@ const result: ArtistLookupResult = {
 
 describe("SearchStatus", () => {
   it("prompts the visitor to search while idle", () => {
-    render(
+    renderWithLocale(
       <SearchStatus
         status="idle"
         errorCode={null}
@@ -26,7 +41,7 @@ describe("SearchStatus", () => {
   });
 
   it("shows the loading skeleton when there is no earlier answer to keep", () => {
-    render(
+    renderWithLocale(
       <SearchStatus
         status="loading"
         errorCode={null}
@@ -40,7 +55,7 @@ describe("SearchStatus", () => {
   });
 
   it("keeps the earlier answer instead of the skeleton while the next one loads", () => {
-    render(
+    renderWithLocale(
       <SearchStatus
         status="loading"
         errorCode={null}
@@ -57,7 +72,7 @@ describe("SearchStatus", () => {
   });
 
   it("announces the search politely while it runs", () => {
-    const { container } = render(
+    const { container } = renderWithLocale(
       <SearchStatus
         status="loading"
         errorCode={null}
@@ -70,8 +85,23 @@ describe("SearchStatus", () => {
     expect(container.querySelector('[aria-live="polite"]')).toHaveTextContent("Searching…");
   });
 
+  it("announces the search in Portuguese for pt-BR", () => {
+    const { container } = renderWithLocale(
+      <SearchStatus
+        status="loading"
+        errorCode={null}
+        query="radiohead"
+        result={null}
+        onSelectArtist={vi.fn()}
+      />,
+      "pt-BR",
+    );
+
+    expect(container.querySelector('[aria-live="polite"]')).toHaveTextContent("Buscando…");
+  });
+
   it("leaves the results outside the live region, so focus alone announces them", () => {
-    const { container } = render(
+    const { container } = renderWithLocale(
       <SearchStatus
         status="success"
         errorCode={null}
@@ -87,7 +117,7 @@ describe("SearchStatus", () => {
   });
 
   it("interpolates the query into the not-found alert", () => {
-    render(
+    renderWithLocale(
       <SearchStatus
         status="error"
         errorCode="not-found"
@@ -100,8 +130,25 @@ describe("SearchStatus", () => {
     expect(screen.getByRole("alert")).toHaveTextContent('No artist found matching "nobody".');
   });
 
+  it("interpolates the query into the Portuguese not-found alert for pt-BR", () => {
+    renderWithLocale(
+      <SearchStatus
+        status="error"
+        errorCode="not-found"
+        query="nobody"
+        result={null}
+        onSelectArtist={vi.fn()}
+      />,
+      "pt-BR",
+    );
+
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      'Nenhum artista encontrado para "nobody".',
+    );
+  });
+
   it("shows an alert with the upstream-error message on error", () => {
-    render(
+    renderWithLocale(
       <SearchStatus
         status="error"
         errorCode="upstream-error"
@@ -116,8 +163,25 @@ describe("SearchStatus", () => {
     );
   });
 
+  it("shows the Portuguese upstream-error message for pt-BR", () => {
+    renderWithLocale(
+      <SearchStatus
+        status="error"
+        errorCode="upstream-error"
+        query="radiohead"
+        result={null}
+        onSelectArtist={vi.fn()}
+      />,
+      "pt-BR",
+    );
+
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      "A API do Last.fm retornou um erro. Tente novamente mais tarde.",
+    );
+  });
+
   it("shows an alert with the network-error message when the server is unreachable", () => {
-    render(
+    renderWithLocale(
       <SearchStatus
         status="error"
         errorCode="network-error"
@@ -133,7 +197,7 @@ describe("SearchStatus", () => {
   });
 
   it("renders the results on success", () => {
-    render(
+    renderWithLocale(
       <SearchStatus
         status="success"
         errorCode={null}

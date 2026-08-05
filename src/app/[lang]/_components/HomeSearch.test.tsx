@@ -2,7 +2,17 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { ArtistLookupResult } from "@/lib/music/types";
+import en from "@/lib/i18n/dictionaries/en.json";
+import { LocaleProvider } from "@/lib/i18n/LocaleProvider";
 import { HomeSearch } from "./HomeSearch";
+
+function renderHomeSearch() {
+  return render(
+    <LocaleProvider locale="en" dictionary={en}>
+      <HomeSearch />
+    </LocaleProvider>,
+  );
+}
 
 /**
  * A `next/navigation` stand-in that really navigates: `push` rewrites the
@@ -84,7 +94,7 @@ describe("HomeSearch", () => {
   it("shows the empty state and searches nothing without a query", () => {
     const fetchMock = stubArtistApi();
 
-    render(<HomeSearch />);
+    renderHomeSearch();
 
     expect(screen.getByRole("searchbox")).toHaveValue("");
     expect(fetchMock).not.toHaveBeenCalled();
@@ -92,7 +102,7 @@ describe("HomeSearch", () => {
 
   it("puts the searched artist in the URL, keeping the locale prefix", async () => {
     stubArtistApi();
-    render(<HomeSearch />);
+    renderHomeSearch();
 
     await userEvent.type(screen.getByRole("searchbox"), "radiohead");
     await userEvent.click(screen.getByRole("button", { name: /discover/i }));
@@ -104,7 +114,7 @@ describe("HomeSearch", () => {
     stubArtistApi();
     navigation.start("q=Portishead");
 
-    render(<HomeSearch />);
+    renderHomeSearch();
 
     expect(await screen.findByRole("heading", { name: "Portishead" })).toBeInTheDocument();
     expect(screen.getByRole("searchbox")).toHaveValue("Portishead");
@@ -113,7 +123,7 @@ describe("HomeSearch", () => {
   it("follows a similar artist and shows the new answer", async () => {
     const fetchMock = stubArtistApi();
     navigation.start("q=radiohead");
-    render(<HomeSearch />);
+    renderHomeSearch();
     await screen.findByRole("heading", { name: "radiohead" });
 
     await userEvent.click(screen.getByRole("button", { name: /muse/i }));
@@ -125,7 +135,7 @@ describe("HomeSearch", () => {
 
   it("lands the reader on the new answer by scrolling and moving focus", async () => {
     stubArtistApi();
-    render(<HomeSearch />);
+    renderHomeSearch();
 
     await userEvent.type(screen.getByRole("searchbox"), "radiohead");
     await userEvent.click(screen.getByRole("button", { name: /discover/i }));
@@ -142,7 +152,7 @@ describe("HomeSearch", () => {
       "matchMedia",
       vi.fn().mockReturnValue({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() }),
     );
-    render(<HomeSearch />);
+    renderHomeSearch();
 
     await userEvent.type(screen.getByRole("searchbox"), "radiohead");
     await userEvent.click(screen.getByRole("button", { name: /discover/i }));
@@ -156,7 +166,7 @@ describe("HomeSearch", () => {
     stubArtistApi();
     navigation.start("q=radiohead");
 
-    render(<HomeSearch />);
+    renderHomeSearch();
     await screen.findByRole("heading", { name: "radiohead" });
 
     expect(scrollIntoView).not.toHaveBeenCalled();
@@ -165,7 +175,7 @@ describe("HomeSearch", () => {
   it("keeps the outgoing answer on screen, dimmed, while the next one loads", async () => {
     stubArtistApi();
     navigation.start("q=radiohead");
-    render(<HomeSearch />);
+    renderHomeSearch();
     await screen.findByRole("heading", { name: "radiohead" });
 
     // The next lookup never settles, so the loading state stays observable.
@@ -180,7 +190,7 @@ describe("HomeSearch", () => {
 
   it("shows the skeleton only for the first search, when there is nothing to hold", async () => {
     vi.stubGlobal("fetch", vi.fn().mockReturnValue(new Promise(() => {})));
-    render(<HomeSearch />);
+    renderHomeSearch();
 
     await userEvent.type(screen.getByRole("searchbox"), "radiohead");
     await userEvent.click(screen.getByRole("button", { name: /discover/i }));

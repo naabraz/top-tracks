@@ -32,6 +32,7 @@
     "listeners": "{count} listeners on Last.fm",
     "topTrackLabel": "Top track",
     "noTrack": "No track available.",
+    "fromAlbum": "From {album}",
     "plays": "plays",
     "topAlbumLabel": "Top album",
     "noAlbum": "No album available.",

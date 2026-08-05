@@ -1,7 +1,11 @@
+"use client";
+
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import type { SimilarArtist } from "@/lib/music/types";
 import { deriveHue } from "@/lib/hue";
+import { formatMessage } from "@/lib/i18n/formatMessage";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 
 interface SimilarArtistCardProps {
   artist: SimilarArtist;
@@ -10,6 +14,7 @@ interface SimilarArtistCardProps {
 
 /** One clickable similar-artist tile: cover or monogram, name, and caption. */
 export function SimilarArtistCard({ artist, onSelect }: SimilarArtistCardProps) {
+  const { dictionary } = useTranslation();
   const style = { "--hue": deriveHue(artist.name) } as CSSProperties;
 
   function handleClick() {
@@ -17,7 +22,12 @@ export function SimilarArtistCard({ artist, onSelect }: SimilarArtistCardProps) 
   }
 
   return (
-    <button type="button" className="sim" onClick={handleClick} aria-label={`Search ${artist.name}`}>
+    <button
+      type="button"
+      className="sim"
+      onClick={handleClick}
+      aria-label={formatMessage(dictionary.results.searchArtistLabel, { artist: artist.name })}
+    >
       {/* Hidden from the accessible name: the monogram is a picture of the
           initial, and "P Portishead similar artist" is not a button label. */}
       <span className="art" style={style} aria-hidden="true">
@@ -29,7 +39,7 @@ export function SimilarArtistCard({ artist, onSelect }: SimilarArtistCardProps) 
       </span>
       <span className="info">
         <b>{artist.name}</b>
-        <span>similar artist</span>
+        <span>{dictionary.results.similarArtistCaption}</span>
       </span>
     </button>
   );

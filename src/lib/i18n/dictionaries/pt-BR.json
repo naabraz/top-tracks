@@ -32,6 +32,7 @@
     "listeners": "{count} ouvintes no Last.fm",
     "topTrackLabel": "Faixa mais tocada",
     "noTrack": "Nenhuma faixa disponível.",
+    "fromAlbum": "Do álbum {album}",
     "plays": "reproduções",
     "topAlbumLabel": "Álbum mais tocado",
     "noAlbum": "Nenhum álbum disponível.",
