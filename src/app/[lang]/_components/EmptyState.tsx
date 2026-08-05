@@ -1,5 +1,11 @@
+"use client";
+
+import { useTranslation } from "@/lib/i18n/useTranslation";
+
 /** First-visit prompt shown until the user runs a search. */
 export function EmptyState() {
+  const { dictionary } = useTranslation();
+
   return (
     <div className="empty">
       <div className="glyph" aria-hidden="true">
@@ -13,8 +19,8 @@ export function EmptyState() {
           <path d="M3 12h2l2-6 3 12 3-15 3 15 2-6h3" />
         </svg>
       </div>
-      <p>Search a band to begin</p>
-      <small>Try Opeth, Tool or Pink Floyd</small>
+      <p>{dictionary.empty.prompt}</p>
+      <small>{dictionary.empty.suggestions}</small>
     </div>
   );
 }

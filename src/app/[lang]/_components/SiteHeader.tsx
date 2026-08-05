@@ -1,5 +1,13 @@
+import Link from "next/link";
+import type { Dictionary, Locale } from "@/lib/i18n/types";
+
+interface SiteHeaderProps {
+  locale: Locale;
+  header: Dictionary["header"];
+}
+
 /** Sticky brand bar: amber waveform mark + the TopTracks wordmark. */
-export function SiteHeader() {
+export function SiteHeader({ locale, header }: SiteHeaderProps) {
   return (
     <header className='site'>
       <div className='wrap'>
@@ -15,10 +23,10 @@ export function SiteHeader() {
               <path d='M3 12h2l2-6 3 12 3-15 3 15 2-6h3' />
             </svg>
           </span>
-          <a href='/' aria-label='TopTracks home'>
+          <Link href={`/${locale}`} aria-label={header.homeLinkLabel}>
             <b>TopTracks</b>
-          </a>
-          <span>band discovery</span>
+          </Link>
+          <span>{header.tagline}</span>
         </div>
       </div>
     </header>

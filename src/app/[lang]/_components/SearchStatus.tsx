@@ -1,11 +1,10 @@
+"use client";
+
 import type { RefObject } from "react";
 import type { ArtistLookupResult } from "@/lib/music/types";
 import { ArtistResults } from "@/components/ArtistResults";
 import { formatMessage } from "@/lib/i18n/formatMessage";
-// Interim dictionary import: the LocaleProvider lands with the locale routing
-// (Task 5) and replaces this with useTranslation() in Task 6. Until then the
-// UI is English-only and reads the English dictionary directly.
-import en from "@/lib/i18n/dictionaries/en.json";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 import type { ArtistSearchErrorCode, ArtistSearchStatus } from "../_hooks/useArtistSearch";
 import { EmptyState } from "./EmptyState";
 import { ResultsSkeleton } from "./ResultsSkeleton";
@@ -29,6 +28,7 @@ export function SearchStatus({
   onSelectArtist,
   resultRef,
 }: SearchStatusProps) {
+  const { dictionary } = useTranslation();
   const isLoading = status === "loading";
   // Once an answer is on screen it stays there, dimmed, while the next one
   // loads. The skeleton is for the first search only, when there is nothing
@@ -41,14 +41,14 @@ export function SearchStatus({
           the live region because focus landing on them already announces the
           new artist, and announcing the whole subtree would say it twice. */}
       <span className="sr-only" aria-live="polite">
-        {isLoading ? "Searching…" : ""}
+        {isLoading ? dictionary.search.searching : ""}
       </span>
 
       {status === "idle" && <EmptyState />}
       {isLoading && !result && <ResultsSkeleton />}
       {status === "error" && errorCode && (
         <p role="alert" className="notfound">
-          {formatMessage(en.errors[errorCode], { query })}
+          {formatMessage(dictionary.errors[errorCode], { query })}
         </p>
       )}
       {showResult && result && (

@@ -2,7 +2,13 @@ import { describe, expect, it, vi } from "vitest";
 import { useState } from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import en from "@/lib/i18n/dictionaries/en.json";
+import ptBR from "@/lib/i18n/dictionaries/pt-BR.json";
+import type { Locale } from "@/lib/i18n/types";
+import { LocaleProvider } from "@/lib/i18n/LocaleProvider";
 import { SearchBar } from "./SearchBar";
+
+const DICTIONARIES = { en, "pt-BR": ptBR };
 
 interface HarnessProps {
   onSearch?: (query: string) => void;
@@ -18,10 +24,22 @@ function Harness({ onSearch = vi.fn(), isLoading = false, initialValue = "" }: H
   );
 }
 
+function renderHarness(props: HarnessProps = {}, locale: Locale = "en") {
+  return render(
+    <LocaleProvider locale={locale} dictionary={DICTIONARIES[locale]}>
+      <Harness
+        onSearch={props.onSearch}
+        isLoading={props.isLoading}
+        initialValue={props.initialValue}
+      />
+    </LocaleProvider>,
+  );
+}
+
 describe("SearchBar", () => {
   it("submits the trimmed query", async () => {
     const onSearch = vi.fn();
-    render(<Harness onSearch={onSearch} />);
+    renderHarness({ onSearch });
 
     await userEvent.type(screen.getByRole("searchbox"), "  Radiohead  ");
     await userEvent.click(screen.getByRole("button", { name: /discover/i }));
@@ -30,20 +48,26 @@ describe("SearchBar", () => {
   });
 
   it("disables the button when the query is empty", () => {
-    render(<Harness />);
+    renderHarness();
 
     expect(screen.getByRole("button", { name: /discover/i })).toBeDisabled();
   });
 
   it("shows a loading label and stays disabled while searching", () => {
-    render(<Harness isLoading initialValue="Radiohead" />);
+    renderHarness({ isLoading: true, initialValue: "Radiohead" });
 
     expect(screen.getByRole("button", { name: /searching/i })).toBeDisabled();
   });
 
   it("reflects the value passed from the parent", () => {
-    render(<Harness initialValue="Muse" />);
+    renderHarness({ initialValue: "Muse" });
 
     expect(screen.getByRole("searchbox")).toHaveValue("Muse");
+  });
+
+  it("labels the submit button in Portuguese for pt-BR", () => {
+    renderHarness({ initialValue: "Muse" }, "pt-BR");
+
+    expect(screen.getByRole("button", { name: "Descobrir" })).toBeInTheDocument();
   });
 });

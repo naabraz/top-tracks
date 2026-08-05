@@ -1,6 +1,9 @@
+"use client";
+
 import type { AlbumSummary } from "@/lib/music/types";
 import { formatCount } from "@/lib/format";
 import { deriveHue } from "@/lib/hue";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 import { Artwork } from "@/components/Artwork";
 import { CardShell } from "./CardShell";
 
@@ -10,8 +13,12 @@ interface AlbumCardProps {
 
 /** The most-played album: artwork tile plus title, release year, and plays. */
 export function AlbumCard({ album }: AlbumCardProps) {
+  const { dictionary, locale } = useTranslation();
+
   if (!album) {
-    return <CardShell label="Top album" note="No album available." />;
+    return (
+      <CardShell label={dictionary.results.topAlbumLabel} note={dictionary.results.noAlbum} />
+    );
   }
 
   return (
@@ -19,7 +26,7 @@ export function AlbumCard({ album }: AlbumCardProps) {
       <div className="album">
         <Artwork imageUrl={album.imageUrl} hue={deriveHue(album.artistName)} alt={album.name} />
         <div className="album-info">
-          <p className="label">Top album</p>
+          <p className="label">{dictionary.results.topAlbumLabel}</p>
           <h3>
             <a href={album.url} target="_blank" rel="noopener noreferrer">
               {album.name}
@@ -29,12 +36,13 @@ export function AlbumCard({ album }: AlbumCardProps) {
               quiet meta line rather than competing with the play total. */}
           {album.releaseYear !== null && (
             <p className="meta">
-              Released <time dateTime={String(album.releaseYear)}>{album.releaseYear}</time>
+              {dictionary.results.released}{" "}
+              <time dateTime={String(album.releaseYear)}>{album.releaseYear}</time>
             </p>
           )}
           <p className="plays">
-            <b>{formatCount(album.playcount)}</b>
-            <small>total plays</small>
+            <b>{formatCount(album.playcount, locale)}</b>
+            <small>{dictionary.results.totalPlays}</small>
           </p>
         </div>
       </div>

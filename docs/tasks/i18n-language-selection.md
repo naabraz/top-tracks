@@ -34,7 +34,7 @@ tests passing.
   rewritten on `Intl` with locale parameters
 - [x] **Task 5:** Locale-segmented routing — routes under `src/app/[lang]/`
   with locale-aware layout, metadata, and provider infrastructure
-- [ ] **Task 6:** Component localization — every component reads its copy
+- [x] **Task 6:** Component localization — every component reads its copy
   and counts from the dictionary
 - [ ] **Task 7:** Language switcher — PT/EN toggle in the header with
   cookie persistence

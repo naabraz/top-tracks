@@ -1,6 +1,9 @@
+"use client";
+
 import type { TrackSummary } from '@/lib/music/types';
 import { formatCount } from '@/lib/format';
 import { deriveHue } from '@/lib/hue';
+import { useTranslation } from '@/lib/i18n/useTranslation';
 import { Artwork } from '@/components/Artwork';
 import { CardShell } from './CardShell';
 import { TrackAlbumMeta } from './TrackAlbumMeta';
@@ -14,8 +17,12 @@ interface TrackCardProps {
 
 /** The most-played track: the headline answer — cover, title, and play total. */
 export function TrackCard({ track }: TrackCardProps) {
+  const { dictionary, locale } = useTranslation();
+
   if (!track) {
-    return <CardShell label='Top track' note='No track available.' />;
+    return (
+      <CardShell label={dictionary.results.topTrackLabel} note={dictionary.results.noTrack} />
+    );
   }
 
   return (
@@ -28,7 +35,7 @@ export function TrackCard({ track }: TrackCardProps) {
           size={TRACK_ARTWORK_SIZE}
         />
         <div className='track-info'>
-          <p className='label'>Top track</p>
+          <p className='label'>{dictionary.results.topTrackLabel}</p>
           <h3>
             <a href={track.url} target='_blank' rel='noopener noreferrer'>
               {track.name}
@@ -36,8 +43,8 @@ export function TrackCard({ track }: TrackCardProps) {
           </h3>
           <TrackAlbumMeta albumName={track.albumName} releaseYear={track.albumReleaseYear} />
           <p className='plays'>
-            <b>{formatCount(track.playcount)}</b>
-            <small>plays</small>
+            <b>{formatCount(track.playcount, locale)}</b>
+            <small>{dictionary.results.plays}</small>
           </p>
         </div>
       </div>

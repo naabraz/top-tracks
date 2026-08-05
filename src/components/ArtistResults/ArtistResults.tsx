@@ -1,5 +1,9 @@
+"use client";
+
 import type { RefObject } from "react";
 import type { ArtistLookupResult } from "@/lib/music/types";
+import { formatMessage } from "@/lib/i18n/formatMessage";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 import { ArtistHeader } from "./ArtistHeader";
 import { AlbumCard } from "./AlbumCard";
 import { TrackCard } from "./TrackCard";
@@ -20,12 +24,13 @@ export function ArtistResults({
   sectionRef,
   isStale = false,
 }: ArtistResultsProps) {
+  const { dictionary } = useTranslation();
   const { artist, topTrack, topAlbum, similarArtists } = result;
 
   return (
     <section
       className="result"
-      aria-label={`Results for ${artist.name}`}
+      aria-label={formatMessage(dictionary.results.regionLabel, { artist: artist.name })}
       ref={sectionRef}
       tabIndex={-1}
       aria-busy={isStale || undefined}

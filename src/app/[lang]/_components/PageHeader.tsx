@@ -1,17 +1,21 @@
+"use client";
+
+import { useTranslation } from "@/lib/i18n/useTranslation";
+
 /** The hero: eyebrow, editorial headline, and supporting lede. */
 export function PageHeader() {
+  const { dictionary } = useTranslation();
+  const { hero } = dictionary;
+
   return (
     <>
-      <p className="eyebrow">Last.fm × Spotify</p>
+      <p className="eyebrow">{hero.eyebrow}</p>
       <h1>
-        Type a band.
+        {hero.headlineLead}
         <br />
-        Feel its <em>essence</em>.
+        {hero.headlineEmphasisPrefix} <em>{hero.headlineEmphasis}</em>
       </h1>
-      <p className="lede">
-        The most-played album and track, the audience behind them, the sound in three words, and
-        artists that feel alike — all in one place.
-      </p>
+      <p className="lede">{hero.lede}</p>
     </>
   );
 }

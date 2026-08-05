@@ -1,6 +1,7 @@
 "use client";
 
 import { ChangeEvent, FormEvent } from "react";
+import { useTranslation } from "@/lib/i18n/useTranslation";
 import { SearchInput } from "./SearchInput";
 import { SearchIcon } from "./SearchIcon";
 
@@ -12,6 +13,8 @@ interface SearchBarProps {
 }
 
 export function SearchBar({ value, onChange, onSearch, isLoading }: SearchBarProps) {
+  const { dictionary } = useTranslation();
+
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     onChange(event.target.value);
   }
@@ -29,7 +32,7 @@ export function SearchBar({ value, onChange, onSearch, isLoading }: SearchBarPro
       <SearchIcon />
       <SearchInput value={value} onChange={handleChange} />
       <button type="submit" disabled={isLoading || value.trim().length === 0}>
-        {isLoading ? "Searching…" : "Discover"}
+        {isLoading ? dictionary.search.searching : dictionary.search.submit}
       </button>
     </form>
   );
