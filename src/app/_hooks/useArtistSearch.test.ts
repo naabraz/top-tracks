@@ -22,7 +22,7 @@ describe("useArtistSearch", () => {
 
     expect(result.current.status).toBe("idle");
     expect(result.current.result).toBeNull();
-    expect(result.current.errorMessage).toBeNull();
+    expect(result.current.errorCode).toBeNull();
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
@@ -35,7 +35,7 @@ describe("useArtistSearch", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it("stores the result and marks success on a good response", async () => {
+  it("stores the result and marks success with a null errorCode on a good response", async () => {
     const payload = { artist: { name: "Radiohead" } };
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, json: async () => payload }));
 
@@ -43,27 +43,66 @@ describe("useArtistSearch", () => {
 
     await waitFor(() => expect(result.current.status).toBe("success"));
     expect(result.current.result).toEqual(payload);
+    expect(result.current.errorCode).toBeNull();
   });
 
-  it("surfaces the server error message on a failed response", async () => {
+  it("exposes a null errorCode while a lookup is loading", () => {
+    vi.stubGlobal("fetch", vi.fn().mockReturnValue(new Promise(() => {})));
+
+    const { result } = renderSearch("radiohead");
+
+    expect(result.current.status).toBe("loading");
+    expect(result.current.errorCode).toBeNull();
+  });
+
+  it("surfaces the body's code as errorCode on a failed response", async () => {
     vi.stubGlobal(
       "fetch",
-      vi.fn().mockResolvedValue({ ok: false, json: async () => ({ error: "Not found." }) }),
+      vi.fn().mockResolvedValue({ ok: false, json: async () => ({ code: "not-found" }) }),
     );
 
     const { result } = renderSearch("nobody");
 
     await waitFor(() => expect(result.current.status).toBe("error"));
-    expect(result.current.errorMessage).toBe("Not found.");
+    expect(result.current.errorCode).toBe("not-found");
   });
 
-  it("reports a connection error when the request throws", async () => {
+  it("yields unexpected-error for a failed response without a parsable code", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({ ok: false, json: async () => ({ error: "legacy body" }) }),
+    );
+
+    const { result } = renderSearch("nobody");
+
+    await waitFor(() => expect(result.current.status).toBe("error"));
+    expect(result.current.errorCode).toBe("unexpected-error");
+  });
+
+  it("yields unexpected-error for a failed response whose body is not JSON", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: false,
+        json: async () => {
+          throw new SyntaxError("Unexpected token");
+        },
+      }),
+    );
+
+    const { result } = renderSearch("nobody");
+
+    await waitFor(() => expect(result.current.status).toBe("error"));
+    expect(result.current.errorCode).toBe("unexpected-error");
+  });
+
+  it("yields network-error when the request throws", async () => {
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("network down")));
 
     const { result } = renderSearch("radiohead");
 
     await waitFor(() => expect(result.current.status).toBe("error"));
-    expect(result.current.errorMessage).toMatch(/could not reach the server/i);
+    expect(result.current.errorCode).toBe("network-error");
   });
 
   it("returns to idle when the query is cleared", async () => {

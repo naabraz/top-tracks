@@ -13,7 +13,13 @@ const result: ArtistLookupResult = {
 describe("SearchStatus", () => {
   it("prompts the visitor to search while idle", () => {
     render(
-      <SearchStatus status="idle" errorMessage={null} result={null} onSelectArtist={vi.fn()} />,
+      <SearchStatus
+        status="idle"
+        errorCode={null}
+        query=""
+        result={null}
+        onSelectArtist={vi.fn()}
+      />,
     );
 
     expect(screen.getByText(/search a band to begin/i)).toBeInTheDocument();
@@ -21,7 +27,13 @@ describe("SearchStatus", () => {
 
   it("shows the loading skeleton when there is no earlier answer to keep", () => {
     render(
-      <SearchStatus status="loading" errorMessage={null} result={null} onSelectArtist={vi.fn()} />,
+      <SearchStatus
+        status="loading"
+        errorCode={null}
+        query="radiohead"
+        result={null}
+        onSelectArtist={vi.fn()}
+      />,
     );
 
     expect(screen.getByLabelText("Loading results")).toBeInTheDocument();
@@ -29,7 +41,13 @@ describe("SearchStatus", () => {
 
   it("keeps the earlier answer instead of the skeleton while the next one loads", () => {
     render(
-      <SearchStatus status="loading" errorMessage={null} result={result} onSelectArtist={vi.fn()} />,
+      <SearchStatus
+        status="loading"
+        errorCode={null}
+        query="muse"
+        result={result}
+        onSelectArtist={vi.fn()}
+      />,
     );
 
     const outgoing = screen.getByLabelText("Results for Radiohead");
@@ -40,7 +58,13 @@ describe("SearchStatus", () => {
 
   it("announces the search politely while it runs", () => {
     const { container } = render(
-      <SearchStatus status="loading" errorMessage={null} result={null} onSelectArtist={vi.fn()} />,
+      <SearchStatus
+        status="loading"
+        errorCode={null}
+        query="radiohead"
+        result={null}
+        onSelectArtist={vi.fn()}
+      />,
     );
 
     expect(container.querySelector('[aria-live="polite"]')).toHaveTextContent("Searching…");
@@ -48,7 +72,13 @@ describe("SearchStatus", () => {
 
   it("leaves the results outside the live region, so focus alone announces them", () => {
     const { container } = render(
-      <SearchStatus status="success" errorMessage={null} result={result} onSelectArtist={vi.fn()} />,
+      <SearchStatus
+        status="success"
+        errorCode={null}
+        query="radiohead"
+        result={result}
+        onSelectArtist={vi.fn()}
+      />,
     );
 
     const liveRegion = container.querySelector('[aria-live="polite"]');
@@ -56,22 +86,61 @@ describe("SearchStatus", () => {
     expect(liveRegion).not.toContainElement(screen.getByLabelText("Results for Radiohead"));
   });
 
-  it("shows an alert with the error message on error", () => {
+  it("interpolates the query into the not-found alert", () => {
     render(
       <SearchStatus
         status="error"
-        errorMessage="Not found."
+        errorCode="not-found"
+        query="nobody"
         result={null}
         onSelectArtist={vi.fn()}
       />,
     );
 
-    expect(screen.getByRole("alert")).toHaveTextContent("Not found.");
+    expect(screen.getByRole("alert")).toHaveTextContent('No artist found matching "nobody".');
+  });
+
+  it("shows an alert with the upstream-error message on error", () => {
+    render(
+      <SearchStatus
+        status="error"
+        errorCode="upstream-error"
+        query="radiohead"
+        result={null}
+        onSelectArtist={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      "The Last.fm API returned an error. Please try again later.",
+    );
+  });
+
+  it("shows an alert with the network-error message when the server is unreachable", () => {
+    render(
+      <SearchStatus
+        status="error"
+        errorCode="network-error"
+        query="radiohead"
+        result={null}
+        onSelectArtist={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      "Could not reach the server. Please check your connection.",
+    );
   });
 
   it("renders the results on success", () => {
     render(
-      <SearchStatus status="success" errorMessage={null} result={result} onSelectArtist={vi.fn()} />,
+      <SearchStatus
+        status="success"
+        errorCode={null}
+        query="radiohead"
+        result={result}
+        onSelectArtist={vi.fn()}
+      />,
     );
 
     const section = screen.getByLabelText("Results for Radiohead");

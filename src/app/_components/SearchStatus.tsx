@@ -1,13 +1,20 @@
 import type { RefObject } from "react";
 import type { ArtistLookupResult } from "@/lib/music/types";
 import { ArtistResults } from "@/components/ArtistResults";
-import type { ArtistSearchStatus } from "../_hooks/useArtistSearch";
+import { formatMessage } from "@/lib/i18n/formatMessage";
+// Interim dictionary import: the LocaleProvider lands with the locale routing
+// (Task 5) and replaces this with useTranslation() in Task 6. Until then the
+// UI is English-only and reads the English dictionary directly.
+import en from "@/lib/i18n/dictionaries/en.json";
+import type { ArtistSearchErrorCode, ArtistSearchStatus } from "../_hooks/useArtistSearch";
 import { EmptyState } from "./EmptyState";
 import { ResultsSkeleton } from "./ResultsSkeleton";
 
 interface SearchStatusProps {
   status: ArtistSearchStatus;
-  errorMessage: string | null;
+  errorCode: ArtistSearchErrorCode | null;
+  /** The searched query, interpolated into the not-found message. */
+  query: string;
   result: ArtistLookupResult | null;
   onSelectArtist: (name: string) => void;
   resultRef?: RefObject<HTMLElement | null>;
@@ -16,7 +23,8 @@ interface SearchStatusProps {
 /** Routes the search lifecycle to the empty, loading, error, or results view. */
 export function SearchStatus({
   status,
-  errorMessage,
+  errorCode,
+  query,
   result,
   onSelectArtist,
   resultRef,
@@ -38,9 +46,9 @@ export function SearchStatus({
 
       {status === "idle" && <EmptyState />}
       {isLoading && !result && <ResultsSkeleton />}
-      {status === "error" && errorMessage && (
+      {status === "error" && errorCode && (
         <p role="alert" className="notfound">
-          {errorMessage}
+          {formatMessage(en.errors[errorCode], { query })}
         </p>
       )}
       {showResult && result && (

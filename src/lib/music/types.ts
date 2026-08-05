@@ -39,6 +39,17 @@ export interface SimilarArtist {
   url: string;
 }
 
+/**
+ * Stable, language-agnostic error codes returned by `/api/artist`. The client
+ * maps them to localized messages; the API never ships user-facing prose.
+ */
+export type ArtistLookupErrorCode =
+  | "missing-query"
+  | "not-found"
+  | "missing-api-key"
+  | "upstream-error"
+  | "unexpected-error";
+
 export interface ArtistLookupResult {
   artist: ArtistSummary;
   topTrack: TrackSummary | null;

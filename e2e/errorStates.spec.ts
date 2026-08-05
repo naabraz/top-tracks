@@ -39,7 +39,7 @@ test.describe("When the lookup fails", () => {
   });
 
   test("reports an upstream failure without emptying the search field", async ({ page }) => {
-    await mockArtistApiError(page, { message: UPSTREAM_MESSAGE });
+    await mockArtistApiError(page, { code: "upstream-error" });
     await page.goto("/");
 
     await searchForArtist(page, "Opeth");
