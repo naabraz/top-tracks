@@ -26,13 +26,13 @@ tests passing.
 
 - [x] **Task 1:** i18n core module — locale model, dictionaries, loader,
   and `formatMessage`, fully tested
-- [ ] **Task 2:** Locale redirect proxy — `src/proxy.ts` negotiating and
+- [x] **Task 2:** Locale redirect proxy — `src/proxy.ts` negotiating and
   307-redirecting unprefixed URLs
 - [x] **Task 3:** API error codes — `/api/artist` returns `{ code }` and
   `useArtistSearch` exposes `errorCode`
 - [x] **Task 4:** Locale-aware formatting — `formatNumber`/`formatCount`
   rewritten on `Intl` with locale parameters
-- [ ] **Task 5:** Locale-segmented routing — routes under `src/app/[lang]/`
+- [x] **Task 5:** Locale-segmented routing — routes under `src/app/[lang]/`
   with locale-aware layout, metadata, and provider infrastructure
 - [ ] **Task 6:** Component localization — every component reads its copy
   and counts from the dictionary
