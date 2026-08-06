@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Dictionary, Locale } from "@/lib/i18n/types";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 interface SiteHeaderProps {
   locale: Locale;
@@ -28,6 +29,7 @@ export function SiteHeader({ locale, header }: SiteHeaderProps) {
           </Link>
           <span>{header.tagline}</span>
         </div>
+        <LanguageSwitcher />
       </div>
     </header>
   );
