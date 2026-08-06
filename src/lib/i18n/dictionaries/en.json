@@ -5,7 +5,8 @@
   },
   "header": {
     "homeLinkLabel": "TopTracks home",
-    "tagline": "band discovery"
+    "tagline": "band discovery",
+    "languageSwitcherLabel": "Language"
   },
   "hero": {
     "eyebrow": "Last.fm × Spotify",

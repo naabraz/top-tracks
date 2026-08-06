@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { LOCALES, negotiateLocale } from "@/lib/i18n/locales";
-
-const LOCALE_COOKIE_NAME = "top-tracks-locale";
+import { LOCALE_COOKIE_NAME, LOCALES, negotiateLocale } from "@/lib/i18n/locales";
 
 /**
  * Redirects unprefixed URLs to their locale-prefixed equivalent so legacy

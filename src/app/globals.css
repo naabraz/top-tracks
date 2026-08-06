@@ -143,6 +143,36 @@ header.site .wrap {
   font-size: 13px;
   letter-spacing: 0.02em;
 }
+/* The language switcher: a quiet mono pill pair; the active locale is a
+   selected state, so it carries the amber tint per The One Dial Rule. */
+.lang-switch {
+  display: flex;
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+.lang-switch button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  padding: 6px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.lang-switch button:hover {
+  color: var(--fg);
+}
+.lang-switch button[aria-pressed="true"] {
+  background: oklch(81% 0.13 74 / 0.12);
+  color: var(--accent);
+  cursor: default;
+}
 
 /* ---------- hero / search ---------- */
 .hero {

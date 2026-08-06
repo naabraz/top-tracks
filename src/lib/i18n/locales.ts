@@ -4,6 +4,9 @@ export const LOCALES: readonly Locale[] = ["en", "pt-BR"];
 
 export const DEFAULT_LOCALE: Locale = "en";
 
+/** Written by the language switcher, read by the proxy's negotiation. */
+export const LOCALE_COOKIE_NAME = "top-tracks-locale";
+
 /** Narrows an arbitrary string (e.g. a URL segment) to a supported locale. */
 export function hasLocale(value: string): value is Locale {
   return (LOCALES as readonly string[]).includes(value);
