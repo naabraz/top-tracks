@@ -38,7 +38,7 @@ tests passing.
   and counts from the dictionary
 - [x] **Task 7:** Language switcher — PT/EN toggle in the header with
   cookie persistence
-- [ ] **Task 8:** E2E coverage — the i18n journey plus existing specs
+- [x] **Task 8:** E2E coverage — the i18n journey plus existing specs
   updated for locale-prefixed URLs
 
 ## Task breakdown
