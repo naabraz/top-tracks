@@ -1,4 +1,6 @@
 import { expect, test } from "@playwright/test";
+import ptBR from "@/lib/i18n/dictionaries/pt-BR.json";
+import { formatMessage } from "@/lib/i18n/formatMessage";
 import { CATALOG } from "./support/artists";
 import { mockArtistApi } from "./support/mockArtistApi";
 import { getResultFor, getSearchBox, getSimilarArtistTile } from "./support/homePage";
@@ -49,6 +51,38 @@ test.describe("Reaching the answer without a mouse", () => {
     // should grab their focus or move them down the page.
     await expect(getResultFor(page, "Opeth")).toBeVisible();
     await expect(getResultFor(page, "Opeth")).not.toBeFocused();
+  });
+});
+
+test.describe("Reaching the answer without a mouse, in Portuguese", () => {
+  // The locale must not cost the keyboard journey: the localized labels are
+  // the accessible names everything above is located by, so the home and
+  // results states have to hold up under the pt-BR dictionary too.
+  test("runs a search from the field and lands focus on the answer on /pt-BR", async ({
+    page,
+  }) => {
+    await mockArtistApi(page, { catalog: CATALOG });
+    await page.goto("/pt-BR");
+    const searchBox = page.getByRole("searchbox", { name: ptBR.search.inputLabel });
+
+    await searchBox.fill("Opeth");
+    await searchBox.press("Enter");
+
+    const result = page.getByRole("region", {
+      name: formatMessage(ptBR.results.regionLabel, { artist: "Opeth" }),
+    });
+    await expect(result).toBeVisible();
+    await expect(result).toBeFocused();
+  });
+
+  test("keeps the language switcher operable from the keyboard on /pt-BR", async ({ page }) => {
+    await mockArtistApi(page, { catalog: CATALOG });
+    await page.goto("/pt-BR");
+
+    await page.getByRole("button", { name: "EN", exact: true }).focus();
+    await page.keyboard.press("Enter");
+
+    await expect(page).toHaveURL("/en");
   });
 });
 
