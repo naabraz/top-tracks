@@ -698,6 +698,79 @@ main {
   letter-spacing: 0.04em;
 }
 
+/* ---------- recent searches ---------- */
+/* The trail is a footnote to the answer, never a rival to it: a hairline, the
+   same mono micro-label as the card kickers, and chips at the quiet --muted
+   tier. Nothing here competes with the top track above. */
+.recent {
+  margin-top: 44px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.recent h2 {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 14px;
+}
+.recent-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+.recent-item {
+  display: inline-flex;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  transition: 0.16s;
+}
+.recent-item:hover {
+  border-color: var(--border-2);
+  background: var(--surface-2);
+}
+.recent-item a {
+  display: inline-flex;
+  align-items: center;
+  /* The chip reads as 40px, but each control keeps a thumb-sized target of its
+     own — the link and the remove button are never one tap apart by accident. */
+  min-height: 40px;
+  padding: 0 6px 0 15px;
+  /* The 13px meta step from DESIGN.md's ramp: this is a footnote to the
+     answer, and nothing in it should read at body scale. */
+  font-size: 13px;
+  color: var(--muted);
+  transition: color 0.16s;
+}
+.recent-item a:hover {
+  color: var(--fg);
+}
+.recent-item button {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  min-height: 40px;
+  padding-right: 4px;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--faint);
+  background: none;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.16s;
+}
+.recent-item button:hover,
+.recent-item button:focus-visible {
+  color: var(--fg);
+}
+
 /* screen-reader only */
 .sr-only {
   position: absolute;
