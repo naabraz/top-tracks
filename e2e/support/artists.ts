@@ -80,3 +80,42 @@ export const CATALOG: ArtistCatalog = {
 
 /** A name the catalog will never hold, for exercising the not-found path. */
 export const UNKNOWN_ARTIST = "Nonexistent Band";
+
+/**
+ * A bare answer for tests that only need an artist to be findable by name —
+ * the trail records names, not tracks, so the cards below the fold are noise.
+ */
+export function buildArtist(name: string): ArtistLookupResult {
+  return {
+    artist: {
+      name,
+      listeners: 100_000,
+      tags: ["rock"],
+      imageUrl: null,
+      url: `https://www.last.fm/music/${encodeURIComponent(name)}`,
+    },
+    topTrack: null,
+    topAlbum: null,
+    similarArtists: [],
+  };
+}
+
+/** Builds a catalog from artist names, keyed the way the stub matches them. */
+export function buildCatalog(artistNames: string[]): ArtistCatalog {
+  return Object.fromEntries(artistNames.map((name) => [name.toLowerCase(), buildArtist(name)]));
+}
+
+/** Eleven artists — one more than the trail holds, so the cap is observable. */
+export const OVERFLOWING_TRAIL_ARTISTS = [
+  "Anathema",
+  "Porcupine Tree",
+  "Enslaved",
+  "Gojira",
+  "Mastodon",
+  "Baroness",
+  "Tool",
+  "Meshuggah",
+  "Riverside",
+  "Leprous",
+  "Haken",
+];

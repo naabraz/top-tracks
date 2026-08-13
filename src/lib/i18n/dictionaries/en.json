@@ -45,6 +45,10 @@
     "similarArtistCaption": "similar artist",
     "searchArtistLabel": "Search {artist}"
   },
+  "recent": {
+    "heading": "Recent searches",
+    "removeLabel": "Remove {artist} from recent searches"
+  },
   "errors": {
     "missing-query": "Please provide an artist name to search.",
     "not-found": "No artist found matching \"{query}\".",

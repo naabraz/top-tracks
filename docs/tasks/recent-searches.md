@@ -24,17 +24,17 @@ passing.
 
 ## Approved high-level tasks
 
-- [ ] **Task 1:** `recentSearchesStore` module — the `localStorage`-backed
+- [x] **Task 1:** `recentSearchesStore` module — the `localStorage`-backed
   list with validation, dedupe, cap, and subscriptions
-- [ ] **Task 2:** `useRecentSearches` hook — binds the store to the screen and
+- [x] **Task 2:** `useRecentSearches` hook — binds the store to the screen and
   records typed searches on settle
-- [ ] **Task 3:** `RecentSearchItem` + i18n keys — one entry as sibling link
+- [x] **Task 3:** `RecentSearchItem` + i18n keys — one entry as sibling link
   and remove control
-- [ ] **Task 4:** `RecentSearches` section + styles — heading and list,
+- [x] **Task 4:** `RecentSearches` section + styles — heading and list,
   nothing when empty
-- [ ] **Task 5:** `HomeSearch` wiring — origin-aware navigation, the section
+- [x] **Task 5:** `HomeSearch` wiring — origin-aware navigation, the section
   below the results, promotion and reveal on activation
-- [ ] **Task 6:** E2E coverage — the returning-reader journey in Playwright
+- [x] **Task 6:** E2E coverage — the returning-reader journey in Playwright
 
 ## Task breakdown
 

@@ -1,9 +1,16 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 import ptBR from "@/lib/i18n/dictionaries/pt-BR.json";
 import { formatMessage } from "@/lib/i18n/formatMessage";
 import { CATALOG } from "./support/artists";
 import { mockArtistApi } from "./support/mockArtistApi";
-import { getResultFor, getSearchBox, getSimilarArtistTile } from "./support/homePage";
+import {
+  getRecentSearchLink,
+  getRemoveRecentSearchButton,
+  getResultFor,
+  getSearchBox,
+  getSimilarArtistTile,
+  searchForArtists,
+} from "./support/homePage";
 
 /**
  * PRODUCT.md targets WCAG 2.1 AA with full keyboard navigability, and the
@@ -83,6 +90,61 @@ test.describe("Reaching the answer without a mouse, in Portuguese", () => {
     await page.keyboard.press("Enter");
 
     await expect(page).toHaveURL("/en");
+  });
+});
+
+/**
+ * The trail is ten links and ten remove controls sitting under the answer —
+ * the densest cluster of controls on the screen, and the one most easily left
+ * behind by a reader working from the keyboard.
+ */
+function getPortugueseRecentSearchLink(page: Page, artistName: string): Locator {
+  return page
+    .getByRole("region", { name: ptBR.recent.heading })
+    .getByRole("link", { name: artistName, exact: true });
+}
+
+function getPortugueseRemoveButton(page: Page, artistName: string): Locator {
+  return page.getByRole("region", { name: ptBR.recent.heading }).getByRole("button", {
+    name: formatMessage(ptBR.recent.removeLabel, { artist: artistName }),
+  });
+}
+
+test.describe("Reaching the recent searches without a mouse", () => {
+  test("puts each entry's remove control right after it in the tab order", async ({ page }) => {
+    await mockArtistApi(page, { catalog: CATALOG });
+    await page.goto("/");
+    await searchForArtists(page, ["Opeth"]);
+
+    await getRecentSearchLink(page, "Opeth").focus();
+    await page.keyboard.press("Tab");
+
+    // Siblings, never nested: each carries its own accessible name and its own
+    // stop in the tab order.
+    await expect(getRemoveRecentSearchButton(page, "Opeth")).toBeFocused();
+  });
+
+  test("removes an entry with the keyboard alone", async ({ page }) => {
+    await mockArtistApi(page, { catalog: CATALOG });
+    await page.goto("/");
+    await searchForArtists(page, ["Opeth"]);
+
+    await getRemoveRecentSearchButton(page, "Opeth").press("Enter");
+
+    await expect(page.getByRole("region", { name: "Recent searches" })).toBeHidden();
+  });
+
+  test("keeps both controls reachable under the pt-BR dictionary", async ({ page }) => {
+    await mockArtistApi(page, { catalog: CATALOG });
+    await page.goto("/pt-BR");
+    const searchBox = page.getByRole("searchbox", { name: ptBR.search.inputLabel });
+    await searchBox.fill("Opeth");
+    await searchBox.press("Enter");
+
+    await getPortugueseRecentSearchLink(page, "Opeth").focus();
+    await page.keyboard.press("Tab");
+
+    await expect(getPortugueseRemoveButton(page, "Opeth")).toBeFocused();
   });
 });
 
